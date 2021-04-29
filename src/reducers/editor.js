@@ -60,6 +60,12 @@ const updateDiagram = (state) => {
     if (!filetype || filetype === '') {
         filetype = 'svg';
     }
+    if (!diagramType || diagramType === '') {
+        diagramType = state.diagramType;
+    }
+    if (!diagramType || diagramType === '') {
+        diagramType = initialState.diagramType;
+    }
     const codedDiagramTextText = encode(diagramText);
     const diagramUrl = [renderUrl.replace(/\/*$/, ''), diagramType, filetype, codedDiagramTextText].join('/')
     if (state.diagramUrl !== diagramUrl) {
