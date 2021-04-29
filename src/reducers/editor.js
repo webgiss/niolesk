@@ -55,7 +55,10 @@ const initialState = {
 const updateDiagram = (state) => {
     let { diagramType, filetype, renderUrl, diagramText, baseUrl } = state;
     if (!renderUrl || renderUrl === '') {
-        renderUrl = 'https://kroki.io'
+        renderUrl = 'https://kroki.io';
+    }
+    if (!filetype || filetype === '') {
+        filetype = 'svg';
     }
     const codedDiagramTextText = encode(diagramText);
     const diagramUrl = [renderUrl.replace(/\/*$/, ''), diagramType, filetype, codedDiagramTextText].join('/')
