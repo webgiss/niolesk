@@ -2,3 +2,8 @@
     background-color: none;
     text-align: center;
 }
+
+.RenderImage {
+    width: 100%;
+    position: relative;
+}

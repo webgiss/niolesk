@@ -1,11 +1,16 @@
 .Columns {
-    display: flex;
+    display: block;
     width: 100%;
 }
 .Columns>* {
-    display: block;
-    flex-basis: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
-    padding: .75rem;
+    display: inline-block;
+    width: 50%;
+    position: relative;
+}
+
+@media (max-width: 600px) { 
+    .Columns>* {
+        display: block;
+        width: 100%;
+    }
 }
