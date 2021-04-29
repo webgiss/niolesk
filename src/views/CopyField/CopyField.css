@@ -16,6 +16,14 @@
     border-radius: 0.4em;
 }
 
+.CopyFieldPre {
+    height: 3.5rem;
+}
+
+.CopyFieldPre.multiline {
+    height: 6rem;
+}
+
 .CopyField.copy-hover .CopyFieldPre {
     border: 2px solid #209cee;
 }

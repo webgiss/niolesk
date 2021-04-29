@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
     switch (scope) {
         case 'image': text = diagramUrl; break;
         case 'edit': text = diagramEditUrl; break;
-        case 'markdown': text = `![Diagram](${diagramUrl})\n[Edit this diagram](${diagramEditUrl})\n`; break;
+        case 'markdown': text = `![Diagram](${diagramUrl})\n\n[Edit this diagram](${diagramEditUrl})\n`; break;
         default:
             text = '';
     }
@@ -18,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
         scope: scope,
         isCopyHover: state.editor.scopes[scope].isHover,
         isCopied: state.editor.scopes[scope].isCopied,
+        isMultiline: scope === 'markdown',
     };
 }
 

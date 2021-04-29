@@ -3,7 +3,7 @@ import classnames from 'classnames'
 
 import './CopyField.css'
 
-const CopyField = ({ text, onCopy, onCopyHover, isCopyHover, isCopied, scope }) => {
+const CopyField = ({ text, onCopy, onCopyHover, isCopyHover, isCopied, scope, isMultiline }) => {
     if (!onCopy) {
         onCopy = (scope, text) => {};
     }
@@ -12,7 +12,7 @@ const CopyField = ({ text, onCopy, onCopyHover, isCopyHover, isCopied, scope }) 
     }
     
     return <div className={classnames('CopyField',{'copy-hover':isCopyHover, 'copied':isCopied})}>
-        <textarea className='CopyFieldPre' type='text' value={text} readOnly />
+        <textarea className={classnames('CopyFieldPre', {'multiline': isMultiline})} type='text' value={text} readOnly />
         <button 
             className='CopyButton' 
             onMouseEnter={()=>onCopyHover(scope, true)}
