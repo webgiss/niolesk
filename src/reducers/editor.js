@@ -1,35 +1,14 @@
 import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "./utils/coder";
+import diagramTypes from "./utils/krokiInfo";
 
 const initialState = {
     baseUrl: window.location.origin + window.location.pathname,
     hash: null,
     diagramType: 'plantuml',
     filetype: 'svg',
-    diagramTypes: {
-        blockdiag: { name: 'BlockDiag', },
-        bpmn: { name: 'BPMN', },
-        bytefield: { name: 'Bytefield', },
-        seqdiag: { name: 'SeqDiag', },
-        actdiag: { name: 'ActDiag', },
-        nwdiag: { name: 'NwDiag', },
-        packetdiag: { name: 'PacketDiag', },
-        rackdiag: { name: 'RackDiag', },
-        c4plantuml: { name: 'C4 with PlantUML', },
-        ditaa: { name: 'Ditaa', },
-        erd: { name: 'Erd', },
-        excalidraw: { name: 'Excalidraw', },
-        graphviz: { name: 'GraphViz', },
-        mermaid: { name: 'Mermaid', },
-        nomnoml: { name: 'Nomnoml', },
-        pikchr: { name: 'Pikchr', },
-        plantuml: { name: 'PlantUML', },
-        svgbob: { name: 'Svgbob', },
-        vega: { name: 'Vega', },
-        vegalite: { name: 'Vega-Lite', },
-        wavedrom: { name: 'WaveDrom', },
-    },
+    diagramTypes,
     renderUrl: 'https://kroki.io/',
     scopes: {
         'image': {
@@ -159,8 +138,14 @@ export default createReducer({
     },
     [DIAGRAM_TYPE_CHANGED]: (state, action) => {
         const { diagramType } = action;
-        state = { ...state, diagramType };
-        state = updateDiagram(state);
+        if (diagramType !== state.diagramType) {
+            if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example)) {
+                state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example) };
+            } else {
+                state = { ...state, diagramType };
+            }
+            state = updateDiagram(state);
+        }
         return state;
     },
 }, initialState);
