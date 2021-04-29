@@ -1,0 +1,14 @@
+.CopyZone {
+    min-height: 5rem;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+
+.CopyZoneTitle {
+    text-align: left;
+    font-weight: bold;
+    margin-bottom:0.5em;
+    margin-top: 1.1em;
+}

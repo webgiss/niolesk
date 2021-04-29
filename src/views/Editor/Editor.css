@@ -1,0 +1,35 @@
+.Editor {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.EditorTextArea {
+    font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+    box-sizing: border-box;
+    margin: 0;
+    height: 618px;
+    overflow-x: scroll;
+    overflow-y: auto;
+    white-space: pre;
+
+    display: block;
+    padding: calc(.75em - 1px);
+    resize: vertical;
+
+    width: 100%;
+
+    line-height: 1.5;
+
+    border: 1px solid;
+    background-color: #fff;
+    border-color: #dbdbdb;
+    color: #363636;
+    border-radius: 5px;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    align-items: center;
+    
+    font-size: 1rem;
+    justify-content: flex-start;
+}

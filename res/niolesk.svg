@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="64" height="64"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+<title>Niolesk</title>
+<g>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" x1="32" x2="32" y1="64" y2="0" id="back">
+<stop offset="0%" stop-color="#999"/>
+<stop offset="100%" stop-color="#eee"/>
+</linearGradient>
+<g id="circle">
+<circle stroke-width="0" r="8" fill="#ffffff" cx="0" cy="0" />
+<circle stroke-width="0" r="6" fill="#8521d0" cx="0" cy="0" />
+</g>
+</defs>
+</g>
+<rect width="62" height="62" rx="10" ry="10" x="1" y="1" stroke-width="2" stroke="#000000" fill="url(#back)"></rect>
+<use xlink:href="#circle" x="32" y="24" />
+<use xlink:href="#circle" x="32" y="40" />
+<use xlink:href="#circle" x="16" y="16" />
+<use xlink:href="#circle" x="16" y="32" />
+<use xlink:href="#circle" x="16" y="48" />
+<use xlink:href="#circle" x="48" y="16" />
+<use xlink:href="#circle" x="48" y="32" />
+<use xlink:href="#circle" x="48" y="48" />
+
+</svg>

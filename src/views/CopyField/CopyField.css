@@ -1,0 +1,72 @@
+.CopyField {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+
+.CopyButton {
+    box-sizing: border-box;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: 1px solid #999;
+    background-color: #fff;
+    padding: 0.25em;
+    border-radius: 0.4em;
+}
+
+.CopyField.copy-hover .CopyFieldPre {
+    border: 2px solid #209cee;
+}
+
+.CopyButton:hover, .CopyField.copy-hover .CopyButton {
+    background-color: #209cee;
+    border: 1px solid #105e9a;
+    color: #fff;
+}
+
+.CopyField.copied .CopyButton::before {
+    display: inline-block;
+    content: 'Copied!';
+    position: absolute;
+    bottom : -2.5em;
+    background-color: #363636;
+    border: 1px solid #dbdbdb;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    left: auto;
+    right: -2px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
+.CopyFieldPre {
+    font-family: Consolas, Monaco,'Andale Mono','Ubuntu Mono',monospace;
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    color: #4a4a4a;
+    font-size: .875em;
+    overflow-x: auto;
+    padding: 1.25rem 1.5rem;
+    white-space: pre;
+    word-wrap: normal;
+    margin: 0;
+    font-size: 1rem;
+    -webkit-overflow-scrolling: touch;
+    padding: 1em;
+    padding-bottom: 0;
+    white-space: pre;
+    word-wrap: normal;
+    margin-bottom: 0;
+    overflow-x: scroll;
+
+    background-color: #f5f5f5;
+    border: 1px solid #dbdbdb;
+    color: #363636;
+    border-radius: 5px;
+
+}
