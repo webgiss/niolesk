@@ -10,6 +10,11 @@ jobs:
         name: 'Build'
         runs-on: ubuntu-latest
         steps:
+            - name : "Configure git"
+              run : |
+                  git config "user.name" "github-actions"
+                  git config "user.email" "public-dev-github-actions-niolesk@gissehel.org"
+
             - name: "Checkout"
               uses: actions/checkout@v2
 
