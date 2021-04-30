@@ -40,7 +40,7 @@
     position: absolute;
     bottom : -2.5em;
     background-color: #363636;
-    border: 2px solid #dbdbdb;
+    border: 1px solid #dbdbdb;
     color: #fff;
     border-radius: 5px;
     text-align: center;
@@ -73,7 +73,7 @@
     overflow-x: scroll;
 
     background-color: #f5f5f5;
-    border: 1px solid #dbdbdb;
+    border: 2px solid #dbdbdb;
     color: #363636;
     border-radius: 5px;
 
