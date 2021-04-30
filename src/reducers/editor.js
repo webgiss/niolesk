@@ -3,11 +3,13 @@ import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "./utils/coder";
 import diagramTypes from "./utils/krokiInfo";
 
+const defaultDiagramType = 'plantuml';
+
 const initialState = {
     baseUrl: window.location.origin + window.location.pathname,
     hash: null,
-    diagramType: 'plantuml',
-    diagramText: '',
+    diagramType: defaultDiagramType,
+    diagramText: decode(diagramTypes[defaultDiagramType].example),
     filetype: 'svg',
     diagramTypes,
     renderUrl: 'https://kroki.io/',
@@ -112,10 +114,6 @@ const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
 }
 
 export default createReducer({
-    "@@INIT": (state) => {
-        state = updateDiagramTypeAndTextIfDefault(state, state.diagramType);
-        return state;
-    },
     "@@router/LOCATION_CHANGE": (state, action) => {
         const { location, isFirstRendering } = action.payload;
         let hash = location.hash;
