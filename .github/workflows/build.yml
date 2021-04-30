@@ -34,7 +34,7 @@ jobs:
             - name: "Set environment variables if simple commit"
               if: "!contains(github.ref, 'refs/tags')"
               run: |
-                  echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }}" >> "${GITHUB_ENV}"
+                  echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}" >> "${GITHUB_ENV}"
 
             - name: 'Login to github container registry'
               uses: docker/login-action@v1
