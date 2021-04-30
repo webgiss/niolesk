@@ -7,6 +7,7 @@ const initialState = {
     baseUrl: window.location.origin + window.location.pathname,
     hash: null,
     diagramType: 'plantuml',
+    diagramText: '',
     filetype: 'svg',
     diagramTypes,
     renderUrl: 'https://kroki.io/',
@@ -100,7 +101,21 @@ const updateHash = (state, hash) => {
     return state;
 }
 
+const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
+    if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example)) {
+        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example) };
+    } else {
+        state = { ...state, diagramType };
+    }
+    state = updateDiagram(state);
+    return state;
+}
+
 export default createReducer({
+    "@@INIT": (state) => {
+        state = updateDiagramTypeAndTextIfDefault(state, state.diagramType);
+        return state;
+    },
     "@@router/LOCATION_CHANGE": (state, action) => {
         const { location, isFirstRendering } = action.payload;
         let hash = location.hash;
@@ -139,12 +154,7 @@ export default createReducer({
     [DIAGRAM_TYPE_CHANGED]: (state, action) => {
         const { diagramType } = action;
         if (diagramType !== state.diagramType) {
-            if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example)) {
-                state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example) };
-            } else {
-                state = { ...state, diagramType };
-            }
-            state = updateDiagram(state);
+            state = updateDiagramTypeAndTextIfDefault(state, diagramType);
         }
         return state;
     },
