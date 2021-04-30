@@ -27,7 +27,7 @@ LABEL \
       org.opencontainers.image.revision="${VCS_REF}" \
       org.opencontainers.image.vendor="gissehel" \
       org.opencontainers.image.ref.name="ghcr.io/webgiss/niolesk" \
-      org.opencontainers.image.title="dikki" \
+      org.opencontainers.image.title="niolesk" \
       org.opencontainers.image.description="Image for niolesk" \
       org.label-schema.build-date="${BUILD_DATE}" \
       org.label-schema.vcs-ref="${VCS_REF}" \
