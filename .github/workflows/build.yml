@@ -10,8 +10,6 @@ on:
     schedule:
         - cron: "07 00 * * 4"
 
-    pull_request:
-
 jobs:
     build:
         name: 'Build'
