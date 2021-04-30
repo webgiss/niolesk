@@ -1,7 +1,7 @@
 import { connectRouter } from 'connected-react-router'
 import { combineReducers } from 'redux';
 import editor from './editor';
-// import debug from './debug';
+import debug from './debug';
 
 /**
  * @param {import("../init/redux").BrowserHistory} history
@@ -11,6 +11,6 @@ import editor from './editor';
 const createReducer = (history) => combineReducers({
     router: connectRouter(history),
     editor,
-//    debug,
+    debug,
 });
 export default createReducer;

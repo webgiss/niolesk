@@ -1,10 +1,18 @@
+let debug = false;
+if (localStorage.debug) {
+    debug = true;
+}
+
 /** 
  * @type {import('../init/reactRedux').Provider<State>} 
  * @template State
  */
 const provider = {
     onNewState: (state) => {
-        console.log('state', state);
+        if (debug) {
+            console.log('state', state);
+        }
+        
     }
 };
 

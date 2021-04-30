@@ -1,5 +1,11 @@
+let debug = false;
+if (localStorage.debug) {
+    debug = true;
+}
 const debugReducer = (state, action) => {
-    console.log('action', action);
+    if (debug) {
+        console.log('action', action);
+    }
     return true;
 }
 export default debugReducer;
