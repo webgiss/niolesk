@@ -25,16 +25,24 @@ jobs:
                   echo "BUILD_DATE=$(TZ=Europe/Paris date -Iseconds)" >> "${GITHUB_ENV}"
                   echo "REFNAME=$(echo "${{ github.ref }}" | sed -e 's/.*\///')" >> "${GITHUB_ENV}"
 
-            - name: "Set environment variables if tag"
+            - name: "Set environment variable VERSION if tag"
               if: "contains(github.ref, 'refs/tags')"
               run: |
                   echo "VERSION=$(cat package.json | jq -r '.version')" >> "${GITHUB_ENV}"
+
+            - name: "Set environment variable VERSION if simple commit"
+              if: "!contains(github.ref, 'refs/tags')"
+              run: |
+                  echo "VERSION=$(cat package.json | jq -r '.version')-${{ env.GITHUB_SHA_SHORT }}" >> "${GITHUB_ENV}"
+
+            - name: "Set environment variables if tag"
+              if: "contains(github.ref, 'refs/tags')"
+              run: |
                   echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{ env.REFNAME }},${{ env.IMAGE_NAME }}:latest" >> "${GITHUB_ENV}"
 
             - name: "Set environment variables if simple commit"
               if: "!contains(github.ref, 'refs/tags')"
               run: |
-                  echo "VERSION=$(cat package.json | jq -r '.version')-${{ env.GITHUB_SHA_SHORT }}" >> "${GITHUB_ENV}"
                   echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}" >> "${GITHUB_ENV}"
 
             - name: 'Login to github container registry'
