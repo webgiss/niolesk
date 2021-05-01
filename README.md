@@ -22,7 +22,7 @@ Just add any kroki url after the url of niolesk followed by `#` and you'll be ab
 To start a demo site:
 
 ```
-docker run -ti --rm=true -p 8017:80 ghcr.io/webgiss/niolesk
+docker run -d --rm=true -p 8017:80 ghcr.io/webgiss/niolesk
 ```
 
 Then go to http://127.0.0.1:8017/ and it's running.
