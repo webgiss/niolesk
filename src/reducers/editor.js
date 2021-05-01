@@ -12,7 +12,7 @@ const initialState = {
     diagramText: decode(diagramTypes[defaultDiagramType].example),
     filetype: 'svg',
     diagramTypes,
-    renderUrl: 'https://kroki.io/',
+    renderUrl: (window.config && window.config.krokiEngineUrl) || 'https://kroki.io/',
     scopes: {
         'image': {
             isHover: false,

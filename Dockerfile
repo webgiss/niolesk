@@ -38,4 +38,5 @@ LABEL \
       org.label-schema.schema-version="1.0" \
       maintainer="Gissehel <public-maintainer-docker-niolesk@gissehel.org>"
 
+COPY --from=builder /app/docker-res/update-config.sh /docker-entrypoint.d/update-config.sh
 COPY --from=builder /app/build/ /usr/share/nginx/html/
