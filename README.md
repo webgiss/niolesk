@@ -3,7 +3,7 @@
 Edit **diagrams** from **textual** descriptions! : A [kroki](https://kroki.io/) interface.
 
 * Application : https://webgiss.github.io/niolesk/
-* Container image : ghcr.io/webgiss/niolesk (static site served by nginx)
+* Container image : `ghcr.io/webgiss/niolesk` (static site served by nginx)
 
 ## Description
 
@@ -27,3 +27,27 @@ docker run -d --rm=true -p 8017:80 ghcr.io/webgiss/niolesk
 
 Then go to http://127.0.0.1:8017/ and it's running.
 
+### Advanced usage
+
+If you want your niolesk docker instance to be linked to your kroki docker instance (hosted at https://kroki.example.com/) just start with command line:
+
+```
+docker run -d --rm=true -e "NIOLESK_KROKI_ENGINE=https://kroki.example.com/" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+### docker-compose example
+
+If you use `docker-compose` here is a docker-compose example:
+
+```yaml
+version: "3.5"
+services:
+  niolesk:
+    image: "ghcr.io/webgiss/niolesk"
+    ports:
+      - "8017:80"
+    hostname: "niolesk"
+    restart: "always"
+    environment:
+      - "NIOLESK_KROKI_ENGINE=https://kroki.example.com/"
+```

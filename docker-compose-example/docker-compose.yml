@@ -1,0 +1,10 @@
+version: "3.5"
+services:
+  niolesk:
+    image: "ghcr.io/webgiss/niolesk"
+    ports:
+      - "8017:80"
+    hostname: "niolesk"
+    restart: "always"
+    environment:
+      - "NIOLESK_KROKI_ENGINE=https://kroki.example.com/"
