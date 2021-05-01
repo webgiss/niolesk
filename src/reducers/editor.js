@@ -37,10 +37,10 @@ const initialState = {
 const updateDiagram = (state) => {
     let { diagramType, filetype, renderUrl, diagramText, baseUrl } = state;
     if (!renderUrl || renderUrl === '') {
-        renderUrl = 'https://kroki.io';
+        renderUrl = initialState.renderUrl;
     }
     if (!filetype || filetype === '') {
-        filetype = 'svg';
+        filetype = initialState.filetype;
     }
     if (!diagramType || diagramType === '') {
         diagramType = state.diagramType;
