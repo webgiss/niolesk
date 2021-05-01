@@ -33,7 +33,6 @@ export const copyButtonHovered = (scope, isHover) => ({ type: COPY_BUTTON_HOVERE
  */
 export const renderUrlChanged = (renderUrl) => ({ type: RENDERURL_CHANGED, renderUrl })
 
-
 let lastChange = null;
 
 /**

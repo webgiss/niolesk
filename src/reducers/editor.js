@@ -1,7 +1,7 @@
 import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
-import { encode, decode } from "./utils/coder";
-import diagramTypes from "./utils/krokiInfo";
+import { encode, decode } from "../kroki/coder";
+import diagramTypes from "../kroki/krokiInfo";
 
 const defaultDiagramType = 'plantuml';
 

@@ -12,7 +12,6 @@ const provider = {
         if (debug) {
             console.log('state', state);
         }
-        
     }
 };
 
