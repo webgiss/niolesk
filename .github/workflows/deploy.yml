@@ -28,6 +28,7 @@ jobs:
               run: |
                   yarn
                   yarn build
+                  echo "niolesk.top" > build/CNAME
 
             - name: Deploy to GitHub Pages
               if: success()
