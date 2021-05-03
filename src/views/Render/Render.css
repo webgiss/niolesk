@@ -1,9 +1,15 @@
 .Render {
-    background-color: none;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 769px) {
+    .Render {
+        max-width: 50%;
+    }
 }
 
 .RenderImage {
     width: 100%;
-    position: relative;
 }

@@ -1,15 +1,13 @@
-.root {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-}
-
 .App {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 4em;
 }
-.App>*:not(:last-child) {
-    margin-bottom: calc(1.5rem - .75rem);
+
+.App > *:not(:last-child) {
+    margin-bottom: .75rem;
 }

@@ -9,8 +9,8 @@ const version = `${process.env.REACT_APP_VERSION}-${gitInfo.commit.hash.substr(0
 
 const SubTitle = () => {
     return <div className='SubTitle'>
-        <div>Edit <b>diagrams</b> from <b>textual</b> descriptions! : A <a href='https://kroki.io'>kroki</a> interface.</div>
-        <div className='SubTitleSmall'>Github project page: <a href='https://github.com/webgiss/niolesk/'>https://github.com/webgiss/niolesk/</a> - Version { version }</div>
+        <p>Edit <b>diagrams</b> from <b>textual</b> descriptions!<wbr/> A <a href='https://kroki.io'>Kroki</a> interface.</p>
+        <p className='SubTitleSmall'>Github project page: <a href='https://github.com/webgiss/niolesk/'>https://github.com/webgiss/niolesk/</a><br/><span className='Version'>Version <code>{ version }</code></span></p>
     </div>
 }
 

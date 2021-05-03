@@ -9,11 +9,11 @@ import { ConnectedRouter } from 'connected-react-router'
 
 /**
  * Init react layer of the application
- * 
+ *
  * @param {import('./redux').Store<State>} store
  * @param {BrowserHistory} history
- * @param {()=>JSX.Element} ReactNode 
- * @param {HTMLElement} domNode 
+ * @param {()=>JSX.Element} ReactNode
+ * @param {HTMLElement} domNode
  * @template State
  */
 export const initReact = (store, history, domNode, ReactNode) => {
@@ -23,7 +23,7 @@ export const initReact = (store, history, domNode, ReactNode) => {
         <ConnectedRouter history={history}>
           <ReactNode />
         </ConnectedRouter>
-      </Provider>,
+      </Provider>
     </React.StrictMode>,
     domNode
   );

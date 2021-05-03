@@ -1,12 +1,5 @@
-.RenderUrl {
-    width: 100%;
-    display: block;
-    position: relative;
-}
-
 .RenderUrlInput {
     background-color: #fff;
-    width: 100%;
     border: 1px solid #dbdbdb;
     color: #363636;
     border-radius: 5px;

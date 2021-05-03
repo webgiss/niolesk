@@ -1,16 +1,11 @@
 .Columns {
-    display: block;
-    width: 100%;
-}
-.Columns>* {
-    display: inline-block;
-    width: 50%;
-    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
 }
 
-@media (max-width: 600px) { 
-    .Columns>* {
-        display: block;
-        width: 100%;
+@media (min-width: 769px) {
+    .Columns {
+        flex-wrap: wrap;
     }
 }

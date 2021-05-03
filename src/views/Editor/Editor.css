@@ -1,6 +1,13 @@
 .Editor {
     box-sizing: border-box;
     padding: 0;
+    flex-grow: 1;
+}
+
+@media (min-width: 769px) {
+    .Editor {
+        max-width: 60%;
+    }
 }
 
 .EditorTextArea {
@@ -29,7 +36,7 @@
     -moz-appearance: none;
     -webkit-appearance: none;
     align-items: center;
-    
+
     font-size: 1rem;
     justify-content: flex-start;
 }
