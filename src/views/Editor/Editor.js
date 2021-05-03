@@ -1,18 +1,19 @@
 import React from 'react';
-
+import MonacoEditor from '@uiw/react-monacoeditor';
 import './Editor.css'
 
 const Editor = ({ text, onTextChanged }) => {
-    let changeHandler = null;
-    if (onTextChanged) { 
-        changeHandler = (event)=>onTextChanged(event.target.value); 
-    }
-
     return <div className='Editor'>
-        <textarea 
-            className='EditorTextArea' 
-            value={text} 
-            onChange={changeHandler}
+        <MonacoEditor 
+            language="plaintext"
+            onChange={onTextChanged}
+            value={text}
+            
+            options={{
+                theme: 'vs',
+                automaticLayout: false,
+            }}
+            height='700px'
         />
     </div>
 }
