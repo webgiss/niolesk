@@ -1,13 +1,18 @@
 .Editor {
     box-sizing: border-box;
     padding: 0;
+    vertical-align: top;
 }
 
+.MonacoEditor {
+    border: 1px solid;
+    border-color: #dbdbdb;
+}
 .EditorTextArea {
     font-family: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
     box-sizing: border-box;
     margin: 0;
-    height: 618px;
+    height: 700px;
     overflow-x: scroll;
     overflow-y: auto;
     white-space: pre;
