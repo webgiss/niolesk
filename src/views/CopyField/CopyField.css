@@ -11,6 +11,8 @@
 .CopyFieldPre {
     border-width: 2px !important;
     white-space: pre;
+    overflow-x: scroll;
+    background-color: #f8f8f8 !important;
 }
 
 .CopyField.copy-hover .CopyFieldPre {
