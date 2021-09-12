@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Form, Segment } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 import Title from '../Title';
 import SubTitle from '../SubTitle';

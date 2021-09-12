@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types';
 
 import './CopyField.css'
-import { Button, Form, Input, TextArea } from 'semantic-ui-react';
+import { Button, TextArea } from 'semantic-ui-react';
 
 const CopyField = ({ text, onCopy, onCopyHover, isCopyHover, isCopied, scope, isMultiline }) => {
     if (!onCopy) {
