@@ -51,3 +51,7 @@ services:
     environment:
       - "NIOLESK_KROKI_ENGINE=https://kroki.example.com/"
 ```
+
+## Developement
+
+The storybook of the project from the latest tag is accessible at https://niolesk.top/storybook
