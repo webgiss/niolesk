@@ -1,16 +1,26 @@
 import React from 'react';
+import { Divider, Form, Segment } from 'semantic-ui-react'
 import CopyField from '../CopyField'
 import './CopyZone.css'
 
 const CopyZone = () => {
-    return <div className='CopyZone'>
-        <p className='CopyZoneTitle'>Image url</p>
-        <CopyField scope='image'/>
-        <p className='CopyZoneTitle'>Edit url</p>
-        <CopyField scope='edit'/>
-        <p className='CopyZoneTitle'>Markdown content</p>
-        <CopyField scope='markdown'/>
-    </div>
+    return <Segment className='CopyZone' basic>
+    <Divider/>
+        <Form>
+            <Form.Field>
+                <label>Image url</label>
+                <CopyField scope='image' />
+            </Form.Field>
+            <Form.Field>
+                <label>Edit url</label>
+                <CopyField scope='edit' />
+            </Form.Field>
+            <Form.Field>
+                <label>Markdown content</label>
+                <CopyField scope='markdown' />
+            </Form.Field>
+        </Form>
+    </Segment>
 }
 
 CopyZone.propTypes = {

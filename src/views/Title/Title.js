@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from 'semantic-ui-react'
 
 import './Title.css'
 
 const Title = () => {
-    return <h2 className='Title'>Niolesk</h2>
+    return <Header as='h1' className='Title'>Niolesk</Header>
 }
 
 export default Title;

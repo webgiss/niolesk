@@ -1,15 +1,15 @@
-.Columns {
+.xColumns {
     display: block;
     width: 100%;
 }
-.Columns>* {
+.xColumns>* {
     display: inline-block;
     width: 50%;
     position: relative;
 }
 
 @media (max-width: 600px) { 
-    .Columns>* {
+    .xColumns>* {
         display: block;
         width: 100%;
     }

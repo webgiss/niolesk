@@ -1,9 +1,9 @@
 .SubTitle {
     width: 100%;
-    font-size: 1.25rem;
+    font-size: 1.45rem !important;
     text-align: right;
 }
 
 .SubTitleSmall {
-    font-size: 0.5rem;
+    font-size: 0.68rem;
 }

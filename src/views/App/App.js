@@ -1,4 +1,6 @@
 import React from 'react';
+import { Divider, Form, Segment } from 'semantic-ui-react';
+
 import Title from '../Title';
 import SubTitle from '../SubTitle';
 import Columns from '../Columns';
@@ -8,14 +10,24 @@ import CopyZone from '../CopyZone';
 import DiagramType from '../DiagramType';
 import RenderUrl from '../RenderUrl';
 
+import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
 const App = () => {
     return <div className='App'>
         <Title />
-        <SubTitle />
-        <DiagramType />
-        <RenderUrl />
+
+        <Form className='diagramParams'>
+            <Form.Field>
+                <SubTitle />
+            </Form.Field>
+            <Form.Field>
+                <DiagramType />
+            </Form.Field>
+            <Form.Field>
+                <RenderUrl />
+            </Form.Field>
+        </Form>
         <Columns>
             <Editor />
             <Render />

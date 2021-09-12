@@ -1,15 +1,15 @@
-.root {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-}
-
 .App {
     max-width: 1200px;
+    margin-top: 10px;
+    margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
 }
-.App>*:not(:last-child) {
-    margin-bottom: calc(1.5rem - .75rem);
+
+.code {
+    font-family: source-code-pro, Menlo, Monaco, 'Fira Code', Consolas, 'Courier New', monospace !important;
+}
+
+.diagramParams {
+    margin-bottom: 1rem;
 }

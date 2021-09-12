@@ -1,5 +1,6 @@
 import React from 'react';
 import CopyField from './CopyField';
+import { Form } from 'semantic-ui-react';
 import { getComponenent } from '../storybook/stories'
 
 export default {
@@ -7,7 +8,7 @@ export default {
     component: CopyField,
 };
 
-const Template = (args) => <CopyField {...args} />;
+const Template = (args) => <Form><CopyField {...args} /></Form>;
 
 const defaultArgs = {
     text: 'https://kroki.example.com/grut/x4ettght46th==',
