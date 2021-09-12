@@ -29,6 +29,8 @@ jobs:
                   yarn
                   yarn build
                   echo "niolesk.top" > build/CNAME
+                  yarn build-storybook
+                  mv storybook-static build/storybook
 
             - name: Deploy to GitHub Pages
               if: success()
