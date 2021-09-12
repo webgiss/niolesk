@@ -1,16 +1,10 @@
-import { connect } from 'react-redux'
-import Render from './Render'
+import Internal from './Render'
+import { useSelector } from 'react-redux'
 
-const mapStateToProps = (state) => {
-    return {
-        diagramUrl: state.editor.diagramUrl,
-        diagramEditUrl: state.editor.diagramEditUrl,
-    };
+const Render = () => {
+    const diagramUrl= useSelector((state) => state.editor.diagramUrl)
+    const diagramEditUrl= useSelector((state) => state.editor.diagramEditUrl)
+    return <Internal {...{ diagramUrl, diagramEditUrl }} />
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Render);
+export default Render;

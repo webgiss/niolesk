@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import './DiagramType.css'
 
 const DiagramType = ({ diagramTypes, diagramType, onDiagramTypeChanged }) => {
@@ -23,5 +23,11 @@ const DiagramType = ({ diagramTypes, diagramType, onDiagramTypeChanged }) => {
         </div>
     </div>
 }
+
+DiagramType.propsType = {
+    diagramTypes: PropTypes.objectOf(PropTypes.shape({name: PropTypes.string})),
+    diagramType: PropTypes.string.isRequired,
+    onDiagramTypeChanged: PropTypes.func,
+};
 
 export default DiagramType;

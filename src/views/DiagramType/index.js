@@ -1,19 +1,13 @@
-// import actions from '../../actions'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { diagramTypeChanged } from '../../actions/editor';
-import DiagramType from './DiagramType'
+import Internal from './DiagramType'
 
-const mapStateToProps = (state) => {
-    return {
-        diagramTypes : state.editor.diagramTypes,
-        diagramType: state.editor.diagramType,
-    };
+const DiagramType = () => {
+    const dispatch = useDispatch();
+    const diagramTypes  = useSelector((state)=> state.editor.diagramTypes)
+    const diagramType = useSelector((state) => state.editor.diagramType)
+    const onDiagramTypeChanged = (diagramType) => dispatch(diagramTypeChanged(diagramType))
+    return <Internal {...{ diagramType, diagramTypes, onDiagramTypeChanged }} />
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onDiagramTypeChanged: (diagramType) => dispatch(diagramTypeChanged(diagramType)),
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DiagramType);
+export default DiagramType;

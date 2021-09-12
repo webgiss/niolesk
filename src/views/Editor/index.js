@@ -1,17 +1,12 @@
-import { connect } from 'react-redux'
-import Editor from './Editor'
 import { diagramChanged } from '../../actions/editor';
+import Internal from './Editor'
+import { useDispatch, useSelector } from 'react-redux'
 
-const mapStateToProps = (state) => {
-    return {
-        text: state.editor.diagramText,
-    };
+const Editor = () => {
+    const dispatch = useDispatch();
+    const text = useSelector((state) => state.editor.diagramText);
+    const onTextChanged = (text) => dispatch(diagramChanged(text))
+    return <Internal {...{ text, onTextChanged }} />
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onTextChanged: (text) => dispatch(diagramChanged(text)),
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Editor);
+export default Editor;

@@ -1,5 +1,6 @@
 import React from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
+import PropTypes from 'prop-types';
 import './Editor.css'
 
 class Editor extends React.Component {
@@ -36,7 +37,7 @@ class Editor extends React.Component {
                 className='MonacoEditor'
                 ref={(ref) => this._editor = ref}
                 language="plaintext"
-                onChange={onTextChanged}
+                onChange={(text) => onTextChanged(text)}
                 value={shouldUpdate ? text : null}
                 options={{
                     theme: 'vs',
@@ -47,5 +48,10 @@ class Editor extends React.Component {
         </div>
     }
 }
+
+Editor.propTypes = {
+    text: PropTypes.string,
+    onTextChanged: PropTypes.func.isRequired,
+};
 
 export default Editor;

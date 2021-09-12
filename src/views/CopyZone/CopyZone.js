@@ -13,4 +13,7 @@ const CopyZone = () => {
     </div>
 }
 
+CopyZone.propTypes = {
+}
+
 export default CopyZone;

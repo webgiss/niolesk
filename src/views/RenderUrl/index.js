@@ -1,17 +1,12 @@
-import { connect } from 'react-redux'
-import RenderUrl from './RenderUrl'
+import Internal from './RenderUrl'
 import { renderUrlChanged } from '../../actions/editor';
+import { useDispatch, useSelector } from 'react-redux'
 
-const mapStateToProps = (state) => {
-    return {
-        renderUrl: state.editor.renderUrl,
-    };
+const RenderUrl = () => {
+    const dispatch = useDispatch();
+    const renderUrl = useSelector((state) => state.editor.renderUrl)
+    const renderUrlChangedAction = (renderUrl) => dispatch(renderUrlChanged(renderUrl))
+    return <Internal {...{ renderUrl, renderUrlChanged: renderUrlChangedAction }}/>
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        renderUrlChanged: (renderUrl) => dispatch(renderUrlChanged(renderUrl)),
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RenderUrl);
+export default RenderUrl;

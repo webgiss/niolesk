@@ -2,17 +2,14 @@
 to: src/views/<%= name %>/index.js
 ---
 import actions from '../../actions'
-import { connect } from 'react-redux'
-import <%= name %> from './<%= name %>'
+import { useDispatch, useSelector } from 'react-redux'
+import Internal from './<%= name %>'
 
-const mapStateToProps = (state) => {
-    return {
-    };
+const <%= name %> = () => {
+    const dispatch = useDispatch();
+    // const data  = useSelector((state)=> state.reducerName.data)
+    // const onEvent = (input) => dispatch(eventRaised(input))
+    return <Internal {...{ }} />
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(<%= name %>);
+export default <%= name %>;
