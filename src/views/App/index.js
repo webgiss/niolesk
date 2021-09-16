@@ -3,7 +3,7 @@ import { openExamples } from '../../actions/example'
 import { useDispatch } from 'react-redux'
 import Internal from './App'
 
-const App = ({ }) => {
+const App = () => {
     // const opened = useSelector((state) => state.example.opened)
     const dispatch = useDispatch();
     const onExamples = () => dispatch(openExamples());
