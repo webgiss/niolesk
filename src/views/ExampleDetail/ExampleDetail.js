@@ -26,6 +26,9 @@ const ExampleDetail = ({ diagramText, diagramType, description, diagUrl, items, 
             <Grid.Column textAlign='center' width={12}>
                 <Header as='h1'>{diagramType}</Header>
                 <Header as='h2'>{description}</Header>
+                {
+                    doc ? <a target='_blank' rel='noreferrer' href={doc}>Documentation : {doc}</a> : null
+                }
                 <img alt='Diagram' src={diagUrl} />
                 <Segment>
                     <pre className='ExampleDetailCode'>{diagramText}</pre>
