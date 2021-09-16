@@ -41,7 +41,7 @@ class Editor extends React.Component {
                 value={shouldUpdate ? text : null}
                 options={{
                     theme: 'vs',
-                    automaticLayout: false,
+                    automaticLayout: true,
                 }}
                 height='700px'
             />
