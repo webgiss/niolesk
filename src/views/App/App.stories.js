@@ -40,7 +40,7 @@ const defaultState = {
     },
     example: { 
         windowExampleCardsOpened: false,
-        windowExampleDetailsOpened: true,
+        windowExampleDetailsOpened: false,
         exampleIndex: 2,
         examples: exampleData,
     }
@@ -49,8 +49,15 @@ const defaultState = {
 
 const Template = (args) => {
     const { setState, decorator } = getReduxMockDecorator()
+    let state = defaultState
+    if (args.windowExampleCardsOpened !== undefined) {
+        state = { ...state, example:  {...state.example, windowExampleCardsOpened: args.windowExampleCardsOpened } }
+    }
+    if (args.windowExampleDetailsOpened !== undefined) {
+        state = { ...state, example: { ...state.example, windowExampleDetailsOpened: args.windowExampleDetailsOpened } }
+    }
 
-    setState(defaultState)
+    setState(state)
     return decorator(() => <App {...args} />)
 };
 
@@ -58,3 +65,5 @@ const defaultArgs = {
 }
 
 export const Default = getComponenent(Template, { ...defaultArgs })
+export const WithWindowExampleCardsOpened = getComponenent(Template, { ...defaultArgs, windowExampleCardsOpened: true })
+export const WithWindowExampleDetailsOpened = getComponenent(Template, { ...defaultArgs, windowExampleDetailsOpened: true })
