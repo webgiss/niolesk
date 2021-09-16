@@ -1,2 +1,18 @@
 .ExampleCard {
 }
+
+.ExampleCardDiagramOutter {
+    position: relative;
+}
+.ExampleCardDiagramOutter::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.ExampleCardDiagram {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

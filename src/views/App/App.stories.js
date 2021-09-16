@@ -1,9 +1,9 @@
-import React from 'react';
 import App from './App';
 import { getComponenent } from '../storybook/stories'
 import { getReduxMockDecorator } from '../storybook/store';
 import diagramTypes from "../../kroki/krokiInfo";
-import { encode, decode } from "../../kroki/coder";
+import { decode } from "../../kroki/coder";
+import exampleData from "../../examples/data";
 
 export default {
     title: 'Pages/App',
@@ -20,9 +20,9 @@ const defaultState = {
         diagramText: decode(diagramTypes[defaultDiagramType].example),
         filetype: 'svg',
         diagramTypes,
-        renderUrl: 'https://kroki.example.com/',
-        diagramUrl: 'https://kroki.example.com/example kroki url',
-        diagramEditUrl: 'https://kroki.example.com/example edit url',
+        renderUrl: 'https://kroki.io/',
+        diagramUrl: 'https://kroki.io/blockdiag/svg/eNpdzDEKQjEQhOHeU4zpPYFoYesRxGJ9bwghMSsbUYJ4d10UCZbDfPynolOek0Q8FsDeNCestoisNLmy-Qg7R3Blcm5hPcr0ITdaB6X15fv-_YdJixo2CNHI2lmK3sPRA__RwV5SzV80ZAegJjXSyfMFptc71w==',
+        diagramEditUrl: 'https://niolesk.top/#https://kroki.io/blockdiag/svg/eNpdzDEKQjEQhOHeU4zpPYFoYesRxGJ9bwghMSsbUYJ4d10UCZbDfPynolOek0Q8FsDeNCestoisNLmy-Qg7R3Blcm5hPcr0ITdaB6X15fv-_YdJixo2CNHI2lmK3sPRA__RwV5SzV80ZAegJjXSyfMFptc71w==',
         scopes: {
             'image': {
                 isHover: false,
@@ -37,6 +37,12 @@ const defaultState = {
                 isCopied: false,
             },
         }
+    },
+    example: { 
+        windowExampleCardsOpened: false,
+        windowExampleDetailsOpened: true,
+        exampleIndex: 2,
+        examples: exampleData,
     }
 };
 
@@ -45,7 +51,7 @@ const Template = (args) => {
     const { setState, decorator } = getReduxMockDecorator()
 
     setState(defaultState)
-    return decorator(App)
+    return decorator(() => <App {...args} />)
 };
 
 const defaultArgs = {

@@ -2,6 +2,8 @@ import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_T
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
+import { IMPORT_EXAMPLE } from "../constants/example";
+import { createKrokiUrl } from "../kroki/utils";
 
 const defaultDiagramType = 'plantuml';
 
@@ -11,6 +13,7 @@ const initialState = {
     diagramType: defaultDiagramType,
     diagramText: decode(diagramTypes[defaultDiagramType].example),
     filetype: 'svg',
+    defaultDiagram: true,
     diagramTypes,
     renderUrl: (window.config && window.config.krokiEngineUrl) || 'https://kroki.io/',
     scopes: {
@@ -49,7 +52,7 @@ const updateDiagram = (state) => {
         diagramType = initialState.diagramType;
     }
     const codedDiagramTextText = encode(diagramText);
-    const diagramUrl = [renderUrl.replace(/\/*$/, ''), diagramType, filetype, codedDiagramTextText].join('/')
+    const diagramUrl = createKrokiUrl(renderUrl, diagramType, filetype, codedDiagramTextText);
     if (state.diagramUrl !== diagramUrl) {
         state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}` }
     }
@@ -104,8 +107,8 @@ const updateHash = (state, hash) => {
 }
 
 const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
-    if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example)) {
-        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example) };
+    if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example || state.defaultDiagram)) {
+        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true };
     } else {
         state = { ...state, diagramType };
     }
@@ -154,6 +157,11 @@ export default createReducer({
         if (diagramType !== state.diagramType) {
             state = updateDiagramTypeAndTextIfDefault(state, diagramType);
         }
+        return state;
+    },
+    [IMPORT_EXAMPLE]: (state, action) => {
+        const { diagramText, diagramType } = action;
+        state = { ...state, diagramText, diagramType, defaultDiagram: true }
         return state;
     },
 }, initialState);

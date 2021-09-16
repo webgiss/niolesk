@@ -1,4 +1,3 @@
-
 import { copyButtonHovered, copyText } from '../../actions/editor'
 import { useDispatch, useSelector } from 'react-redux'
 import Internal from './CopyField'
@@ -21,7 +20,6 @@ const CopyField = ({ scope }) => {
     const onCopy = (scope, text) => dispatch(copyText(scope, text));
 
     return Internal({ text, scope, isCopyHover, isCopied, isMultiline, onCopyHover, onCopy });
-
 }
 
 export default CopyField;

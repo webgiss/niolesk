@@ -5,17 +5,18 @@ import './ExampleCards.css'
 import { Card } from 'semantic-ui-react';
 import ExampleCard from '../ExampleCard/ExampleCard';
 
-const ExampleCards = ({ }) => {
+const ExampleCards = ({ cards }) => {
     return <Card.Group>
-        <ExampleCard/>
-        <ExampleCard/>
-        <ExampleCard/>
-        <ExampleCard/>
-        <ExampleCard/>
+        {cards.map(card => <ExampleCard {...card} />)}
     </Card.Group>
 }
 
 ExampleCards.propTypes = {
+    cards: PropTypes.arrayOf(PropTypes.shape({
+        diagType: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        diagUrl: PropTypes.string.isRequired,
+    })).isRequired,
 };
 
 ExampleCards.defaultProps = {

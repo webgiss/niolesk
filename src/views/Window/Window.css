@@ -1,0 +1,9 @@
+.Window {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+}
+
+.WindowContent.window-centered-content > * {
+    justify-content: center;
+}
