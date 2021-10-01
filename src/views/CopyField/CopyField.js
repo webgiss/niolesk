@@ -29,7 +29,7 @@ const CopyField = ({ text, onCopy, onCopyHover, isCopyHover, isCopied, scope, is
             color={isCopied ? 'green' : 'primary'}
             labelPosition={'right'}
             icon={isCopied ? 'check' : 'copy'}
-            content={isCopied ? 'Copied' : 'copy'}
+            content={isCopied ? 'Copied' : 'Copy'}
             onMouseEnter={() => onCopyHover(scope, true)}
             onMouseLeave={() => onCopyHover(scope, false)}
             onClick={() => onCopy(scope, text)}
