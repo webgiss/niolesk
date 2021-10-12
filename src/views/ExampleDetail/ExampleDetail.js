@@ -9,7 +9,7 @@ const ExampleDetail = ({ diagramText, diagramType, description, diagUrl, items, 
     if (!onSelectItem) {
         onSelectItem = (index) => { };
     }
-    console.log('items', items)
+    // console.log('items', items)
     return <Grid columns={2} stackable stretched>
         <Grid.Row verticalAlign='top'>
             <Grid.Column width={4}>

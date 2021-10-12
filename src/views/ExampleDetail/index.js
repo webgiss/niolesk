@@ -11,7 +11,7 @@ const ExampleDetail = () => {
     const renderUrl = useSelector((state) => state.editor.renderUrl)
 
     let itemIndex = useSelector((state) => state.example.exampleIndex);
-    console.log('ExampleDetail', { itemIndex, examples })
+    // console.log('ExampleDetail', { itemIndex, examples })
     if (itemIndex < 0 || itemIndex >= examples.length) {
         itemIndex = 0;
     }

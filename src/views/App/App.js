@@ -12,13 +12,17 @@ import DiagramType from '../DiagramType';
 import RenderUrl from '../RenderUrl';
 import WindowExampleCards from '../WindowExampleCards';
 import WindowExampleDetail from '../WindowExampleDetail';
+import WindowImportUrl from '../WindowImportUrl';
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 
-const App = ({ onExamples }) => {
+const App = ({ onExamples, onImportUrl }) => {
     if (!onExamples) {
         onExamples = () => { };
+    }
+    if (!onImportUrl) {
+        onImportUrl = () => {};
     }
     return <div className='App'>
         <Title />
@@ -36,6 +40,7 @@ const App = ({ onExamples }) => {
                         </Grid.Column>
                         <Grid.Column >
                             <Button floated='right' onClick={() => onExamples()}><Icon name='list alternate outline' />Examples</Button>
+                            <Button floated='right' onClick={() => onImportUrl()}><Icon name='write' />Import diagram URL</Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -53,11 +58,13 @@ const App = ({ onExamples }) => {
         <CopyZone />
         <WindowExampleCards />
         <WindowExampleDetail />
+        <WindowImportUrl/>
     </div>
 }
 
 App.propTypes = {
     onExamples: PropTypes.func.isRequired,
+    onImportUrl: PropTypes.func.isRequired,
 };
 
 export default App;

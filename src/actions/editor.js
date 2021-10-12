@@ -1,4 +1,4 @@
-import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE } from "../constants/editor";
+import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL } from "../constants/editor";
 import delay from "./utils/delay";
 import copy from 'copy-to-clipboard';
 
@@ -58,3 +58,28 @@ export const diagramChanged = (diagramText) => async (dispatch, getState) => {
  * @returns 
  */
 export const diagramTypeChanged = (diagramType) => ({ type: DIAGRAM_TYPE_CHANGED, diagramType });
+
+/**
+ * Called when a new diagram URL has been imported
+ * @param {string} url The diagram url to import
+ * @returns 
+ */
+export const importUrl = (url) => ({ type: IMPORT_URL, url });
+
+/**
+ * Called when the new digram url window is closed without importing new URL
+ * @returns
+ */
+export const closeImportUrl = () => ({ type: CLOSE_IMPORT_URL });
+
+/**
+ * Called when the new digram url window should be shown
+ * @returns
+ */
+export const openImportUrl = () => ({ type: OPEN_IMPORT_URL });
+
+/**
+ * Called when the new digram url window update the url
+ * @returns
+ */
+export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url})
