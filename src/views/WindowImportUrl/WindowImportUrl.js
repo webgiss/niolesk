@@ -20,7 +20,7 @@ const WindowImportUrl = ({ open, onClose, onImportUrl, onUrlChange, url }) => {
             placeholder='https://kroki.io/diagramType/data=='
             onChange={onChange}
             value={url}
-            focus={true}
+            ref={(element)=>open && element && element.focus()}
             fluid={true}
         />
     </Window>
