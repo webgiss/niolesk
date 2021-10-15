@@ -13,7 +13,7 @@ const WindowExampleDetail = ({ open, onClose, onImport }) => {
         title='Examples'
         isContentCentered={true}
         onClose={onClose}
-        actions={<Button color='primary' onClick={() => onImport()}>Import</Button> }
+        actions={<Button primary onClick={() => onImport()}>Import</Button> }
     >
         <ExampleDetail />
     </Window>

@@ -14,7 +14,7 @@ const WindowImportUrl = ({ open, onClose, onImportUrl, onUrlChange, url }) => {
         title='Import a new diagram using its URL'
         isContentCentered={true}
         onClose={onClose}
-        actions={<Button color='primary' onClick={() => onImportUrl(url)}>Import URL</Button>}
+        actions={<Button primary onClick={() => onImportUrl(url)}>Import URL</Button>}
     >
         <Input 
             placeholder='https://kroki.io/diagramType/data=='

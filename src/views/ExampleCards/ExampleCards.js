@@ -7,7 +7,7 @@ import ExampleCard from '../ExampleCard/ExampleCard';
 
 const ExampleCards = ({ cards }) => {
     return <Card.Group>
-        {cards.map(card => <ExampleCard {...card} />)}
+        {cards.map((card,index) => <ExampleCard {...card} key={index} />)}
     </Card.Group>
 }
 
