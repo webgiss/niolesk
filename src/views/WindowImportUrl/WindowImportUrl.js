@@ -1,13 +1,13 @@
 import React from 'react';
 import Window from '../Window'
 import PropTypes from 'prop-types';
-import { Button, Input } from 'semantic-ui-react';
+import { Button, Form, Input } from 'semantic-ui-react';
 
 import './WindowImportUrl.css'
 
 const WindowImportUrl = ({ open, onClose, onImportUrl, onUrlChange, url }) => {
     const onChange = (event, data) => onUrlChange(data.value);
-    
+
     return <Window
         className='WindowImportUrl'
         open={open}
@@ -16,13 +16,15 @@ const WindowImportUrl = ({ open, onClose, onImportUrl, onUrlChange, url }) => {
         onClose={onClose}
         actions={<Button primary onClick={() => onImportUrl(url)}>Import URL</Button>}
     >
-        <Input 
-            placeholder='https://kroki.io/diagramType/data=='
-            onChange={onChange}
-            value={url}
-            ref={(element)=>open && element && element.focus()}
-            fluid={true}
-        />
+        <Form onSubmit={()=>onImportUrl(url)}>
+            <Input
+                placeholder='https://kroki.io/diagramType/data=='
+                onChange={onChange}
+                value={url}
+                ref={(element) => open && element && element.focus()}
+                fluid={true}
+            />
+        </Form>
     </Window>
 }
 
