@@ -55,3 +55,5 @@ services:
 ## Developement
 
 The storybook of the project from the latest tag is accessible at https://niolesk.top/storybook
+
+Help for [compilation](compilation.md) of the project.
