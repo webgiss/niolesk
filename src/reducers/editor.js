@@ -1,4 +1,4 @@
-import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL } from "../constants/editor";
+import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
@@ -32,6 +32,7 @@ const initialState = {
     },
     windowImportUrlOpened: false,
     windowImportUrl: '',
+    diagramError: false,
 };
 
 /**
@@ -56,7 +57,7 @@ const updateDiagram = (state) => {
     const codedDiagramTextText = encode(diagramText);
     const diagramUrl = createKrokiUrl(renderUrl, diagramType, filetype, codedDiagramTextText);
     if (state.diagramUrl !== diagramUrl) {
-        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}` }
+        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}`, diagramError: false }
     }
     return state;
 }
@@ -185,6 +186,13 @@ export default createReducer({
     [UPDATE_IMPORT_URL]: (state, action) => {
         const { url } = action;
         state = { ...state, windowImportUrl: url };
+        return state;
+    },
+    [DIAGRAM_HAS_ERROR]: (state, action) => {
+        const { url } = action;
+        if (url === state.diagramUrl) {
+            state = { ...state, diagramError: true }
+        }
         return state;
     },
 }, initialState);

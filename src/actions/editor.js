@@ -1,4 +1,4 @@
-import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL } from "../constants/editor";
+import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR } from "../constants/editor";
 import delay from "./utils/delay";
 import copy from 'copy-to-clipboard';
 
@@ -83,3 +83,9 @@ export const openImportUrl = () => ({ type: OPEN_IMPORT_URL });
  * @returns
  */
 export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url})
+
+/**
+ * Called when the digram url resolve an error
+ * @returns
+ */
+export const diagramHasError = (url) => ({ type: DIAGRAM_HAS_ERROR, url })
