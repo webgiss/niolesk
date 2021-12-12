@@ -5,9 +5,11 @@ Niolesk currently is just a static page, thus doesn't require anything else than
 ## Compilation using yarn
 
 Requierements:
-- nodejs
+- nodejs 16
 - yarn
 - git
+
+Note: {{node}} version 17 has issues when compiling the site, so you should use node LTS which is {{node}} 16
 
 Get the sources:
 
@@ -45,6 +47,23 @@ $
 ```
 
 Niolesk will be found in `build/` (and should be hosted at the root of the website)
+
+### Compilation to use in another path than /
+
+You can compile niolesk to host in another path than the default {{/}}. You should then replace
+
+```
+$ yarn build
+```
+
+With:
+
+```
+$ PUBLIC_URL=/niolesk/ yarn build
+```
+
+if you want to host the site at {{/niolesk/}}.
+
 
 ## Compilation using docker
 
