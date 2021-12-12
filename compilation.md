@@ -9,7 +9,7 @@ Requierements:
 - yarn
 - git
 
-Note: {{node}} version 17 has issues when compiling the site, so you should use node LTS which is {{node}} 16
+Note: `node` version 17 has issues when compiling the site, so you should use node LTS which is `node` 16
 
 Get the sources:
 
@@ -50,7 +50,7 @@ Niolesk will be found in `build/` (and should be hosted at the root of the websi
 
 ### Compilation to use in another path than /
 
-You can compile niolesk to host in another path than the default {{/}}. You should then replace
+You can compile niolesk to host in another path than the default `/`. You should then replace
 
 ```
 $ yarn build
@@ -62,7 +62,7 @@ With:
 $ PUBLIC_URL=/niolesk/ yarn build
 ```
 
-if you want to host the site at {{/niolesk/}}.
+if you want to host the site at `/niolesk/`.
 
 
 ## Compilation using docker
@@ -86,4 +86,6 @@ The files be in folder `niolesk/html/`
 
 ## Download the site directly from github
 
-This part will be accessible in future releases.
+With each release, you can find the html/css/js pages to use for static hosting (on the root of a vhost site) of niolesk in the file `niolesk-site-x.x.x.tar.gz`. A zip version is also available for who are cluless about tar.gz files.
+
+You can also find with each release the storybook associated with a version under the name `niolesk-storybook-x.x.x.tar.gz`. A zip version is also provided.
