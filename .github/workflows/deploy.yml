@@ -27,24 +27,29 @@ jobs:
               run: |
                   yarn
                   yarn build
-                  echo "niolesk.top" > build/CNAME
                   yarn build-storybook
 
-            - name: "Create asset Niolesk site"
+            - name: "Create Niolesk assets"
               run: |
-                  cd build
-                  zip -r ../niolesk-site.zip .
-                  cd ..
+                  ref="${{ github.ref }}"
 
-            - name: "Create asset Niolesk storybook"
-              run: |
-                  cd storybook-static
-                  zip -r ../niolesk-storybook.zip .
-                  cd ..
+                  site_name="niolesk-site-${ref#refs/tags/v*}"
+                  storybook_name="niolesk-storybook-${ref#refs/tags/v*}"
+
+                  mv "build" "${site_name}"
+                  zip -r "${site_name}.zip" "${site_name}"
+                  tar cvzf "${site_name}.tar.gz" "${site_name}"
+                  mv "${site_name}" build
+
+                  mv "storybook-static" "${storybook_name}"
+                  zip -r "${storybook_name}.zip" "${storybook_name}"
+                  tar cvzf "${storybook_name}.tar.gz" "${storybook_name}"
+                  mv "${storybook_name}" storybook
 
             - name: "Move storybook to build dir"
               run: |
-                  mv storybook-static build/storybook
+                  echo "niolesk.top" > build/CNAME
+                  mv storybook build/storybook
 
             - name: "Deploy to GitHub Pages"
               if: success()
@@ -60,7 +65,7 @@ jobs:
               uses: "softprops/action-gh-release@v1"
               with:
                   files: |
-                    niolesk-site.zip
-                    niolesk-storybook.zip
+                    niolesk-*.zip
+                    niolesk-*.tar.gz
                   draft: false
                   prerelease: false
