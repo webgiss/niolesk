@@ -89,3 +89,15 @@ The files be in folder `niolesk/html/`
 With each release, you can find the html/css/js pages to use for static hosting (on the root of a vhost site) of niolesk in the file `niolesk-site-x.x.x.tar.gz`. A zip version is also available for who are cluless about tar.gz files.
 
 You can also find with each release the storybook associated with a version under the name `niolesk-storybook-x.x.x.tar.gz`. A zip version is also provided.
+
+# Configuration of Niolesk
+
+You can configure the default kroki engine used by niolesk by editing the `config.js` file.
+
+```
+window.config = {
+    krokiEngineUrl: 'https://kroki.io/',
+};
+```
+
+If it's not obvious, replace `https://kroki.io/` by the url of the kroki instance you intend to use (for example `https://kroki.example.com/`).
