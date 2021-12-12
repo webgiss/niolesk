@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:16-alpine3.14 as builder
 
 ARG REPO=https://github.com/webgiss/niolesk
 ARG POINT=main
