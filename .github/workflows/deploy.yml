@@ -18,21 +18,35 @@ jobs:
                   git config "user.name" "github-actions"
                   git config "user.email" "public-dev-github-actions-niolesk@gissehel.org"
 
-            - name: Setup node
+            - name: "Setup node"
               uses: actions/setup-node@v2
               with:
                   node-version: "16"
           
-            - name: "build"
-              if: "contains(github.ref, 'refs/tags')"
+            - name: "Build"
               run: |
                   yarn
                   yarn build
                   echo "niolesk.top" > build/CNAME
                   yarn build-storybook
+
+            - name: "Create asset Niolesk site"
+              run: |
+                  cd build
+                  zip -r ../niolesk-site.zip .
+                  cd ..
+
+            - name: "Create asset Niolesk storybook"
+              run: |
+                  cd storybook-static
+                  zip -r ../niolesk-storybook.zip .
+                  cd ..
+
+            - name: "Move storybook to build dir"
+              run: |
                   mv storybook-static build/storybook
 
-            - name: Deploy to GitHub Pages
+            - name: "Deploy to GitHub Pages"
               if: success()
               uses: crazy-max/ghaction-github-pages@v2
               with:
@@ -41,3 +55,12 @@ jobs:
               env:
                 GITHUB_TOKEN: ${{ secrets.DEPLOY_PAT }}
 
+            - name: "Create release"
+              if: success()
+              uses: "softprops/action-gh-release@v1"
+              with:
+                  files: |
+                    niolesk-site.zip
+                    niolesk-storybook.zip
+                  draft: false
+                  prerelease: false
