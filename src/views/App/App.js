@@ -16,6 +16,7 @@ import WindowImportUrl from '../WindowImportUrl';
 
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
+import classNames from 'classnames';
 
 const App = ({ onExamples, onImportUrl }) => {
     if (!onExamples) {
@@ -39,8 +40,8 @@ const App = ({ onExamples, onImportUrl }) => {
                             <DiagramType />
                         </Grid.Column>
                         <Grid.Column >
-                            <Button floated='right' onClick={() => onExamples()}><Icon name='list alternate outline' />Examples</Button>
-                            <Button floated='right' onClick={() => onImportUrl()}><Icon name='write' />Import diagram URL</Button>
+                            <Button className={classNames('appShrinkableButton')} floated='right' onClick={() => onExamples()}><Icon name='list alternate outline' /><span className='appShrinkableText'>Examples</span></Button>
+                            <Button className={classNames('appShrinkableButton')} floated='right' onClick={() => onImportUrl()}><Icon name='write' /><span className='appShrinkableText'>Import diagram URL</span></Button>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
