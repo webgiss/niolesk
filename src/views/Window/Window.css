@@ -7,3 +7,10 @@
 .WindowContent.window-centered-content > * {
     justify-content: center;
 }
+
+.WindowHeaderButtons {
+    text-align: right;
+    float: right;
+    margin-top: -6px ;
+    margin-right: -17.5px;
+;}

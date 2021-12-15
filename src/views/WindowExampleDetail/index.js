@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Internal from './WindowExampleDetail'
-import { closeExample, importExample } from '../../actions/example';
+import { closeExample, importExample, prevExample, nextExample } from '../../actions/example';
 import { decode } from '../../kroki/coder';
 
 const WindowExampleDetail = () => {
@@ -11,7 +11,9 @@ const WindowExampleDetail = () => {
     const onClose = () => dispatch(closeExample());
     const onImport = () => dispatch(importExample(decode(examples[exampleIndex].example), examples[exampleIndex].diagramType));
     const open = useSelector((state) => state.example.windowExampleDetailsOpened)
-    return <Internal {...{ open, onClose, onImport }} />
+    const onPrevExample = () => dispatch(prevExample());
+    const onNextExample = () => dispatch(nextExample());
+    return <Internal {...{ open, onClose, onImport, onPrevExample, onNextExample }} />
 }
 
 export default WindowExampleDetail;

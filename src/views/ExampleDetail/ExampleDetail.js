@@ -30,7 +30,7 @@ const ExampleDetail = ({ diagramText, diagramType, description, diagUrl, items, 
                     doc ? <a target='_blank' rel='noreferrer' href={doc}>Documentation : {doc}</a> : null
                 }
                 <img alt='Diagram' src={diagUrl} />
-                <Segment>
+                <Segment className='ExampleDetailCodeSegment'>
                     <pre className='ExampleDetailCode'>{diagramText}</pre>
                 </Segment>
                 {

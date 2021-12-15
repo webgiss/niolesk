@@ -1,6 +1,8 @@
 import { createReducer } from "./utils/createReducer";
-import { CHANGE_EXAMPLE_INDEX, CLOSE_EXAMPLE, IMPORT_EXAMPLE, OPEN_EXAMPLES, VIEW_EXAMPLE } from '../constants/example'
+import { CHANGE_EXAMPLE_INDEX, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from '../constants/example'
 import exampleData from '../examples/data';
+
+const mathMod = (v,m) => ((v%m)+m)%m;
 
 const initialState = {
     windowExampleCardsOpened: false,
@@ -30,6 +32,16 @@ export default createReducer({
     },
     [CLOSE_EXAMPLE]: (state, action) => {
         state = { ...state, windowExampleCardsOpened: false, windowExampleDetailsOpened: false }
+        return state;
+    },
+    [PREV_EXAMPLE]: (state, action) => {
+        const { exampleIndex, examples } = state;
+        state = { ...state, exampleIndex: mathMod(exampleIndex - 1, examples.length) }
+        return state;
+    },
+    [NEXT_EXAMPLE]: (state, action) => {
+        const { exampleIndex, examples} = state;
+        state = { ...state, exampleIndex: mathMod(exampleIndex + 1, examples.length) }
         return state;
     },
 }, initialState);

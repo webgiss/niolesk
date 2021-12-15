@@ -5,3 +5,7 @@
     text-align: left;
     overflow-x: auto;
 }
+
+.ui.segment.ExampleDetailCodeSegment {
+    background-color: #ffffec;
+}

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import './WindowExampleDetail.css'
 import { Button } from 'semantic-ui-react';
 
-const WindowExampleDetail = ({ open, onClose, onImport }) => {
+const WindowExampleDetail = ({ open, onClose, onImport, onPrevExample, onNextExample }) => {
     return <Window
         className='WindowExampleCards'
         open={open}
@@ -14,6 +14,10 @@ const WindowExampleDetail = ({ open, onClose, onImport }) => {
         isContentCentered={true}
         onClose={onClose}
         actions={<Button primary onClick={() => onImport()}>Import</Button> }
+        headerButtons={<>
+            <Button primary icon='left arrow' onClick={() => onPrevExample()}/>
+            <Button primary icon='right arrow' onClick={() => onNextExample()}/>
+        </>}
     >
         <ExampleDetail />
     </Window>
