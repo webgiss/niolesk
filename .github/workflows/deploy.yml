@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        name: 'Build'
+        name: 'Deploy'
         runs-on: ubuntu-latest
         steps:
             - name: "Checkout"
@@ -50,6 +50,7 @@ jobs:
               run: |
                   echo "niolesk.top" > build/CNAME
                   mv storybook build/storybook
+                  touch build/.nojekyll
 
             - name: "Deploy to GitHub Pages"
               if: success()
