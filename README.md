@@ -13,9 +13,9 @@ Just add any kroki url after the url of niolesk followed by `#` and you'll be ab
 
 ## Example
 
-![Diagram](https://kroki.io/svgbob/svg/eNptjLENwDAIBHumuC5OgVkICW-QBRg-b6cN0kv8nQB-pyx9QvBoV29ligyWSphAKs2o-7PtF6SLpsmRcfA2VSx3Pag4d_YC6Q8XSA==)
+![Diagram](https://kroki.io/svgbob/svg/eNpdzLEJADEMA8A-U6j7PMFO71kMyga_gIeP3L5BUnFg4H_kWK4tfKAabj4bYo9CNtTkKyh7cGwhUoDcTQp5zPSmEMgLdawUdw==)
 
-[Edit this diagram](https://niolesk.top/#https://kroki.io/svgbob/svg/eNptjLENwDAIBHumuC5OgVkICW-QBRg-b6cN0kv8nQB-pyx9QvBoV29ligyWSphAKs2o-7PtF6SLpsmRcfA2VSx3Pag4d_YC6Q8XSA==)
+[Edit this diagram](https://niolesk.top/#https://kroki.io/svgbob/svg/eNpdzLEJADEMA8A-U6j7PMFO71kMyga_gIeP3L5BUnFg4H_kWK4tfKAabj4bYo9CNtTkKyh7cGwhUoDcTQp5zPSmEMgLdawUdw==)
 
 ## Docker
 
