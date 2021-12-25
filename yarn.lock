@@ -649,7 +649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-private-property-in-object@npm:^7.16.5":
+"@babel/plugin-proposal-private-property-in-object@npm:*, @babel/plugin-proposal-private-property-in-object@npm:^7.16.5":
   version: 7.16.5
   resolution: "@babel/plugin-proposal-private-property-in-object@npm:7.16.5"
   dependencies:
@@ -13383,6 +13383,7 @@ __metadata:
     history: 4.10.1
     hygen: ^6.1.0
     pako: ^2.0.4
+    prop-types: ^15.8.0
     react: ^17.0.2
     react-dom: ^17.0.2
     react-git-info: ^2.0.0
@@ -15502,7 +15503,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.0.0, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.0":
   version: 15.8.0
   resolution: "prop-types@npm:15.8.0"
   dependencies:

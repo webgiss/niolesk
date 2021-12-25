@@ -1,5 +1,13 @@
 import pako from 'pako';
-import util from 'util'
+
+
+let util = {}
+
+try {
+  util = require('util')
+} catch { 
+}
+
 let TextEncoder = null;
 
 TextEncoder = window.TextEncoder || util.TextEncoder;
