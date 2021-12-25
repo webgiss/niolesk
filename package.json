@@ -8,6 +8,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@uiw/react-monacoeditor": "^3.4.6",
+    "assert": "^2.0.0",
     "axios": "^0.24.0",
     "classnames": "^2.3.1",
     "connected-react-router": "^6.9.1",
@@ -70,12 +71,15 @@
     ]
   },
   "resolutions": {
-    "babel-loader": "8.1.0"
+    "babel-loader": "8.1.0",
+    "webpack": "^5.65.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/manager-webpack5": "^6.4.9",
     "@storybook/node-logger": "^6.4.9",
     "@storybook/preset-create-react-app": "^4.0.0",
     "@storybook/react": "^6.4.9",
