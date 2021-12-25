@@ -2,65 +2,31 @@ import { COPY_BUTTON_HOVERED, COPY_TEXT, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE
 import { copyButtonHovered, copyText, diagramChanged, diagramHasError, diagramTypeChanged, importUrl, openImportUrl, renderUrlChanged, updateUrl } from './editor'
 import delay from './utils/delay';
 
-// ----------------------------------------
-// Mock for copy
-let copy_mock = null;
-jest.mock('copy-to-clipboard', () => (element) => { copy_mock = element; });
+import { resetCopy, hasCopy, getCopy, mockCopy } from './__jest__/copy'
+import { executeThunkAction, getDispatchActions, resetDispatchActions } from './__jest__/thunk'
+import { getCurrentTime } from './__jest__/time'
 
-const reset_copy = () => { copy_mock = null; }
-const has_copy = () => copy_mock !== null;
-const get_copy = () => copy_mock;
-// ----------------------------------------
-
-// ----------------------------------------
-// Mock for dispatch
-const dispatch_state = [];
-
-const reset_dispatch_state = () => { dispatch_state.splice(0); }
-const dispatch_mock = (x) => {
-    dispatch_state.push(x);
-}
-const get_dispatch_state = () => dispatch_state;
-// ----------------------------------------
-
-// ----------------------------------------
-// Mock for get_state
-let mock_state = {};
-const get_state_mock = () => mock_state;
-// ----------------------------------------
-
-// ----------------------------------------
-// Mock for execution of an action that use thunk
-const executeThunk = async (action) => {
-    const result = action();
-    expect(typeof result).toBe('function')
-    const resultPromise = result(dispatch_mock, get_state_mock);
-    await delay(0);
-    return resultPromise;
-}
-// ----------------------------------------
-
-const getCurrentTime = () => (new Date()).getTime();
+jest.mock('copy-to-clipboard', () => (element) => { mockCopy(element); });
 
 describe('copyText', () => {
     it('should dispatch COPY_TEXT', async () => {
-        reset_copy();
-        reset_dispatch_state();
-        expect(has_copy()).toBe(false);
-        expect(get_dispatch_state().length).toBe(0)
+        resetCopy();
+        resetDispatchActions();
+        expect(hasCopy()).toBe(false);
+        expect(getDispatchActions().length).toBe(0)
 
-        const copyTextPromise = executeThunk(() => copyText('scope', 'text'))
+        const copyTextPromise = executeThunkAction(() => copyText('scope', 'text'))
 
-        expect(has_copy()).toBe(true);
-        expect(get_copy()).toBe('text')
-        let dispatch_state = get_dispatch_state();
+        expect(hasCopy()).toBe(true);
+        expect(getCopy()).toBe('text')
+        let dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(2)
         expect(dispatch_state[0]).toStrictEqual({ type: COPY_TEXT, scope: 'scope', text: 'text' })
         expect(dispatch_state[1]).toStrictEqual({ type: TEXT_COPIED, scope: 'scope', isCopied: true })
 
         await copyTextPromise;
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(3)
         expect(dispatch_state[0]).toStrictEqual({ type: COPY_TEXT, scope: 'scope', text: 'text' })
         expect(dispatch_state[1]).toStrictEqual({ type: TEXT_COPIED, scope: 'scope', isCopied: true })
@@ -88,14 +54,14 @@ describe('renderUrlChanged', () => {
 
 describe('diagramChanged', () => {
     it('should dispatch the correct actions with just one change', async () => {
-        reset_dispatch_state();
-        let dispatch_state = get_dispatch_state();
+        resetDispatchActions();
+        let dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(0)
         const startTest = getCurrentTime();
 
-        const diagramChangedPromise = executeThunk(() => diagramChanged('text 01'))
+        const diagramChangedPromise = executeThunkAction(() => diagramChanged('text 01'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(1)
         expect(dispatch_state[0]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 01' })
 
@@ -103,50 +69,50 @@ describe('diagramChanged', () => {
 
         const endTest = getCurrentTime();
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state).toStrictEqual([
             { type: DIAGRAM_CHANGED, diagramText: 'text 01' },
             { type: DIAGRAM_CHANGED_UPDATE },
         ])
-        expect(endTest-startTest).toBeGreaterThanOrEqual(750)
+        expect(endTest - startTest).toBeGreaterThanOrEqual(750)
     })
 
     it('should dispatch the correct actions with several changes including some with less than 750ms interval', async () => {
-        reset_dispatch_state();
-        let dispatch_state = get_dispatch_state();
+        resetDispatchActions();
+        let dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(0)
 
         const startTest01 = getCurrentTime();
-        const diagramChangedPromise01 = executeThunk(() => diagramChanged('text 01'))
+        const diagramChangedPromise01 = executeThunkAction(() => diagramChanged('text 01'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(1)
         expect(dispatch_state[0]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 01' })
 
         await delay(100);
 
         const startTest02 = getCurrentTime();
-        const diagramChangedPromise02 = executeThunk(() => diagramChanged('text 02'))
+        const diagramChangedPromise02 = executeThunkAction(() => diagramChanged('text 02'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(2)
         expect(dispatch_state[1]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 02' })
 
         await delay(300);
 
         const startTest03 = getCurrentTime();
-        const diagramChangedPromise03 = executeThunk(() => diagramChanged('text 03'))
+        const diagramChangedPromise03 = executeThunkAction(() => diagramChanged('text 03'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(3)
         expect(dispatch_state[2]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 03' })
 
         await delay(800);
 
         const startTest04 = getCurrentTime();
-        const diagramChangedPromise04 = executeThunk(() => diagramChanged('text 04'))
+        const diagramChangedPromise04 = executeThunkAction(() => diagramChanged('text 04'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(5)
         expect(dispatch_state[3]).toStrictEqual({ type: DIAGRAM_CHANGED_UPDATE })
         expect(dispatch_state[4]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 04' })
@@ -154,9 +120,9 @@ describe('diagramChanged', () => {
         await delay(100);
 
         const startTest05 = getCurrentTime();
-        const diagramChangedPromise05 = executeThunk(() => diagramChanged('text 05'))
+        const diagramChangedPromise05 = executeThunkAction(() => diagramChanged('text 05'))
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state.length).toBe(6)
         expect(dispatch_state[5]).toStrictEqual({ type: DIAGRAM_CHANGED, diagramText: 'text 05' })
 
@@ -170,7 +136,7 @@ describe('diagramChanged', () => {
 
         const endTest = getCurrentTime();
 
-        dispatch_state = get_dispatch_state();
+        dispatch_state = getDispatchActions();
         expect(dispatch_state).toStrictEqual([
             { type: DIAGRAM_CHANGED, diagramText: 'text 01' },
             { type: DIAGRAM_CHANGED, diagramText: 'text 02' },
@@ -180,11 +146,11 @@ describe('diagramChanged', () => {
             { type: DIAGRAM_CHANGED, diagramText: 'text 05' },
             { type: DIAGRAM_CHANGED_UPDATE },
         ])
-        expect(startTest02-startTest01).toBeLessThan(750)
-        expect(startTest03-startTest02).toBeLessThan(750)
-        expect(startTest04-startTest03).toBeGreaterThanOrEqual(750)
-        expect(startTest05-startTest04).toBeLessThan(750)
-        expect(endTest-startTest05).toBeGreaterThanOrEqual(750)
+        expect(startTest02 - startTest01).toBeLessThan(750)
+        expect(startTest03 - startTest02).toBeLessThan(750)
+        expect(startTest04 - startTest03).toBeGreaterThanOrEqual(750)
+        expect(startTest05 - startTest04).toBeLessThan(750)
+        expect(endTest - startTest05).toBeGreaterThanOrEqual(750)
     })
 })
 
