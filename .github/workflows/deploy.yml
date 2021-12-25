@@ -28,6 +28,7 @@ jobs:
                   yarn
                   yarn build
                   yarn build-storybook
+                  yarn test:html
 
             - name: "Create Niolesk assets"
               run: |
@@ -35,6 +36,7 @@ jobs:
 
                   site_name="niolesk-site-${ref#refs/tags/v*}"
                   storybook_name="niolesk-storybook-${ref#refs/tags/v*}"
+                  test_name="niolesk-test"
 
                   mv "build" "${site_name}"
                   zip -r "${site_name}.zip" "${site_name}"
@@ -46,10 +48,15 @@ jobs:
                   tar cvzf "${storybook_name}.tar.gz" "${storybook_name}"
                   mv "${storybook_name}" storybook
 
+                  mv "jest_html_reporters.html" "${test_name}.html"
+                  cp "${test_name}.html" "test.html"
+
             - name: "Move storybook to build dir"
               run: |
                   echo "niolesk.top" > build/CNAME
                   mv storybook build/storybook
+                  mkdir -p build/test
+                  mv test.html build/test/index.html
                   touch build/.nojekyll
 
             - name: "Deploy to GitHub Pages"
@@ -68,5 +75,6 @@ jobs:
                   files: |
                     niolesk-*.zip
                     niolesk-*.tar.gz
+                    niolesk-*.html
                   draft: false
                   prerelease: false

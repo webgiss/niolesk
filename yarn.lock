@@ -11752,6 +11752,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jest-html-reporters@npm:^2.1.6":
+  version: 2.1.6
+  resolution: "jest-html-reporters@npm:2.1.6"
+  dependencies:
+    fs-extra: ^9.0.1
+    open: ^8.0.3
+  checksum: 67b2eaa373b53e7ea83e2119b028383887c187a939103138a3c2cf3d17b5ad14dfe078ce78eaf1e52e13c27f1fb277b6088e121e6b2424cb333faef9f1c07b70
+  languageName: node
+  linkType: hard
+
 "jest-jasmine2@npm:^27.4.5":
   version: 27.4.5
   resolution: "jest-jasmine2@npm:27.4.5"
@@ -13382,6 +13392,7 @@ __metadata:
     gh-pages: ^3.2.3
     history: 4.10.1
     hygen: ^6.1.0
+    jest-html-reporters: ^2.1.6
     pako: ^2.0.4
     prop-types: ^15.8.0
     react: ^17.0.2
@@ -13832,7 +13843,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.9, open@npm:^8.4.0":
+"open@npm:^8.0.3, open@npm:^8.0.9, open@npm:^8.4.0":
   version: 8.4.0
   resolution: "open@npm:8.4.0"
   dependencies:
