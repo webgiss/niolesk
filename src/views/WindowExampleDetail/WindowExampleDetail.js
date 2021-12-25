@@ -4,6 +4,7 @@ import ExampleDetail from '../ExampleDetail'
 import PropTypes from 'prop-types';
 
 import './WindowExampleDetail.css'
+import '../fomantic-ui-css/semantic.css';
 import { Button } from 'semantic-ui-react';
 
 const WindowExampleDetail = ({ open, onClose, onImport, onPrevExample, onNextExample }) => {

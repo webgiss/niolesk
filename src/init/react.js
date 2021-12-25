@@ -21,7 +21,7 @@ export const initReact = (store, history, domNode, ReactNode) => {
     <React.StrictMode>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <ReactNode />
+          <ReactNode location={{}}/>
         </ConnectedRouter>
       </Provider>,
     </React.StrictMode>,

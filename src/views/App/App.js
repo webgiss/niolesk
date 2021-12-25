@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+import '../fomantic-ui-css/semantic.css'
 import { Button, Form, Grid, Icon, Segment } from 'semantic-ui-react';
 
 import Title from '../Title';
@@ -14,7 +15,6 @@ import WindowExampleCards from '../WindowExampleCards';
 import WindowExampleDetail from '../WindowExampleDetail';
 import WindowImportUrl from '../WindowImportUrl';
 
-import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 import classNames from 'classnames';
 

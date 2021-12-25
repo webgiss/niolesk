@@ -1,4 +1,5 @@
 import React from 'react';
+import '../fomantic-ui-css/semantic.css';
 import { Button, Modal } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 

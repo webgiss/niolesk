@@ -4,25 +4,25 @@
   "private": true,
   "homepage": "https://niolesk.top",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^12.1.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@uiw/react-monacoeditor": "^3.4.3",
-    "axios": "^0.21.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@uiw/react-monacoeditor": "^3.4.6",
+    "axios": "^0.24.0",
     "classnames": "^2.3.1",
     "connected-react-router": "^6.9.1",
     "copy-to-clipboard": "^3.3.1",
+    "fomantic-ui-css": "^2.8.8",
     "history": "4.10.1",
-    "pako": "^2.0.3",
+    "pako": "^2.0.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^2.0.3",
-    "web-vitals": "^2.1.0"
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "semantic-ui-react": "^2.0.4",
+    "web-vitals": "^2.1.2"
   },
   "scripts": {
     "hygen": "hygen",
@@ -71,16 +71,16 @@
     "babel-loader": "8.1.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.3.8",
-    "@storybook/addon-essentials": "^6.3.8",
-    "@storybook/addon-links": "^6.3.8",
-    "@storybook/node-logger": "^6.3.8",
-    "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.8",
-    "gh-pages": "^3.1.0",
-    "hygen": "^6.0.4",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/node-logger": "^6.4.9",
+    "@storybook/preset-create-react-app": "^4.0.0",
+    "@storybook/react": "^6.4.9",
+    "gh-pages": "^3.2.3",
+    "hygen": "^6.1.0",
     "react-git-info": "^2.0.0",
-    "react-redux": "^7.2.4",
-    "react-scripts": "^4.0.3"
+    "react-redux": "^7.2.6",
+    "react-scripts": "^5.0.0"
   }
 }

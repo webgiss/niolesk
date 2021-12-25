@@ -1,4 +1,8 @@
 import pako from 'pako';
+import util from 'util'
+let TextEncoder = null;
+
+TextEncoder = window.TextEncoder || util.TextEncoder;
 
 export const encode = (source) => {
     const data = new TextEncoder('utf-8').encode(source);
