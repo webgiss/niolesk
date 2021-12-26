@@ -59,6 +59,7 @@ jobs:
                   push: true
                   no-cache: true
                   build-args: |
+                      SOURCE=git
                       POINT=${{ env.GITHUB_SHA_SHORT }}
                       VCS_REF=${{ env.GITHUB_SHA_SHORT }}
                       BUILD_DATE=${{ env.BUILD_DATE }}

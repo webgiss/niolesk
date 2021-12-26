@@ -70,6 +70,8 @@ if you want to host the site at `/niolesk/`.
 Requierement:
 - Docker
 
+### Basic usage
+
 First Build or pull the image
 
 ```
@@ -83,6 +85,56 @@ docker run --rm -v $(pwd)/niolesk:/out --entrypoint "/bin/cp"  ghcr.io/webgiss/n
 ```
 
 The files be in folder `niolesk/html/`
+
+### Pulling an image
+
+latest version pushed to git main branch has image tagged with "`:main`".
+
+latest official version pushed to git main branch has image tagged with "`:latest`".
+
+All version tagged can be retrieved using the tag name.
+
+You can use other tags, see https://github.com/webgiss/niolesk/pkgs/container/niolesk for a list of tags you can use.
+
+#### Examples
+
+##### Latest release
+
+```
+docker pull ghcr.io/webgiss/niolesk:latest
+```
+
+##### Latest commit in branch main
+
+```
+docker pull ghcr.io/webgiss/niolesk:main
+```
+
+##### Version 1.2.0
+
+```
+docker pull ghcr.io/webgiss/niolesk:v1.2.0
+```
+
+### Building an image
+
+By default, if you build an image, it will use the current folder to build.
+
+```
+docker build --rm --force-rm -t local_niolesk_image .
+```
+
+You can specify some build args to change the behavior
+
+```
+docker build --rm --force-rm -t local_niolesk_image:git-7438794 --build-arg SOURCE=git --build-arg POINT=7438794 .
+```
+
+You can also specify the `PUBLIC_URL` for deployement using `--build-arg` (default is `/`):
+
+```
+docker build --rm --force-rm -t local_niolesk_image --build-arg PUBLIC_URL=/niolesk/ .
+```
 
 ## Download the site directly from github
 

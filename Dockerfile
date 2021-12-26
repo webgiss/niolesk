@@ -1,16 +1,42 @@
-FROM node:16-alpine3.14 as builder
+ARG SOURCE=local
+ARG IMAGE_BUILD=node:16-alpine3.14
+
+#----------------------------------------
+
+FROM ${IMAGE_BUILD} as builder-base
+
+RUN \
+    apk update && \
+    apk add git
+
+#----------------------------------------
+
+FROM builder-base as builder-git
 
 ARG REPO=https://github.com/webgiss/niolesk
 ARG POINT=main
 
 RUN \
-    apk update && \
-    apk add git && \
     git clone "${REPO}" /app && \
     cd /app && \
-    git checkout "${POINT}" && \
+    git checkout "${POINT}"
+
+#----------------------------------------
+
+FROM builder-base as builder-local
+
+ARG PUBLIC_URL=/
+
+ADD . /app
+
+FROM builder-${SOURCE} as builder
+
+RUN \
+    cd /app && \
     yarn && \
-    PUBLIC_URL=/ yarn build
+    PUBLIC_URL=${PUBLIC_URL} yarn build
+
+#----------------------------------------
 
 FROM nginx:alpine
 
