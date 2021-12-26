@@ -4,10 +4,12 @@ import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
 import { IMPORT_EXAMPLE } from "../constants/example";
 import { createKrokiUrl } from "../kroki/utils";
+import { LOCATION_CHANGE } from "connected-react-router";
+import exampleData from '../examples/data';
 
 const defaultDiagramType = 'plantuml';
 
-const initialState = {
+export const initialState = {
     baseUrl: window.location.origin + window.location.pathname,
     hash: null,
     diagramType: defaultDiagramType,
@@ -40,7 +42,7 @@ const initialState = {
  * @param {State} state 
  * @returns 
  */
-const updateDiagram = (state) => {
+export const updateDiagram = (state) => {
     let { diagramType, filetype, renderUrl, diagramText, baseUrl } = state;
     if (!renderUrl || renderUrl === '') {
         renderUrl = initialState.renderUrl;
@@ -55,9 +57,10 @@ const updateDiagram = (state) => {
         diagramType = initialState.diagramType;
     }
     const codedDiagramTextText = encode(diagramText);
+    const defaultDiagram = exampleData.filter(({ diagramType: type, example }) => (diagramType === type) && (example === codedDiagramTextText)).length > 0;
     const diagramUrl = createKrokiUrl(renderUrl, diagramType, filetype, codedDiagramTextText);
     if (state.diagramUrl !== diagramUrl) {
-        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}`, diagramError: false }
+        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}`, diagramError: false, defaultDiagram }
     }
     return state;
 }
@@ -69,7 +72,7 @@ const updateDiagram = (state) => {
  * @returns 
  * @template State
  */
-const updateHash = (state, hash) => {
+export const updateHash = (state, hash) => {
     let url = hash;
     if (url.startsWith('#')) {
         url = url.substr(1);
@@ -104,13 +107,27 @@ const updateHash = (state, hash) => {
     } else {
         diagramText = state.diagramText;
     }
-    state = { ...state, hash, filetype, diagramType, renderUrl, diagramText };
-    state = updateDiagram(state);
+    if (filetype === null) {
+        filetype = state.filetype
+    }
+    if (diagramType === null) {
+        diagramType = state.diagramType
+    }
+    if (renderUrl === null) {
+        renderUrl = state.renderUrl
+    }
+    if (diagramText === null) {
+        diagramText = state.diagramText
+    }
+    if (state.hash !== hash || state.filetype !== filetype || state.renderUrl !== renderUrl || state.diagramText !== diagramText) {
+        state = { ...state, hash, filetype, diagramType, renderUrl, diagramText };
+        state = updateDiagram(state);
+    }
     return state;
 }
 
 const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
-    if (state.diagramText === '' || state.diagramText === decode(state.diagramTypes[state.diagramType].example || state.defaultDiagram)) {
+    if ((state.diagramText === '') || (state.defaultDiagram)) {
         state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true };
     } else {
         state = { ...state, diagramType };
@@ -120,7 +137,7 @@ const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
 }
 
 export default createReducer({
-    "@@router/LOCATION_CHANGE": (state, action) => {
+    [LOCATION_CHANGE]: (state, action) => {
         const { location, isFirstRendering } = action.payload;
         let hash = location.hash;
         if (hash === undefined) {
@@ -133,22 +150,32 @@ export default createReducer({
     },
     [COPY_BUTTON_HOVERED]: (state, action) => {
         const { scope, isHover } = action;
-        return { ...state, scopes: { ...state.scopes, [scope]: { ...state.scopes[scope], isHover } } }
+        if (isHover !== state.scopes[scope].isHover) {
+            state = { ...state, scopes: { ...state.scopes, [scope]: { ...state.scopes[scope], isHover } } }
+        }
+        return state;
     },
     [TEXT_COPIED]: (state, action) => {
         const { scope, isCopied } = action;
-        return { ...state, scopes: { ...state.scopes, [scope]: { ...state.scopes[scope], isCopied } } }
+        if (isCopied !== state.scopes[scope].isCopied) {
+            state = { ...state, scopes: { ...state.scopes, [scope]: { ...state.scopes[scope], isCopied } } }
+        }
+        return state;
     },
     [RENDERURL_CHANGED]: (state, action) => {
         const { renderUrl } = action;
-        state = { ...state, renderUrl };
-        state = updateDiagram(state);
+        if (renderUrl !== state.renderUrl || !state.diagramUrl) {
+            state = { ...state, renderUrl };
+            state = updateDiagram(state);
+        }
         return state;
     },
     [DIAGRAM_CHANGED]: (state, action) => {
         const { diagramText } = action;
-        state = { ...state, diagramText };
-        // state = updateDiagram(state);
+        if (diagramText !== state.diagramText) {
+            state = { ...state, diagramText };
+            // state = updateDiagram(state);
+        }
         return state;
     },
     [DIAGRAM_CHANGED_UPDATE]: (state) => {
@@ -164,7 +191,9 @@ export default createReducer({
     },
     [IMPORT_EXAMPLE]: (state, action) => {
         const { diagramText, diagramType } = action;
-        state = { ...state, diagramText, diagramType, defaultDiagram: true }
+        if ((diagramText !== state.diagramText) || (diagramType !== state.diagramType)) {
+            state = updateDiagram({ ...state, diagramText, diagramType })
+        }
         return state;
     },
     [IMPORT_URL]: (state, action) => {
