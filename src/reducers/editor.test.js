@@ -6,6 +6,14 @@ import exampleData from '../examples/data';
 import { decode } from '../kroki/coder';
 import { IMPORT_EXAMPLE } from '../constants/example';
 
+describe('initialState', () => {
+    it('should be returned when an unknown action is encountered', () => {
+        let state = null;
+        state = editorReducer(state, { type: 'unknown' });
+        expect(state).toBe(initialState);
+    })
+})
+
 describe('LOCATION_CHANGE', () => {
     const locationChangeDefaultAction = {
         type: '@@router/LOCATION_CHANGE',
