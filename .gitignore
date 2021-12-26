@@ -12,7 +12,6 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
-!.yarn/versions
 
 # testing
 /coverage
