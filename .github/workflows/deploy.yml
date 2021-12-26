@@ -36,7 +36,7 @@ jobs:
 
                   site_name="niolesk-site-${ref#refs/tags/v*}"
                   storybook_name="niolesk-storybook-${ref#refs/tags/v*}"
-                  test_name="niolesk-test"
+                  test_name="niolesk-test-${ref#refs/tags/v*}"
 
                   mv "build" "${site_name}"
                   zip -r "${site_name}.zip" "${site_name}"
