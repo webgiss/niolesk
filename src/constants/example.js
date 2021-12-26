@@ -5,3 +5,4 @@ export const VIEW_EXAMPLE = 'VIEW_EXAMPLE';
 export const CLOSE_EXAMPLE = 'CLOSE_EXAMPLE';
 export const NEXT_EXAMPLE = 'NEXT_EXAMPLE';
 export const PREV_EXAMPLE = 'PREV_EXAMPLE';
+export const CHANGE_SEARCH = 'CHANGE_SEARCH';

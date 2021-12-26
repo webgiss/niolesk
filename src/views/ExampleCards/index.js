@@ -6,14 +6,14 @@ import { decode } from '../../kroki/coder';
 
 const ExampleCards = () => {
     const dispatch = useDispatch();
-    const examples = useSelector((state)=> state.example.examples)
+    const examples = useSelector((state) => state.example.filteredExamples)
     const renderUrl = useSelector((state) => state.editor.renderUrl)
     
-    const cards = examples.map((example, index)=>({
+    const cards = examples.map((example)=>({
         diagType: example.title,
         description: example.description,
         diagUrl: createKrokiUrl(renderUrl, example.diagramType, 'svg', example.example),
-        onView: () => dispatch(viewExample(index)),
+        onView: () => dispatch(viewExample(example.id)),
         onImport: () => dispatch(importExample(decode(example.example), example.diagramType)),
     }))
 

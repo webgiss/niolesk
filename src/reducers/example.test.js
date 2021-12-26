@@ -1,4 +1,4 @@
-import { CHANGE_EXAMPLE_INDEX, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from "../constants/example";
+import { CHANGE_EXAMPLE_INDEX, CHANGE_SEARCH, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from "../constants/example";
 import exampleReducer, { initialState } from "./example"
 
 describe('initialState', () => {
@@ -30,6 +30,18 @@ describe('OPEN_EXAMPLES', () => {
 
         expect(state.windowExampleCardsOpened).toBe(true);
         expect(state).toBe(startState);
+    })
+    it('should reset search value, and reset the filteredExamples', () => {
+        const startState = { ...initialState, search: 'grut', filteredExamples: initialState.examples.slice(5, 8) }
+        let state = startState;
+
+        expect(state.search).not.toBe('');
+        expect(state.filteredExamples).not.toStrictEqual(state.examples);
+
+        state = exampleReducer(state, { type: OPEN_EXAMPLES });
+
+        expect(state.search).toBe('');
+        expect(state.filteredExamples).toStrictEqual(state.examples);
     })
 })
 
@@ -130,6 +142,19 @@ describe('CLOSE_EXAMPLE', () => {
         expect(state.windowExampleDetailsOpened).toBe(false);
         expect(state).toBe(startState);
     })
+
+    it('should reset search value, and reset the filteredExamples', () => {
+        const startState = { ...initialState, search: 'grut', windowExampleCardsOpened: true, filteredExamples: initialState.examples.slice(5, 8) }
+        let state = startState;
+
+        expect(state.search).not.toBe('');
+        expect(state.filteredExamples).not.toStrictEqual(state.examples);
+
+        state = exampleReducer(state, { type: CLOSE_EXAMPLE });
+
+        expect(state.search).toBe('');
+        expect(state.filteredExamples).toStrictEqual(state.examples);
+    })
 })
 
 describe('IMPORT_EXAMPLE', () => {
@@ -181,6 +206,18 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.windowExampleDetailsOpened).toBe(false);
         expect(state).toBe(startState);
     })
+    it('should reset search value, and reset the filteredExamples', () => {
+        const startState = { ...initialState, search: 'grut', windowExampleCardsOpened: true, filteredExamples: initialState.examples.slice(5, 8) }
+        let state = startState;
+
+        expect(state.search).not.toBe('');
+        expect(state.filteredExamples).not.toStrictEqual(state.examples);
+
+        state = exampleReducer(state, { type: IMPORT_EXAMPLE });
+
+        expect(state.search).toBe('');
+        expect(state.filteredExamples).toStrictEqual(state.examples);
+    })
 })
 
 describe('PREV_EXAMPLE', () => {
@@ -207,7 +244,7 @@ describe('PREV_EXAMPLE', () => {
         state = exampleReducer(state, { type: PREV_EXAMPLE });
 
         expect(state.windowExampleDetailsOpened).toBe(true);
-        expect(state.exampleIndex).toBe(initialState.examples.length-1);
+        expect(state.exampleIndex).toBe(initialState.examples.length - 1);
         expect(state).not.toBe(startState);
     })
 })
@@ -237,6 +274,50 @@ describe('NEXT_EXAMPLE', () => {
 
         expect(state.windowExampleDetailsOpened).toBe(true);
         expect(state.exampleIndex).toBe(0);
+        expect(state).not.toBe(startState);
+    })
+})
+
+describe('CHANGE_SEARCH', () => {
+    it('should update the search value', () => {
+        const startState = { ...initialState, windowExampleCardsOpened: true }
+        let state = startState;
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state.search).toBe('');
+
+        state = exampleReducer(state, { type: CHANGE_SEARCH, search: 'vega pyr' });
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state.search).toBe('vega pyr');
+        expect(state).not.toBe(startState);
+    })
+
+    it('should not change the state if the search value is the same as the one in the state', () => {
+        const startState = { ...initialState, windowExampleCardsOpened: true, search: 'vega pyr' }
+        let state = startState;
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state.search).toBe('vega pyr');
+
+        state = exampleReducer(state, { type: CHANGE_SEARCH, search: 'vega pyr' });
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state.search).toBe('vega pyr');
+        expect(state).toBe(startState);
+    })
+
+    it('should filter examples based on search "vega pyr"', () => {
+        const startState = { ...initialState, windowExampleCardsOpened: true }
+        let state = startState;
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state.search).toBe('');
+
+        state = exampleReducer(state, { type: CHANGE_SEARCH, search: 'vega pyr' });
+
+        expect(state.filteredExamples).toStrictEqual([state.examples[60], state.examples[74]]);
+        expect(state.search).toBe('vega pyr');
         expect(state).not.toBe(startState);
     })
 })

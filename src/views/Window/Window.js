@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import './Window.css'
 import classNames from 'classnames';
 
-const Window = ({ title, children, open, isContentCentered, actions, headerButtons, onClose }) => {
+const Window = ({ title, children, open, isContentCentered, actions, headerButtons, headerComponent, onClose }) => {
     return <Modal
         centered={true}
         className='Window'
@@ -17,6 +17,7 @@ const Window = ({ title, children, open, isContentCentered, actions, headerButto
         <Modal.Header>
             {title}
             {headerButtons ? <span className='WindowHeaderButtons'>{headerButtons}</span> : null}
+            {headerComponent ? <span className='WindowHeaderComponent'>{headerComponent}</span> : null}
         </Modal.Header>
         <Modal.Content scrolling={true} className={classNames({WindowContent: true, 'window-centered-content': isContentCentered})} >{children}</Modal.Content>
         <Modal.Actions>

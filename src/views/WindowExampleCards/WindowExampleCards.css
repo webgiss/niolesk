@@ -1,2 +1,19 @@
 .WindowExampleCards {
 }
+
+.WindowExampleCardsSearch {
+    font-size: 16px;
+    width: 300px;
+}
+
+@media screen and (max-width: 500px) {
+    .WindowExampleCardsSearch {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .WindowExampleCardsSearch {
+        width: 120px;
+    }
+}

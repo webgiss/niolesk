@@ -13,4 +13,11 @@
     float: right;
     margin-top: -6px ;
     margin-right: -17.5px;
-;}
+}
+
+.WindowHeaderComponent {
+    text-align: right;
+    float: right;
+    margin-top: -6px ;
+    margin-right: -5px;
+}

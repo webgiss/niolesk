@@ -1,5 +1,5 @@
-import { CHANGE_EXAMPLE_INDEX, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from "../constants/example";
-import { changeExampleIndex, closeExample, importExample, nextExample, openExamples, prevExample, viewExample } from "./example";
+import { CHANGE_EXAMPLE_INDEX, CHANGE_SEARCH, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from "../constants/example";
+import { changeExampleIndex, closeExample, importExample, nextExample, openExamples, prevExample, updateSearch, viewExample } from "./example";
 
 describe('openExamples', () => {
     it(`should dispatch the correct action`, () => {
@@ -47,5 +47,12 @@ describe('nextExample', () => {
     it(`should dispatch the correct action`, () => {
         const result = nextExample();
         expect(result).toStrictEqual({ type: NEXT_EXAMPLE })
+    })
+})
+
+describe('updateSearch', () => {
+    it(`should dispatch the correct action`, () => {
+        const result = updateSearch('vega pyr');
+        expect(result).toStrictEqual({ type: CHANGE_SEARCH, search: 'vega pyr' });
     })
 })
