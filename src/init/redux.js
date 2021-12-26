@@ -39,9 +39,11 @@ const initRedux = (baseUrl, initialState, reducerCreator) => {
 
     const enhancers = []
 
-    const isDevelopment = process.env.NODE_ENV === 'development';
+    //const isDevelopment = process.env.NODE_ENV === 'development';
 
-    if (isDevelopment && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+    //if (isDevelopment && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+
+    if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
         enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
     }
 
