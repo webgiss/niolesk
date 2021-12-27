@@ -34,8 +34,8 @@ FROM builder-${SOURCE} as builder
 RUN \
     cd /app && \
     yarn && \
-    PUBLIC_URL=${PUBLIC_URL} yarn build \
-    yarn create-example-cache
+    yarn create-example-cache \
+    PUBLIC_URL=${PUBLIC_URL} yarn build
 
 #----------------------------------------
 

@@ -26,8 +26,8 @@ jobs:
             - name: "Build"
               run: |
                   yarn
-                  yarn build
                   yarn create-example-cache
+                  yarn build
                   yarn build-storybook
                   yarn test:html
 
