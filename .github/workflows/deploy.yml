@@ -27,6 +27,7 @@ jobs:
               run: |
                   yarn
                   yarn build
+                  yarn create-example-cache
                   yarn build-storybook
                   yarn test:html
 

@@ -1,10 +1,16 @@
 import { createReducer } from "./utils/createReducer";
 import { CHANGE_EXAMPLE_INDEX, CHANGE_SEARCH, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from '../constants/example'
 import exampleData from '../examples/data';
+import { getExampleUrl } from '../examples/usecache'
 
 const mathMod = (v, m) => ((v % m) + m) % m;
 
-const examples = exampleData.map((exampleItem, id) => ({ id, ...exampleItem, searchField: `${exampleItem.title} ${exampleItem.description} ${exampleItem.keywords ? exampleItem.keywords.join(' ') : ''}`.toLowerCase() }));
+const examples = exampleData.map((exampleItem, id) => ({ 
+    id,
+    ...exampleItem,
+    searchField: `${exampleItem.title} ${exampleItem.description} ${exampleItem.keywords ? exampleItem.keywords.join(' ') : ''}`.toLowerCase(),
+    url: getExampleUrl(exampleItem),
+}));
 
 export const initialState = {
     windowExampleCardsOpened: false,

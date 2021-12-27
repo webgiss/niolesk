@@ -12,7 +12,7 @@ const ExampleCards = () => {
     const cards = examples.map((example)=>({
         diagType: example.title,
         description: example.description,
-        diagUrl: createKrokiUrl(renderUrl, example.diagramType, 'svg', example.example),
+        diagUrl: example.url || createKrokiUrl(renderUrl, example.diagramType, 'svg', example.example),
         onView: () => dispatch(viewExample(example.id)),
         onImport: () => dispatch(importExample(decode(example.example), example.diagramType)),
     }))
