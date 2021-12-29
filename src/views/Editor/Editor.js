@@ -37,11 +37,14 @@ class Editor extends React.Component {
                 className='MonacoEditor'
                 ref={(ref) => this._editor = ref}
                 language={language || "plaintext"}
+                
                 onChange={(text) => onTextChanged(text)}
                 value={shouldUpdate ? text : null}
                 options={{
                     theme: 'vs',
                     automaticLayout: true,
+                    folding: true,
+                    foldingStrategy: 'indentation',
                 }}
                 height='700px'
             />
