@@ -21,7 +21,7 @@ const ExampleDetail = () => {
     const codedDiagramTextText = examples[itemIndex].example;
     const doc = examples[itemIndex].doc;
     const diagramText = decode(codedDiagramTextText);
-    const diagUrl = createKrokiUrl(renderUrl, diagramType, 'svg', codedDiagramTextText);
+    const diagUrl = examples[itemIndex].url || createKrokiUrl(renderUrl, diagramType, 'svg', codedDiagramTextText);
     const onSelectItem = (index) => dispatch(changeExampleIndex(index))
 
     return <Internal {...{ diagramType, description, diagUrl, diagramText, items, itemIndex, onSelectItem, doc }} />
