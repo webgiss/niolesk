@@ -17,6 +17,7 @@ export const initialState = {
     filetype: 'svg',
     defaultDiagram: true,
     diagramTypes,
+    language: null,
     renderUrl: (window.config && window.config.krokiEngineUrl) || 'https://kroki.io/',
     scopes: {
         'image': {
@@ -43,7 +44,7 @@ export const initialState = {
  * @returns 
  */
 export const updateDiagram = (state) => {
-    let { diagramType, filetype, renderUrl, diagramText, baseUrl } = state;
+    let { diagramType, filetype, renderUrl, diagramText, baseUrl, diagramTypes } = state;
     if (!renderUrl || renderUrl === '') {
         renderUrl = initialState.renderUrl;
     }
@@ -56,11 +57,12 @@ export const updateDiagram = (state) => {
     if (!diagramType || diagramType === '') {
         diagramType = initialState.diagramType;
     }
+    const language = diagramTypes[diagramType].language;
     const codedDiagramTextText = encode(diagramText);
     const defaultDiagram = exampleData.filter(({ diagramType: type, example }) => (diagramType === type) && (example === codedDiagramTextText)).length > 0;
     const diagramUrl = createKrokiUrl(renderUrl, diagramType, filetype, codedDiagramTextText);
     if (state.diagramUrl !== diagramUrl) {
-        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}`, diagramError: false, defaultDiagram }
+        state = { ...state, diagramUrl, diagramEditUrl: `${baseUrl}#${diagramUrl}`, diagramError: false, defaultDiagram, language }
     }
     return state;
 }

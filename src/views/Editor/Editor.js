@@ -29,14 +29,14 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { text, onTextChanged } = this.props;
+        const { text, language, onTextChanged } = this.props;
         const { shouldUpdate } = this;
 
         return <div className='Editor'>
             <MonacoEditor
                 className='MonacoEditor'
                 ref={(ref) => this._editor = ref}
-                language="plaintext"
+                language={language || "plaintext"}
                 onChange={(text) => onTextChanged(text)}
                 value={shouldUpdate ? text : null}
                 options={{
