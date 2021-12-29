@@ -316,6 +316,23 @@ describe('DIAGRAM_TYPE_CHANGED', () => {
         expect(state.diagramText).not.toBe(diagramText)
         expect(state.defaultDiagram).toBe(true)
     })
+
+    it('should set the language correctly', () => {
+        const example = exampleData.filter(example => example.description == 'Pie Chart' && example.title == 'Vega-Lite')[0]
+        const diagramText = decode(example.example)
+
+        let state = updateDiagram({ ...standardState, diagramText });
+
+        expect(state.diagramType).not.toBe('vegalite')
+        expect(state.diagramText).toBe(diagramText)
+        expect(state.language).not.toBe('json')
+
+        state = editorReducer(state, { type: DIAGRAM_TYPE_CHANGED, diagramType: 'vegalite' })
+
+        expect(state.diagramType).toBe('vegalite')
+        expect(state.diagramText).toBe(diagramText)
+        expect(state.language).toBe('json')
+    })
 })
 
 describe('IMPORT_EXAMPLE', () => {
@@ -368,6 +385,24 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.diagramText).toBe('a -> b')
         expect(state.diagramType).toBe('c4plantuml')
     })
+
+    it('should set the language correctly', () => {
+        const example = exampleData.filter(example => example.description == 'Pie Chart' && example.title == 'Vega-Lite')[0]
+        const diagramText = decode(example.example)
+
+        let state = standardState;
+
+        expect(state.diagramType).not.toBe('vegalite')
+        expect(state.diagramText).not.toBe(diagramText)
+        expect(state.language).not.toBe('json')
+
+        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText, diagramType: 'vegalite' })
+
+        expect(state.diagramType).toBe('vegalite')
+        expect(state.diagramText).toBe(diagramText)
+        expect(state.language).toBe('json')
+    })
+
 })
 
 describe('IMPORT_URL', () => {
@@ -438,6 +473,23 @@ describe('IMPORT_URL', () => {
         expect(state.diagramType).toBe('c4plantuml')
         expect(state.renderUrl).toBe('https://kroki.example.com')
         expect(state.hash).toBe('https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=')
+    })
+
+    it('should set the language correctly', () => {
+        const example = exampleData.filter(example => example.description == 'Pie Chart' && example.title == 'Vega-Lite')[0]
+        const diagramText = decode(example.example)
+
+        let state = standardState;
+
+        expect(state.diagramType).not.toBe('vegalite')
+        expect(state.diagramText).not.toBe(diagramText)
+        expect(state.language).not.toBe('json')
+
+        state = editorReducer(state, { type: IMPORT_URL, url: `https://kroki.example.com/vegalite/svg/${example.example}` })
+
+        expect(state.diagramType).toBe('vegalite')
+        expect(state.diagramText).toBe(diagramText)
+        expect(state.language).toBe('json')
     })
 })
 
