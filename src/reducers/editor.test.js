@@ -324,15 +324,15 @@ describe('IMPORT_EXAMPLE', () => {
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).toBe(standardState.diagramText)
         expect(state.diagramType).toBe(standardState.diagramType)
 
-        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'plantumlC4' })
+        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
     })
 
     it('should update both diagramText and diagramType for non defaultDiagrams', () => {
@@ -340,33 +340,33 @@ describe('IMPORT_EXAMPLE', () => {
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).not.toBe(standardState.diagramText)
         expect(state.diagramType).toBe(standardState.diagramType)
 
-        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'plantumlC4' })
+        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
     })
 
     it('should update both diagramText and diagramType for non defaultDiagrams if provided a with default digram', () => {
-        const { example, diagramType } = exampleData.filter((exampleItem) => !exampleItem.default)[0]
+        const { example, diagramType } = exampleData.filter((exampleItem) => !exampleItem.default)[1]
         const diagramText = decode(example)
         let state = updateDiagram({ ...standardState, diagramText, diagramType });
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).not.toBe(standardState.diagramText)
         expect(state.diagramType).not.toBe(standardState.diagramType)
 
-        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'plantumlC4' })
+        state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
     })
 })
 
@@ -376,14 +376,14 @@ describe('IMPORT_URL', () => {
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
 
-        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' })
+        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' })
 
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
         expect(state.renderUrl).toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
     })
@@ -393,32 +393,32 @@ describe('IMPORT_URL', () => {
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
 
-        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' })
+        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' })
 
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
         expect(state.renderUrl).toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
     })
 
     it('should reset windowImportUrl field', () => {
-        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
         expect(state.windowImportUrl).not.toBe('')
 
-        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' })
+        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' })
 
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
         expect(state.renderUrl).toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
         expect(state.windowImportUrl).toBe('')
@@ -428,26 +428,26 @@ describe('IMPORT_URL', () => {
         let state = standardState;
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
-        expect(state.hash).not.toBe('https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=')
+        expect(state.hash).not.toBe('https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=')
 
-        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' })
+        state = editorReducer(state, { type: IMPORT_URL, url: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' })
 
         expect(state.diagramText).toBe('a -> b')
-        expect(state.diagramType).toBe('plantumlC4')
+        expect(state.diagramType).toBe('c4plantuml')
         expect(state.renderUrl).toBe('https://kroki.example.com')
-        expect(state.hash).toBe('https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=')
+        expect(state.hash).toBe('https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=')
     })
 })
 
 describe('CLOSE_IMPORT_URL', () => {
     it('should close the import url window and reset the windowImportUrl', () => {
-        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
         expect(state.windowImportUrl).not.toBe('')
@@ -455,17 +455,17 @@ describe('CLOSE_IMPORT_URL', () => {
         state = editorReducer(state, { type: CLOSE_IMPORT_URL })
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
         expect(state.windowImportUrl).toBe('')
     })
     it('should cstill work - and reset the windowImportUrl - if the window is already closed', () => {
-        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
         expect(state.windowImportUrl).not.toBe('')
@@ -473,7 +473,7 @@ describe('CLOSE_IMPORT_URL', () => {
         state = editorReducer(state, { type: CLOSE_IMPORT_URL })
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
         expect(state.windowImportUrl).toBe('')
@@ -482,11 +482,11 @@ describe('CLOSE_IMPORT_URL', () => {
 
 describe('OPEN_IMPORT_URL', () => {
     it('should open the import url window and reset the windowImportUrl', () => {
-        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(false)
         expect(state.windowImportUrl).not.toBe('')
@@ -494,17 +494,17 @@ describe('OPEN_IMPORT_URL', () => {
         state = editorReducer(state, { type: OPEN_IMPORT_URL })
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
         expect(state.windowImportUrl).toBe('')
     })
     it('should cstill work - and reset the windowImportUrl - if the window is already opened', () => {
-        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
 
         expect(state.defaultDiagram).toBe(true)
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
         expect(state.windowImportUrl).not.toBe('')
@@ -512,7 +512,7 @@ describe('OPEN_IMPORT_URL', () => {
         state = editorReducer(state, { type: OPEN_IMPORT_URL })
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
         expect(state.windowImportUrlOpened).toBe(true)
         expect(state.windowImportUrl).toBe('')
@@ -521,21 +521,21 @@ describe('OPEN_IMPORT_URL', () => {
 
 describe('UPDATE_IMPORT_URL', () => {
     it('should open the import url window and reset the windowImportUrl', () => {
-        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/plantumlC4/sv' };
+        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/c4plantuml/sv' };
 
-        expect(state.windowImportUrl).toBe('https://kroki.example.com/plantumlC4/sv')
+        expect(state.windowImportUrl).toBe('https://kroki.example.com/c4plantuml/sv')
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
 
-        state = editorReducer(state, { type: UPDATE_IMPORT_URL, url: 'https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=' })
+        state = editorReducer(state, { type: UPDATE_IMPORT_URL, url: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' })
 
-        expect(state.windowImportUrl).not.toBe('https://kroki.example.com/plantumlC4/sv')
-        expect(state.windowImportUrl).toBe('https://kroki.example.com/plantumlC4/svg/eNpLVNC1U0gCAAT8AW8=')
+        expect(state.windowImportUrl).not.toBe('https://kroki.example.com/c4plantuml/sv')
+        expect(state.windowImportUrl).toBe('https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=')
 
         expect(state.diagramText).not.toBe('a -> b')
-        expect(state.diagramType).not.toBe('plantumlC4')
+        expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.renderUrl).not.toBe('https://kroki.example.com')
     })
 })
