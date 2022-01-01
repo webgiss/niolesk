@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types'
 import '../fomantic-ui-css/semantic.min.css'
-import { Button, Form, Grid, Icon, Segment } from 'semantic-ui-react';
+import { Form, Grid, Segment } from 'semantic-ui-react';
 
 import Title from '../Title';
 import SubTitle from '../SubTitle';

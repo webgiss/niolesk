@@ -235,8 +235,8 @@ export default createReducer({
         return state;
     },
     [KEY_PRESSED]: (state, action) => {
-        const { code, key, ctrlKey, shiftKey, altKey, metaKey } = action
-        // console.log({ code, key, ctrlKey, shiftKey, altKey, metaKey })
+        const { key, ctrlKey, shiftKey, altKey, metaKey } = action
+        // console.log({ key, ctrlKey, shiftKey, altKey, metaKey })
         if (key === 'Escape' && (!ctrlKey) && (!shiftKey) && (!altKey) && (!metaKey)) {
             if (state.zenMode) {
                 state = { ...state, zenMode: false }
