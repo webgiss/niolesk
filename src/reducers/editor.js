@@ -1,4 +1,4 @@
-import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR } from "../constants/editor";
+import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, KEY_PRESSED, WINDOW_RESIZED } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
@@ -36,6 +36,7 @@ export const initialState = {
     windowImportUrlOpened: false,
     windowImportUrl: '',
     diagramError: false,
+    zenMode: false,
 };
 
 /**
@@ -226,4 +227,29 @@ export default createReducer({
         }
         return state;
     },
+    [ZEN_MODE_CHANGED]: (state, action) => {
+        const { zenMode } = action;
+        if (zenMode !== state.zenMode) {
+            state = { ...state, zenMode }
+        }
+        return state;
+    },
+    [KEY_PRESSED]: (state, action) => {
+        const { code, key, ctrlKey, shiftKey, altKey, metaKey } = action
+        // console.log({ code, key, ctrlKey, shiftKey, altKey, metaKey })
+        if (key === 'Escape' && (!ctrlKey) && (!shiftKey) && (!altKey) && (!metaKey)) {
+            if (state.zenMode) {
+                state = { ...state, zenMode: false }
+            }
+        }
+        return state;
+    },
+    [WINDOW_RESIZED]: (state, action) => {
+        const { width, height } = action
+        if (width !== state.width || height !== state.height) {
+            state = { ...state, width, height }
+        }
+        // console.log({ width, height })
+        return state;
+    }
 }, initialState);

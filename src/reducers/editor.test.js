@@ -1,4 +1,4 @@
-import { CLOSE_IMPORT_URL, COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL } from '../constants/editor';
+import { CLOSE_IMPORT_URL, COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, KEY_PRESSED, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL, WINDOW_RESIZED, ZEN_MODE_CHANGED } from '../constants/editor';
 import editorReducer, { initialState, updateDiagram } from './editor'
 
 const standardState = updateDiagram(initialState);
@@ -624,5 +624,101 @@ describe('DIAGRAM_HAS_ERROR', () => {
         state = editorReducer(state, { type: DIAGRAM_CHANGED_UPDATE })
 
         expect(state.diagramError).toBe(false)
+    })
+})
+
+describe('ZEN_MODE_CHANGED', () => {
+    it('should update zenMode correctly to true', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: ZEN_MODE_CHANGED, zenMode: true })
+
+        expect(state).not.toBe(standardState)
+        expect(state.zenMode).toBe(true)
+    })
+    it('should update zenMode correctly to false', () => {
+        let state = { ...standardState, zenMode: true };
+
+        expect(state.zenMode).toBe(true)
+
+        state = editorReducer(state, { type: ZEN_MODE_CHANGED, zenMode: false })
+
+        expect(state.zenMode).toBe(false)
+        expect(state).toStrictEqual(standardState)
+        expect(state).not.toBe(standardState)
+    })
+    it('should not change state if zenMode is the same', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: ZEN_MODE_CHANGED, zenMode: false })
+
+        expect(state.zenMode).toBe(false)
+        expect(state).toBe(standardState)
+    })
+})
+
+describe('KEY_PRESSED', () => {
+    it('should ignore most keys', () => {
+        let state = standardState;
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false })
+
+        expect(state).toBe(standardState)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: true, altKey: false, metaKey: false })
+
+        expect(state).toBe(standardState)
+    })
+
+    it('should exit zenMode on Esc', () => {
+        let state = { ...standardState, zenMode: true };
+
+        expect(state.zenMode).toBe(true)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'Escape', key: 'Escape', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false })
+
+        expect(state.zenMode).toBe(false)
+    })
+
+    it('should not change state if zenMode is already false', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'Escape', key: 'Escape', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false })
+
+        expect(state.zenMode).toBe(false)
+        expect(state).toBe(standardState)
+    })
+})
+
+describe('WINDOW_RESIZED', () => {
+    it('should take into account new window size', () => {
+        let state = standardState;
+
+        expect(state.width).not.toBe(1920)
+        expect(state.height).not.toBe(1080)
+
+        state = editorReducer(state, { type: WINDOW_RESIZED, width: 1920, height: 1080 })
+
+        expect(state.width).toBe(1920)
+        expect(state.height).toBe(1080)
+    })
+    it('should not change state if window size hasn\'t changed', () => {
+        let state = { ...standardState, width: 1920, height: 1080 };
+        const referenceState = state;
+
+        expect(state.width).toBe(1920)
+        expect(state.height).toBe(1080)
+
+        state = editorReducer(state, { type: WINDOW_RESIZED, width: 1920, height: 1080 })
+
+        expect(state.width).toBe(1920)
+        expect(state.height).toBe(1080)
+        expect(state).toBe(referenceState)
     })
 })

@@ -1,5 +1,5 @@
-import { COPY_BUTTON_HOVERED, COPY_TEXT, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL } from '../constants/editor';
-import { copyButtonHovered, copyText, diagramChanged, diagramHasError, diagramTypeChanged, importUrl, openImportUrl, renderUrlChanged, updateUrl } from './editor'
+import { COPY_BUTTON_HOVERED, COPY_TEXT, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, KEY_PRESSED, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL, WINDOW_RESIZED, ZEN_MODE_CHANGED } from '../constants/editor';
+import { changeZenMode, copyButtonHovered, copyText, diagramChanged, diagramHasError, diagramTypeChanged, importUrl, keyPressed, onWindowResized, openImportUrl, renderUrlChanged, updateUrl } from './editor'
 import delay from './utils/delay';
 
 import { resetCopy, hasCopy, getCopy, mockCopy } from './__jest__/copy'
@@ -193,6 +193,27 @@ describe('diagramHasError', () => {
     it(`should dispatch the correct action`, () => {
         const result = diagramHasError('https://example.com/diagramType/data==');
         expect(result).toStrictEqual({ type: DIAGRAM_HAS_ERROR, url: 'https://example.com/diagramType/data==' })
+    })
+})
+
+describe('changeZenMode', () => {
+    it(`should dispatch the correct action`, () => {
+        const result = changeZenMode(true);
+        expect(result).toStrictEqual({ type: ZEN_MODE_CHANGED, zenMode: true })
+    })
+})
+
+describe('keyPressed', () => {
+    it(`should dispatch the correct action`, () => {
+        const result = keyPressed({ code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false });
+        expect(result).toStrictEqual({ type: KEY_PRESSED, code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+    })
+})
+
+describe('onWindowResized', () => {
+    it(`should dispatch the correct action`, () => {
+        const result = onWindowResized(1920, 1080);
+        expect(result).toStrictEqual({ type: WINDOW_RESIZED, width: 1920, height: 1080 })
     })
 })
 

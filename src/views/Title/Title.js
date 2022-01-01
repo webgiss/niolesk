@@ -1,5 +1,4 @@
 import React from 'react';
-import '../fomantic-ui-css/semantic.css';
 import { Header } from 'semantic-ui-react'
 
 import './Title.css'

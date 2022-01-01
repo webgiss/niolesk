@@ -1,4 +1,4 @@
-import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR } from "../constants/editor";
+import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, WINDOW_RESIZED, KEY_PRESSED } from "../constants/editor";
 import delay from "./utils/delay";
 import copy from 'copy-to-clipboard';
 
@@ -89,3 +89,31 @@ export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url})
  * @returns
  */
 export const diagramHasError = (url) => ({ type: DIAGRAM_HAS_ERROR, url })
+
+/**
+ * Change zen Mode
+ * @param {boolean} zenMode The change mode to set
+ * @returns 
+ */
+export const changeZenMode = (zenMode) => ({ type: ZEN_MODE_CHANGED, zenMode })
+
+/**
+ * Called when a key is pressed
+ * @param {Object} obj
+ * @param {string} obj.code
+ * @param {string} obj.key
+ * @param {boolean} obj.ctrlKey
+ * @param {boolean} obj.shiftKey
+ * @param {boolean} obj.altKey
+ * @param {boolean} obj.metaKey
+ * @returns 
+ */
+export const keyPressed = ({ code, key, ctrlKey, shiftKey, altKey, metaKey }) => ({ type: KEY_PRESSED, code, key, ctrlKey, shiftKey, altKey, metaKey })
+
+/**
+ * Called when the size of the inner window has changed
+ * @param {number} width The new width of the inner browser window
+ * @param number} height The new height of the inner browser window
+ * @returns 
+ */
+export const onWindowResized = (width, height) => ({ type: WINDOW_RESIZED, width, height })

@@ -9,7 +9,10 @@ const Render = () => {
     const diagramError = useSelector((state) => state.editor.diagramError)
     const onDiagramError = (url) => dispatch(diagramHasError(url))
 
-    return <Internal {...{ diagramUrl, diagramEditUrl, diagramError, onDiagramError }} />
+    const zenMode = useSelector((state) => state.editor.zenMode);
+    const height = useSelector((state) => state.editor.height);
+
+    return <Internal {...{ diagramUrl, diagramEditUrl, diagramError, onDiagramError , zenMode, height }} />
 }
 
 export default Render;

@@ -13,12 +13,16 @@ class Editor extends React.Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if (this._editor) {
+        if (this._editor && this._editor.editor) {
             const editorText = this._editor.editor.getValue();
             const nextPropsText = nextProps.text;
 
             if (nextPropsText === editorText) {
-                this.shouldUpdate = false;
+                if ((nextProps.zenMode !== this.props.zenMode) || (nextProps.height !== this.props.height)) {
+                    this.shouldUpdate = true;
+                } else {
+                    this.shouldUpdate = false;
+                }
             } else {
                 this.shouldUpdate = true;
             }
@@ -29,8 +33,9 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { text, language, onTextChanged } = this.props;
+        const { text, language, onTextChanged, zenMode, height } = this.props;
         const { shouldUpdate } = this;
+        // console.log({ actualHeight: `${zenMode && height ? height : 700 }px`})
 
         return <div className='Editor'>
             <MonacoEditor
@@ -46,7 +51,7 @@ class Editor extends React.Component {
                     folding: true,
                     foldingStrategy: 'indentation',
                 }}
-                height='700px'
+                height={`${zenMode && height ? height : 700 }px`}
             />
         </div>
     }

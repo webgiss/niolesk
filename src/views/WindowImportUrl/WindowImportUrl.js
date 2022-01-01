@@ -1,7 +1,6 @@
 import React from 'react';
 import Window from '../Window'
 import PropTypes from 'prop-types';
-import '../fomantic-ui-css/semantic.min.css';
 import { Button, Form, Input } from 'semantic-ui-react';
 
 import './WindowImportUrl.css'

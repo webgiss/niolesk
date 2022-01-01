@@ -1,0 +1,40 @@
+.ShrinkableTextAlt {
+    display: none;
+}
+
+@media screen and (max-width: 950px) {
+    .ShrinkableText {
+        display: none;
+    }
+    .ShrinkableTextAlt {
+        display: inline;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .ShrinkableButton {
+        width: 4em;
+        white-space: pre;
+        overflow: hidden;
+    }
+
+    .ShrinkableText {
+        display: none;
+    }
+
+    .ShrinkableTextAlt {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .ShrinkableButton {
+        width: 2em;
+    }
+    .ShrinkableButton i.icon {
+        font-size: 0.75em;
+        position: relative;
+        left: -4px;
+        top: -2px;
+    }
+}

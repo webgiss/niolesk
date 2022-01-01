@@ -1,5 +1,4 @@
 import React from 'react';
-import '../fomantic-ui-css/semantic.css';
 import { Input } from 'semantic-ui-react'
 
 const RenderUrl = ({ renderUrl, renderUrlChanged }) => {

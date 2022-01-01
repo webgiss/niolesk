@@ -14,14 +14,19 @@
 .diagramParams {
     margin-bottom: 1rem;
 }
-@media screen and (max-width: 700px) {
-    .appShrinkableButton {
-        width: 4em;
-        white-space: pre;
-        overflow: hidden;
-    }
 
-    .appShrinkableText {
-        display: none;
-    }
+#root {
+    overflow: hidden;
+}
+
+.zenMode .MainPanel {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.zenMode .NonZen {
+    display: none;
 }

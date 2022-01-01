@@ -3,7 +3,6 @@ import Window from './Window';
 import { getComponenent } from '../storybook/stories';
 import ExampleCards from '../ExampleCards/ExampleCards'
 import ExampleDetail from '../ExampleDetail/ExampleDetail'
-import '../fomantic-ui-css/semantic.css';
 import { Button } from 'semantic-ui-react';
 
 export default {

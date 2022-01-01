@@ -1,11 +1,33 @@
 .Render {
     background-color: none;
     text-align: center;
+    overflow: hidden;
+}
+
+.zenMode .Render {
+    overflow: auto;
+    position: relative;
 }
 
 .RenderImage {
     width: 100%;
     position: relative;
+}
+
+.zenMode .RenderDiagramZone {
+    height: calc(100% - 30px);
+}
+
+.zenMode .RenderImage {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+}
+
+
+.zenMode .RenderEditMessage {
+    height: 25px;
 }
 
 .RenderImageError {
