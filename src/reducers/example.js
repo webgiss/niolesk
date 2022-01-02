@@ -1,11 +1,12 @@
 import { createReducer } from "./utils/createReducer";
 import { CHANGE_EXAMPLE_INDEX, CHANGE_SEARCH, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from '../constants/example'
+import { KEY_PRESSED } from '../constants/editor'
 import exampleData from '../examples/data';
 import { getExampleUrl } from '../examples/usecache'
 
 const mathMod = (v, m) => ((v % m) + m) % m;
 
-const examples = exampleData.map((exampleItem, id) => ({ 
+const examples = exampleData.map((exampleItem, id) => ({
     id,
     ...exampleItem,
     searchField: `${exampleItem.title} ${exampleItem.description} ${exampleItem.keywords ? exampleItem.keywords.join(' ') : ''}`.toLowerCase(),
@@ -71,6 +72,15 @@ export default createReducer({
         const { search } = action;
         if (search !== state.search) {
             state = { ...state, search, filteredExamples: filterExamples(state.examples, search) }
+        }
+        return state;
+    },
+    [KEY_PRESSED]: (state, action) => {
+        const { key, ctrlKey, shiftKey, altKey, metaKey } = action
+        if (key === 'x' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
+            if (!state.windowExampleCardsOpened) {
+                state = { ...state, windowExampleCardsOpened: true, search: '', filteredExamples: state.examples }
+            }
         }
         return state;
     },

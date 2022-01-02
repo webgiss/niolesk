@@ -1,4 +1,5 @@
 import { CHANGE_EXAMPLE_INDEX, CHANGE_SEARCH, CLOSE_EXAMPLE, IMPORT_EXAMPLE, NEXT_EXAMPLE, OPEN_EXAMPLES, PREV_EXAMPLE, VIEW_EXAMPLE } from "../constants/example";
+import { KEY_PRESSED } from '../constants/editor'
 import exampleReducer, { initialState } from "./example"
 
 describe('initialState', () => {
@@ -319,5 +320,42 @@ describe('CHANGE_SEARCH', () => {
         expect(state.filteredExamples).toStrictEqual([state.examples[60], state.examples[74]]);
         expect(state.search).toBe('vega pyr');
         expect(state).not.toBe(startState);
+    })
+})
+
+describe('KEY_PRESSED', () => {
+    it('should ignore most keys', () => {
+        let state = initialState;
+
+        state = exampleReducer(state, { type: KEY_PRESSED, code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false })
+
+        expect(state).toBe(initialState)
+
+        state = exampleReducer(state, { type: KEY_PRESSED, code: 'KeyQ', key: 'a', ctrlKey: false, shiftKey: true, altKey: false, metaKey: false })
+
+        expect(state).toBe(initialState)
+    })
+
+    it('should open the ExampleCards window on Alt+x key', () => {
+        let state = initialState;
+
+        expect(state.windowExampleCardsOpened).toBe(false);
+
+        state = exampleReducer(state, { type: KEY_PRESSED, code: 'KeyG'/* Funny non QWERTY keyboard*/, key: 'x', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state).not.toBe(initialState)
+        expect(state.windowExampleCardsOpened).toBe(true);
+    })
+
+    it('should not change the state if the ExampleCards window is already opened on Alt+x key', () => {
+        const startState = { ...initialState, windowExampleCardsOpened: true }
+        let state = startState;
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+
+        state = exampleReducer(state, { type: KEY_PRESSED, code: 'KeyG'/* Funny non QWERTY keyboard*/, key: 'x', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.windowExampleCardsOpened).toBe(true);
+        expect(state).toBe(startState)
     })
 })

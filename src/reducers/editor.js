@@ -236,10 +236,19 @@ export default createReducer({
     },
     [KEY_PRESSED]: (state, action) => {
         const { key, ctrlKey, shiftKey, altKey, metaKey } = action
-        // console.log({ key, ctrlKey, shiftKey, altKey, metaKey })
         if (key === 'Escape' && (!ctrlKey) && (!shiftKey) && (!altKey) && (!metaKey)) {
             if (state.zenMode) {
                 state = { ...state, zenMode: false }
+            }
+        }
+        if (key === 'z' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
+            if (!state.zenMode) {
+                state = { ...state, zenMode: true }
+            }
+        }
+        if (key === 'i' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
+            if (!state.windowImportUrlOpened) {
+                state = { ...state, windowImportUrlOpened: true, windowImportUrl: '' };
             }
         }
         return state;

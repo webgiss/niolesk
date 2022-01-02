@@ -1,10 +1,10 @@
 import { CLOSE_IMPORT_URL, COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, KEY_PRESSED, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL, WINDOW_RESIZED, ZEN_MODE_CHANGED } from '../constants/editor';
 import editorReducer, { initialState, updateDiagram } from './editor'
-
-const standardState = updateDiagram(initialState);
 import exampleData from '../examples/data';
 import { decode } from '../kroki/coder';
 import { IMPORT_EXAMPLE } from '../constants/example';
+
+const standardState = updateDiagram(initialState);
 
 describe('initialState', () => {
     it('should be returned when an unknown action is encountered', () => {
@@ -318,7 +318,7 @@ describe('DIAGRAM_TYPE_CHANGED', () => {
     })
 
     it('should set the language correctly', () => {
-        const example = exampleData.filter(example => example.description == 'Pie Chart' && example.title == 'Vega-Lite')[0]
+        const example = exampleData.filter(example => example.description === 'Pie Chart' && example.title === 'Vega-Lite')[0]
         const diagramText = decode(example.example)
 
         let state = updateDiagram({ ...standardState, diagramText });
@@ -684,7 +684,7 @@ describe('KEY_PRESSED', () => {
         expect(state.zenMode).toBe(false)
     })
 
-    it('should not change state if zenMode is already false', () => {
+    it('should not change state on Escape if zenMode is already false', () => {
         let state = standardState;
 
         expect(state.zenMode).toBe(false)
@@ -693,6 +693,89 @@ describe('KEY_PRESSED', () => {
 
         expect(state.zenMode).toBe(false)
         expect(state).toBe(standardState)
+    })
+
+    it('should enter zenMode on Alt+z on QWERTY keyboard', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyZ', key: 'z', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.zenMode).toBe(true)
+    })
+
+    it('should enter zenMode on Alt+z on AZERTY keyboard', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyW', key: 'z', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.zenMode).toBe(true)
+    })
+
+    it('should not change state when Alt+z is pressed and zenMode already true', () => {
+        let state = { ...standardState, zenMode: true };
+        const referenceState = state;
+
+        expect(state.zenMode).toBe(true)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyZ', key: 'z', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.zenMode).toBe(true)
+        expect(state).toBe(referenceState)
+    })
+
+    it('should not change state when z is pressed without Alt', () => {
+        let state = standardState;
+
+        expect(state.zenMode).toBe(false)
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyZ', key: 'z', ctrlKey: false, shiftKey: false, altKey: false, metaKey: false })
+
+        expect(state.zenMode).toBe(false)
+        expect(state).toBe(standardState)
+    })
+
+    it('should open the import url window and reset the windowImportUrl on Alt+i', () => {
+        let state = { ...standardState, windowImportUrlOpened: false, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
+
+        expect(state.defaultDiagram).toBe(true)
+        expect(state.diagramText).not.toBe('a -> b')
+        expect(state.diagramType).not.toBe('c4plantuml')
+        expect(state.renderUrl).not.toBe('https://kroki.example.com')
+        expect(state.windowImportUrlOpened).toBe(false)
+        expect(state.windowImportUrl).not.toBe('')
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyG'/*Funny non QWERTY keyboard*/, key: 'i', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.diagramText).not.toBe('a -> b')
+        expect(state.diagramType).not.toBe('c4plantuml')
+        expect(state.renderUrl).not.toBe('https://kroki.example.com')
+        expect(state.windowImportUrlOpened).toBe(true)
+        expect(state.windowImportUrl).toBe('')
+    })
+
+    it('should not change state when Alt+i is sent with the import url window already opened', () => {
+        let state = { ...standardState, windowImportUrlOpened: true, windowImportUrl: 'https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=' };
+        let referenceState = state;
+
+        expect(state.defaultDiagram).toBe(true)
+        expect(state.diagramText).not.toBe('a -> b')
+        expect(state.diagramType).not.toBe('c4plantuml')
+        expect(state.renderUrl).not.toBe('https://kroki.example.com')
+        expect(state.windowImportUrlOpened).toBe(true)
+        expect(state.windowImportUrl).not.toBe('')
+
+        state = editorReducer(state, { type: KEY_PRESSED, code: 'KeyG'/*Funny non QWERTY keyboard*/, key: 'i', ctrlKey: false, shiftKey: false, altKey: true, metaKey: false })
+
+        expect(state.diagramText).not.toBe('a -> b')
+        expect(state.diagramType).not.toBe('c4plantuml')
+        expect(state.renderUrl).not.toBe('https://kroki.example.com')
+        expect(state.windowImportUrlOpened).toBe(true)
+        expect(state.windowImportUrl).toBe('https://kroki.example.com/c4plantuml/svg/eNpLVNC1U0gCAAT8AW8=')
+        expect(state).toBe(referenceState)
     })
 })
 
