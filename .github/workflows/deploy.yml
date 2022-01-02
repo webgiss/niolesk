@@ -22,6 +22,11 @@ jobs:
               run: |
                   echo "REFNAME=$(echo "${{ github.ref }}" | sed -e 's/.*\///')" >> "${GITHUB_ENV}"
 
+            - name: "Workaround in case of release documentation doesn't exist"
+              run: |
+                filename="doc/releases/${{ env.REFNAME }}.md"
+                [ -f "${filename}" ] || touch "${filename}"
+
             - name: "Setup node"
               uses: actions/setup-node@v2
               with:
