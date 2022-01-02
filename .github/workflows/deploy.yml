@@ -18,6 +18,10 @@ jobs:
                   git config "user.name" "github-actions"
                   git config "user.email" "public-dev-github-actions-niolesk@gissehel.org"
 
+            - name: "Set environment variables"
+              run: |
+                  echo "REFNAME=$(echo "${{ github.ref }}" | sed -e 's/.*\///')" >> "${GITHUB_ENV}"
+
             - name: "Setup node"
               uses: actions/setup-node@v2
               with:
@@ -73,6 +77,8 @@ jobs:
               if: success()
               uses: "softprops/action-gh-release@v1"
               with:
+                  body:
+                  body_path: doc/releases/${{ env.REFNAME }}.md
                   files: |
                     niolesk-*.zip
                     niolesk-*.tar.gz
