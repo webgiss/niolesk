@@ -58,7 +58,7 @@ export const updateDiagram = (state) => {
     if (!diagramType || diagramType === '') {
         diagramType = initialState.diagramType;
     }
-    const language = diagramTypes[diagramType].language;
+    const language = diagramTypes[diagramType]?.language;
     const codedDiagramTextText = encode(diagramText);
     const defaultDiagram = exampleData.filter(({ diagramType: type, example }) => (diagramType === type) && (example === codedDiagramTextText)).length > 0;
     const diagramUrl = createKrokiUrl(renderUrl, diagramType, filetype, codedDiagramTextText);
@@ -94,7 +94,7 @@ export const updateHash = (state, hash) => {
         url = url.substr(protocolSeparatorPosition + protocolSeparator.length)
     }
     const urlParts = url.split('/');
-    if (urlParts.length >= 3) {
+    if (urlParts.length >= 4) {
         coded = urlParts[urlParts.length - 1];
         filetype = urlParts[urlParts.length - 2];
         diagramType = urlParts[urlParts.length - 3];

@@ -71,6 +71,30 @@ describe('LOCATION_CHANGE', () => {
 
         expect(newState2).toBe(newState)
     })
+
+    it('should not take into account the diagramType if only diagram type is provided into the URL', () => {
+        const action = { 
+            ...locationChangeAction, 
+            payload: { 
+                ...locationChangeAction.payload, 
+                location: { 
+                    ...locationChangeAction.payload.location, 
+                    hash: '#https://kroki.example.com/c4plantuml/',
+                }
+            }
+        }
+        const startState = standardState;
+        let state = startState;
+
+        expect(state.diagramType).not.toBe('c4plantuml')
+        expect(state.renderUrl).not.toBe('kroki.example.com')
+
+        state = editorReducer(state, action);
+
+        expect(state.diagramType).toBe(startState.diagramType)
+        expect(state.renderUrl).not.toBe('kroki.example.com')
+        expect(state.renderUrl).toBe(startState.renderUrl)
+    })
 })
 
 describe('COPY_BUTTON_HOVERED', () => {
