@@ -23,25 +23,25 @@ release:
 	yarn version patch
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
-	git push
 	git tag "v$$($(VERSION_CHECKER))"
-	git push --tags
 	yarn version patch
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER)) : Start new developement"
+	git push
+	git push --tags
 
 milestone-release:
 	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have commited everything before running a release" && false)
 	yarn version minor
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
-	git push
 	git tag "v$$($(VERSION_CHECKER))"
-	git push --tags
 	yarn version minor
 	yarn version patch
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER)) : Start new developement milestone"
+	git push
+	git push --tags
 
 info:
 	@echo $(APP_VERSION)
