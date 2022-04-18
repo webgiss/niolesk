@@ -3,6 +3,7 @@
 Edit **diagrams** from **textual** descriptions! : A [kroki](https://kroki.io/) interface.
 
 * Application : https://niolesk.top/
+* Project page : https://github.com/webgiss/niolesk/
 * Container image : `ghcr.io/webgiss/niolesk` (static site served by nginx)
 
 ## Description
