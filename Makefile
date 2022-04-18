@@ -3,7 +3,7 @@
 IMAGE_NAME=local-niolesk-image
 CONTAINER_NAME=local-niolesk
 
-VERSION_CHECKER=yarn info -R | grep -A 1 "niolesk@workspace:." | tail -n 1 | sed -e "s/.*Version: //"
+VERSION_CHECKER=yarn info -R --json | grep "niolesk@workspace:." | jq -M '.children.Version' | sed -e 's/"//g'
 APP_VERSION=$(shell $(VERSION_CHECKER))
 WORKING_DIR=$(shell pwd)
 
