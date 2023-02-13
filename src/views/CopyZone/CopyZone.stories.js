@@ -10,6 +10,7 @@ const defaultState = {
             image: { isHover: false, isCopied: false },
             edit: { isHover: false, isCopied: false },
             markdown: { isHover: false, isCopied: false },
+            markdownsource: { isHover: false, isCopied: false },
         }
     }
 }
@@ -22,12 +23,15 @@ export default {
     argTypes: {
         diagramUrl: typeString,
         diagramEditUrl: typeString,
+        diagramText: typeString,
         isHoverImage: typeBoolean,
         isCopiedImage: typeBoolean,
         isHoverEdit: typeBoolean,
         isCopiedEdit: typeBoolean,
         isHoverMarkdown: typeBoolean,
         isCopiedMarkdown: typeBoolean,
+        isHoverMarkdownSource: typeBoolean,
+        isCopiedMarkdownSource: typeBoolean,
     },
 };
 
@@ -66,12 +70,15 @@ const Template = (args) => {
     let state = defaultState;
     state = updateStateEditor(state, args, 'diagramUrl')
     state = updateStateEditor(state, args, 'diagramEditUrl')
+    state = updateStateEditor(state, args, 'diagramText')
     state = updateStateEditorScope(state, args, 'image', 'isHover', 'isHoverImage')
     state = updateStateEditorScope(state, args, 'image', 'isCopied', 'isCopiedImage')
     state = updateStateEditorScope(state, args, 'edit', 'isHover', 'isHoverEdit')
     state = updateStateEditorScope(state, args, 'edit', 'isCopied', 'isCopiedEdit')
     state = updateStateEditorScope(state, args, 'markdown', 'isHover', 'isHoverMarkdown')
     state = updateStateEditorScope(state, args, 'markdown', 'isCopied', 'isCopiedMarkdown')
+    state = updateStateEditorScope(state, args, 'markdownsource', 'isHover', 'isHoverMarkdownSource')
+    state = updateStateEditorScope(state, args, 'markdownsource', 'isCopied', 'isCopiedMarkdownSource')
 
     const { setState, decorator } = getReduxMockDecorator()
 
@@ -82,12 +89,15 @@ const Template = (args) => {
 const defaultArgs = {
     diagramUrl: 'https://kroki.example.com/dtype/data4879DATA0000==',
     diagramEditUrl: 'https://niolesk.example.com/#https://kroki.example.com/dtype/data4879DATA0000==',
+    diagramText: 'source',
     isHoverImage: false,
     isCopiedImage: false,
     isHoverEdit: false,
     isCopiedEdit: false,
     isHoverMarkdown: false,
     isCopiedMarkdown: false,
+    isHoverMarkdownSource: false,
+    isCopiedMarkdownSource: false,
 };
 
 export const Default = getComponenent(Template, {...defaultArgs});

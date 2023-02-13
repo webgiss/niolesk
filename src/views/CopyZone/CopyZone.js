@@ -19,6 +19,10 @@ const CopyZone = () => {
                 <label>Markdown content</label>
                 <CopyField scope='markdown' />
             </Form.Field>
+            <Form.Field>
+                <label>Markdown content with source as comment</label>
+                <CopyField scope='markdownsource' />
+            </Form.Field>
         </Form>
     </Segment>
 }

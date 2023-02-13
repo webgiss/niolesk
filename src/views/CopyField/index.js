@@ -5,14 +5,17 @@ import Internal from './CopyField'
 const CopyField = ({ scope }) => {
     const diagramEditUrl = useSelector((state) => state.editor.diagramEditUrl)
     const diagramUrl = useSelector((state) => state.editor.diagramUrl)
+    const diagramText = useSelector((state) => state.editor.diagramText).replaceAll("-->","\\-\\-\\>")
+    
     let text = '';
     switch (scope) {
         case 'image': text = diagramUrl; break;
         case 'edit': text = diagramEditUrl; break;
         case 'markdown': text = `![Diagram](${diagramUrl})\n\n[Edit this diagram](${diagramEditUrl})\n`; break;
+        case 'markdownsource': text = `![Diagram](${diagramUrl})\n\n<!--\n${diagramText}\n-->\n\n[Edit this diagram](${diagramEditUrl})\n`; break;
         default:
     }
-    const isMultiline = scope === 'markdown';
+    const isMultiline = scope === 'markdown' || scope === 'markdownsource';
     const isCopyHover = useSelector((state) => state.editor.scopes[scope].isHover)
     const isCopied = useSelector((state) => state.editor.scopes[scope].isCopied)
     const dispatch = useDispatch();

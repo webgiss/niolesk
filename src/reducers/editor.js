@@ -32,6 +32,10 @@ export const initialState = {
             isHover: false,
             isCopied: false,
         },
+        'markdownsource': {
+            isHover: false,
+            isCopied: false,
+        },
     },
     windowImportUrlOpened: false,
     windowImportUrl: '',
