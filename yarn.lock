@@ -1570,6 +1570,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.2.0":
+  version: 7.20.13
+  resolution: "@babel/runtime@npm:7.20.13"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: 09b7a97a05c80540db6c9e4ddf8c5d2ebb06cae5caf3a87e33c33f27f8c4d49d9c67a2d72f1570e796045288fad569f98a26ceba0c4f5fad2af84b6ad855c4fb
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.12.7, @babel/template@npm:^7.16.0, @babel/template@npm:^7.3.3":
   version: 7.16.0
   resolution: "@babel/template@npm:7.16.0"
@@ -7192,6 +7201,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"d3-color@npm:1":
+  version: 1.4.1
+  resolution: "d3-color@npm:1.4.1"
+  checksum: a214b61458b5fcb7ad1a84faed0e02918037bab6be37f2d437bf0e2915cbd854d89fbf93754f17b0781c89e39d46704633d05a2bfae77e6209f0f4b140f9894b
+  languageName: node
+  linkType: hard
+
+"d3-ease@npm:^1.0.3":
+  version: 1.0.7
+  resolution: "d3-ease@npm:1.0.7"
+  checksum: 117811d51dfc4a126e8d23d249252df792fbbe30a93615e1d67158c482eff69b900e45a4cc92746fe65b1143287455406a89aae04eb4ca1ba5b1dc2a42af5b85
+  languageName: node
+  linkType: hard
+
+"d3-interpolate@npm:^1.3.2":
+  version: 1.4.0
+  resolution: "d3-interpolate@npm:1.4.0"
+  dependencies:
+    d3-color: 1
+  checksum: d98988bd1e2f59d01f100d0a19315ad8f82ef022aa09a65aff76f747a44f9b52f2d64c6578b8f47e01f2b14a8f0ef88f5460d11173c0dd2d58238c217ac0ec03
+  languageName: node
+  linkType: hard
+
+"d3-timer@npm:^1.0.9":
+  version: 1.0.10
+  resolution: "d3-timer@npm:1.0.10"
+  checksum: f7040953672deb2dfa03830ace80dbbcb212f80890218eba15dcca6f33f74102d943023ccc2a563295195cd8c63639bb2410ef1691c8fecff4a114fdf5c666f4
+  languageName: node
+  linkType: hard
+
 "damerau-levenshtein@npm:^1.0.7":
   version: 1.0.7
   resolution: "damerau-levenshtein@npm:1.0.7"
@@ -12786,6 +12825,8 @@ __metadata:
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
     react-scripts: ^5.0.0
+    react-svg-pan-zoom: ^3.12.1
+    react-svg-pan-zoom-loader: ^1.4.1
     redux: ^4.1.2
     redux-thunk: ^2.4.1
     semantic-ui-react: ^2.0.4
@@ -13600,6 +13641,13 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 5b1e2daa247062061325b8fdbfd1fb56dde0a448fb1455453276ea18c60685bdad23a445dc148cf87bc216be1573357509b7d4060494a6fd768c7efad833ee45
+  languageName: node
+  linkType: hard
+
+"performance-now@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "performance-now@npm:0.2.0"
+  checksum: 2020aecc3980c280bf0a0382d476cf4e725a10433e853f853c57bc3ed084ab8aa880fac87e92d1b44d30138b8da2d2b77aad321ef3d7ce50b34500a4f4f84d0f
   languageName: node
   linkType: hard
 
@@ -14834,6 +14882,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prop-types@npm:^15.5.8, prop-types@npm:^15.8.1":
+  version: 15.8.1
+  resolution: "prop-types@npm:15.8.1"
+  dependencies:
+    loose-envify: ^1.4.0
+    object-assign: ^4.1.1
+    react-is: ^16.13.1
+  checksum: c056d3f1c057cb7ff8344c645450e14f088a915d078dcda795041765047fa080d38e5d626560ccaac94a4e16e3aa15f3557c1a9a8d1174530955e992c675e459
+  languageName: node
+  linkType: hard
+
 "property-information@npm:^5.0.0, property-information@npm:^5.3.0":
   version: 5.6.0
   resolution: "property-information@npm:5.6.0"
@@ -14928,7 +14987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raf@npm:^3.4.1":
+"raf@npm:^3.1.0, raf@npm:^3.4.1":
   version: 3.4.1
   resolution: "raf@npm:3.4.1"
   dependencies:
@@ -15207,6 +15266,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-lifecycles-compat@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "react-lifecycles-compat@npm:3.0.4"
+  checksum: a904b0fc0a8eeb15a148c9feb7bc17cec7ef96e71188280061fc340043fd6d8ee3ff233381f0e8f95c1cf926210b2c4a31f38182c8f35ac55057e453d6df204f
+  languageName: node
+  linkType: hard
+
+"react-motion@npm:^0.5.2":
+  version: 0.5.2
+  resolution: "react-motion@npm:0.5.2"
+  dependencies:
+    performance-now: ^0.2.0
+    prop-types: ^15.5.8
+    raf: ^3.1.0
+  peerDependencies:
+    react: ^0.14.9 || ^15.3.0 || ^16.0.0
+  checksum: b1b2ab15d0e7492be827576fa7238c11679b52495a640b1234400771fdeac9ded8909532135b4a84be28e21e63dc97d54758d08ba280f90409b54104730b29c0
+  languageName: node
+  linkType: hard
+
+"react-move@npm:^2.7.0":
+  version: 2.9.1
+  resolution: "react-move@npm:2.9.1"
+  dependencies:
+    "@babel/runtime": ^7.2.0
+    d3-interpolate: ^1.3.2
+    d3-timer: ^1.0.9
+    prop-types: ^15.6.2
+    react-lifecycles-compat: ^3.0.4
+  peerDependencies:
+    react: ^15.4.0 || ^16.0.0
+  checksum: 1d76d6b15211a8edfdc11f8883328c16dc4c3662eb5c876f7abe64369c5b0fb8f534bd29e255a380eb233ea2db05ff672245453f1fde9bd82715951328f00db2
+  languageName: node
+  linkType: hard
+
 "react-popper-tooltip@npm:^3.1.1":
   version: 3.1.1
   resolution: "react-popper-tooltip@npm:3.1.1"
@@ -15409,6 +15503,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-svg-pan-zoom-loader@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "react-svg-pan-zoom-loader@npm:1.4.1"
+  dependencies:
+    react-svg-pan-zoom: ">=3.0.0"
+    react-svgmt: ^1.1.7
+  peerDependencies:
+    prop-types: ^15.6.2
+    react: ">=16.0.0"
+  checksum: cec81203561e189b147083845ad0bbb14da1331862816dbd8a729dacd9d2af8dcba2a0fbd6142398a0f0d2853bf6312bd9900af4af96f74b20e5b5500ea61e9b
+  languageName: node
+  linkType: hard
+
+"react-svg-pan-zoom@npm:>=3.0.0, react-svg-pan-zoom@npm:^3.12.1":
+  version: 3.12.1
+  resolution: "react-svg-pan-zoom@npm:3.12.1"
+  dependencies:
+    prop-types: ^15.8.1
+    transformation-matrix: ^2.14.0
+  checksum: 0329cdba9b53de9ae2a58f8774aee64d326e78ef76badbeafb47af23f42a15f9e1efe59273032070b3e67a2e2d469e06e6b38b1a046a3392652ec9b1ec5c390b
+  languageName: node
+  linkType: hard
+
+"react-svgmt@npm:^1.1.7":
+  version: 1.2.0
+  resolution: "react-svgmt@npm:1.2.0"
+  dependencies:
+    d3-ease: ^1.0.3
+    react-motion: ^0.5.2
+    react-move: ^2.7.0
+  peerDependencies:
+    prop-types: ^15.6.0
+    react: ^17.0.0
+    react-dom: ^17.0.0
+  checksum: 7537e7b7d44ab71d6273781511eed03606017c9ae603b92fde6a23e361a71bdc9f6fca65e13e1eec23340fc1b663398abcc47449e98c3279c0489072dc9c5c09
+  languageName: node
+  linkType: hard
+
 "react-syntax-highlighter@npm:^13.5.3":
   version: 13.5.3
   resolution: "react-syntax-highlighter@npm:13.5.3"
@@ -15566,6 +15698,13 @@ __metadata:
   version: 1.4.2
   resolution: "regenerate@npm:1.4.2"
   checksum: 3317a09b2f802da8db09aa276e469b57a6c0dd818347e05b8862959c6193408242f150db5de83c12c3fa99091ad95fb42a6db2c3329bfaa12a0ea4cbbeb30cb0
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "regenerator-runtime@npm:0.13.11"
+  checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
   languageName: node
   linkType: hard
 
@@ -17582,6 +17721,13 @@ __metadata:
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
   checksum: 726321c5eaf41b5002e17ffbd1fb7245999a073e8979085dacd47c4b4e8068ff5777142fc6726d6ca1fd2ff16921b48788b87225cbc57c72636f6efa8efbffe3
+  languageName: node
+  linkType: hard
+
+"transformation-matrix@npm:^2.14.0":
+  version: 2.14.0
+  resolution: "transformation-matrix@npm:2.14.0"
+  checksum: cac764745b87109027d93c804c3441b27f2d02038478dc008702f8bc27aa2db3e8a16d2465c4f2ebe528a84313a78e41ce2c29a91eda49b6b8cc97debec3c25b
   languageName: node
   linkType: hard
 

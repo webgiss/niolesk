@@ -1,4 +1,4 @@
-import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, WINDOW_RESIZED, KEY_PRESSED } from "../constants/editor";
+import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, WINDOW_RESIZED, KEY_PRESSED, PAN_ZOOM_CHANGE_TOOL, PAN_ZOOM_CHANGE_VALUE, PAN_ZOOM_USE, PAN_ZOOM_TOGGLE, SET_TEXT_HEIGHT } from "../constants/editor";
 import delay from "./utils/delay";
 import copy from 'copy-to-clipboard';
 
@@ -82,7 +82,7 @@ export const openImportUrl = () => ({ type: OPEN_IMPORT_URL });
  * Called when the new digram url window update the url
  * @returns
  */
-export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url})
+export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url })
 
 /**
  * Called when the digram url resolve an error
@@ -117,3 +117,9 @@ export const keyPressed = ({ code, key, ctrlKey, shiftKey, altKey, metaKey }) =>
  * @returns 
  */
 export const onWindowResized = (width, height) => ({ type: WINDOW_RESIZED, width, height })
+
+export const usePanZoom = (use) => ({ type: PAN_ZOOM_USE, use })
+export const togglePanZoom = (use) => ({ type: PAN_ZOOM_TOGGLE })
+export const changeTool = (tool) => ({ type: PAN_ZOOM_CHANGE_TOOL, tool })
+export const changeValue = (value) => ({ type: PAN_ZOOM_CHANGE_VALUE, value })
+export const setTextHeight = (height) => ({ type: SET_TEXT_HEIGHT, height })

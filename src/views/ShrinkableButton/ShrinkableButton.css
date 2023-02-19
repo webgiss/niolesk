@@ -11,7 +11,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 630px) {
     .ShrinkableButton {
         width: 4em;
         white-space: pre;
@@ -27,7 +27,7 @@
     }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 520px) {
     .ShrinkableButton {
         width: 2em;
     }

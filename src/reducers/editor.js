@@ -1,4 +1,4 @@
-import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, KEY_PRESSED, WINDOW_RESIZED } from "../constants/editor";
+import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, KEY_PRESSED, WINDOW_RESIZED, PAN_ZOOM_CHANGE_TOOL, PAN_ZOOM_CHANGE_VALUE, PAN_ZOOM_USE, PAN_ZOOM_TOGGLE, SET_TEXT_HEIGHT } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
@@ -41,6 +41,11 @@ export const initialState = {
     windowImportUrl: '',
     diagramError: false,
     zenMode: false,
+    pan_zoom_use: true,
+    pan_zoom_tool: 'pan',
+    pan_zoom_value: {},
+    editorHeight: 700,
+    textHeight: 0,
 };
 
 /**
@@ -234,7 +239,8 @@ export default createReducer({
     [ZEN_MODE_CHANGED]: (state, action) => {
         const { zenMode } = action;
         if (zenMode !== state.zenMode) {
-            state = { ...state, zenMode }
+            const editorHeight = zenMode ? state.height : 700;
+            state = { ...state, zenMode, editorHeight }
         }
         return state;
     },
@@ -242,12 +248,12 @@ export default createReducer({
         const { key, ctrlKey, shiftKey, altKey, metaKey } = action
         if (key === 'Escape' && (!ctrlKey) && (!shiftKey) && (!altKey) && (!metaKey)) {
             if (state.zenMode) {
-                state = { ...state, zenMode: false }
+                state = { ...state, zenMode: false, editorHeight: 700 }
             }
         }
         if (key === 'z' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
             if (!state.zenMode) {
-                state = { ...state, zenMode: true }
+                state = { ...state, zenMode: true, editorHeight: state.height }
             }
         }
         if (key === 'i' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
@@ -255,14 +261,51 @@ export default createReducer({
                 state = { ...state, windowImportUrlOpened: true, windowImportUrl: '' };
             }
         }
+        if (key === 'p' && (!ctrlKey) && (!shiftKey) && (altKey) && (!metaKey)) {
+            state = { ...state, pan_zoom_use: !(state.pan_zoom_use) }
+        }
         return state;
     },
     [WINDOW_RESIZED]: (state, action) => {
         const { width, height } = action
-        if (width !== state.width || height !== state.height) {
-            state = { ...state, width, height }
+        const editorHeight = state.zenMode ? height : 700;
+        if (width !== state.width || height !== state.height || editorHeight !== state.editorHeight) {
+            state = { ...state, width, height, editorHeight }
         }
         // console.log({ width, height })
         return state;
-    }
+    },
+
+    [PAN_ZOOM_USE]: (state, action) => {
+        const { use } = action
+        if (use !== state.pan_zoom_use) {
+            state = { ...state, pan_zoom_use: use }
+        }
+        return state;
+    },
+    [PAN_ZOOM_TOGGLE]: (state) => {
+        state = { ...state, pan_zoom_use: !state.pan_zoom_use }
+        return state;
+    },
+    [PAN_ZOOM_CHANGE_TOOL]: (state, action) => {
+        const { tool } = action
+        if (tool !== state.pan_zoom_tool) {
+            state = { ...state, pan_zoom_tool: tool }
+        }
+        return state;
+    },
+    [PAN_ZOOM_CHANGE_VALUE]: (state, action) => {
+        const { value } = action
+        if (value !== state.value) {
+            state = { ...state, pan_zoom_value: value }
+        }
+        return state;
+    },
+    [SET_TEXT_HEIGHT]: (state, action) => {
+        const { height } = action
+        if (height !== state.textHeight) {
+            state = { ...state, textHeight: height }
+        }
+        return state;
+    },
 }, initialState);

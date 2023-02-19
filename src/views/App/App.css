@@ -30,3 +30,12 @@
 .zenMode .NonZen {
     display: none;
 }
+
+.minimal-column {
+    flex-basis: min-content;
+}
+
+.maximal-column {
+    flex-grow: 1;
+}
+

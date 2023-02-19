@@ -33,9 +33,8 @@ class Editor extends React.Component {
     }
 
     render() {
-        const { text, language, onTextChanged, zenMode, height } = this.props;
+        const { text, language, onTextChanged, height } = this.props;
         const { shouldUpdate } = this;
-        // console.log({ actualHeight: `${zenMode && height ? height : 700 }px`})
 
         return <div className='Editor'>
             <MonacoEditor
@@ -51,7 +50,7 @@ class Editor extends React.Component {
                     folding: true,
                     foldingStrategy: 'indentation',
                 }}
-                height={`${zenMode && height ? height : 700 }px`}
+                height={`${height}px`}
             />
         </div>
     }

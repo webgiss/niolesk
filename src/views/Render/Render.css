@@ -14,10 +14,6 @@
     position: relative;
 }
 
-.zenMode .RenderDiagramZone {
-    height: calc(100% - 30px);
-}
-
 .zenMode .RenderImage {
     width: auto;
     max-width: 100%;

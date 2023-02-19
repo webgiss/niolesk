@@ -19,7 +19,7 @@ import WindowImportUrl from '../WindowImportUrl';
 import './App.css'
 import classNames from 'classnames';
 
-const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }) => {
+const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, onTogglePanZoom }) => {
     if (!onExamples) {
         onExamples = () => { };
     }
@@ -63,13 +63,14 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
                     <Form.Field>
                         <Grid columns={2}>
                             <Grid.Row>
-                                <Grid.Column>
+                                <Grid.Column  className='minimal-column'>
                                     <DiagramType />
                                 </Grid.Column>
-                                <Grid.Column >
+                                <Grid.Column className='maximal-column'>
                                     <ShrinkableButton floated='right' onClick={() => onExamples()} icon='list alternate outline' text='Examples' textAlt='Ex.' />
                                     <ShrinkableButton floated='right' onClick={() => onImportUrl()} icon='write' text='Import diagram URL' textAlt='URL' />
                                     <ShrinkableButton floated='right' onClick={() => onSetZenMode()} icon='external alternate' text='Zen Mode' textAlt='Zen' />
+                                    <ShrinkableButton floated='right' onClick={() => onTogglePanZoom()} icon='zoom' text='Pan & Zoom' textAlt='P&Z' />
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
