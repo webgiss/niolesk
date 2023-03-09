@@ -19,7 +19,7 @@ build:
 	docker build --rm --force-rm -t "$(IMAGE_NAME)" .
 
 release:
-	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have commited everything before running a release" && false)
+	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have committed everything before running a release" && false)
 	yarn version patch
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
@@ -31,7 +31,7 @@ release:
 	git push --tags
 
 milestone-release:
-	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have commited everything before running a release" && false)
+	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have committed everything before running a release" && false)
 	yarn version minor
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
