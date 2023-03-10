@@ -4,7 +4,7 @@ Niolesk currently is just a static page, thus doesn't require anything else than
 
 ## Compilation using yarn
 
-Requierements:
+Requirements:
 - nodejs 16
 - yarn
 - git
@@ -32,7 +32,7 @@ Done in 30.40s.
 $
 ```
 
-Finaly build Niolesk
+Finally build Niolesk
 
 ```
 $ yarn build
@@ -67,7 +67,7 @@ if you want to host the site at `/niolesk/`.
 
 ## Compilation using docker
 
-Requierement:
+Requirement:
 - Docker
 
 ### Basic usage
@@ -130,7 +130,7 @@ You can specify some build args to change the behavior
 docker build --rm --force-rm -t local_niolesk_image:git-7438794 --build-arg SOURCE=git --build-arg POINT=7438794 .
 ```
 
-You can also specify the `PUBLIC_URL` for deployement using `--build-arg` (default is `/`):
+You can also specify the `PUBLIC_URL` for deployment using `--build-arg` (default is `/`):
 
 ```
 docker build --rm --force-rm -t local_niolesk_image --build-arg PUBLIC_URL=/niolesk/ .
