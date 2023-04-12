@@ -1,5 +1,5 @@
 ARG SOURCE=local
-ARG IMAGE_BUILD=node:16-alpine3.14
+ARG IMAGE_BUILD=node:16-alpine3.17
 
 #----------------------------------------
 
@@ -34,8 +34,8 @@ FROM builder-${SOURCE} as builder
 RUN \
     cd /app && \
     yarn && \
-    yarn create-example-cache && \
-    PUBLIC_URL=${PUBLIC_URL} yarn build
+    yarn create-example-cache --verbose && \
+    PUBLIC_URL=${PUBLIC_URL} yarn build --verbose
 
 #----------------------------------------
 
