@@ -5,8 +5,7 @@ ARG IMAGE_BUILD=node:16-alpine3.17
 
 FROM ${IMAGE_BUILD} as builder-base
 
-RUN \
-    apk update && \
+RUN apk update && \
     apk add git
 
 #----------------------------------------
@@ -16,8 +15,7 @@ FROM builder-base as builder-git
 ARG REPO=https://github.com/webgiss/niolesk
 ARG POINT=main
 
-RUN \
-    git clone "${REPO}" /app && \
+RUN git clone "${REPO}" /app && \
     cd /app && \
     git checkout "${POINT}"
 
@@ -29,10 +27,11 @@ ARG PUBLIC_URL=/
 
 ADD . /app
 
+#----------------------------------------
+
 FROM builder-${SOURCE} as builder
 
-RUN \
-    cd /app && \
+RUN cd /app && \
     yarn && \
     yarn create-example-cache && \
     PUBLIC_URL=${PUBLIC_URL} yarn build
@@ -45,8 +44,7 @@ ARG VCS_REF=working-copy
 ARG BUILD_DATE=now
 ARG VERSION=dev
 
-LABEL \
-      org.opencontainers.image.created="${BUILD_DATE}" \
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.authors="gissehel" \
       org.opencontainers.image.url="https://github.com/webgiss/niolesk" \
       org.opencontainers.image.source="https://github.com/webgiss/niolesk" \
