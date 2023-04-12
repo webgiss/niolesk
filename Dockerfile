@@ -3,14 +3,14 @@ ARG IMAGE_BUILD=node:16-alpine3.17
 
 #----------------------------------------
 
-FROM ${IMAGE_BUILD} as builder-base
+FROM --platform=$BUILDPLATFORM ${IMAGE_BUILD} AS builder-base
 
 RUN apk update && \
     apk add git
 
 #----------------------------------------
 
-FROM builder-base as builder-git
+FROM builder-base AS builder-git
 
 ARG REPO=https://github.com/webgiss/niolesk
 ARG POINT=main
@@ -21,7 +21,7 @@ RUN git clone "${REPO}" /app && \
 
 #----------------------------------------
 
-FROM builder-base as builder-local
+FROM builder-base AS builder-local
 
 ARG PUBLIC_URL=/
 
@@ -29,10 +29,14 @@ ADD . /app
 
 #----------------------------------------
 
-FROM builder-${SOURCE} as builder
+FROM builder-${SOURCE} AS builder
 
-RUN cd /app && \
-    yarn && \
+ARG TARGETARCH
+ARG TARGETOS
+ENV npm_config_target_arch=$TARGETARCH
+ENV npm_config_target_platform=$TARGETOS
+WORKDIR /app
+RUN yarn && \
     yarn create-example-cache && \
     PUBLIC_URL=${PUBLIC_URL} yarn build
 
