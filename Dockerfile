@@ -42,7 +42,8 @@ WORKDIR /app
 RUN \
     yarn && \
     yarn create-example-cache && \
-    PUBLIC_URL=${PUBLIC_URL} yarn build
+    PUBLIC_URL=${PUBLIC_URL} yarn build && \
+    chmod 0666 /app/build/config.js
 
 #----------------------------------------
 
