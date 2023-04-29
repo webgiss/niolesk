@@ -28,6 +28,30 @@ docker run -d --rm=true -p 8017:80 ghcr.io/webgiss/niolesk
 
 Then go to http://127.0.0.1:8017/ and it's running.
 
+### Unprivileged images
+
+Standard images are based on nginx:latest image. If you need unprivileged images, you can use 
+* `ghcr.io/webgiss/niolesk:unprivileged` instead of `ghcr.io/webgiss/niolesk:latest`
+* `ghcr.io/webgiss/niolesk:unprivileged-`{version} instead of `ghcr.io/webgiss/niolesk:`{version}
+
+Those images are based on image provided by https://github.com/nginxinc/docker-nginx-unprivileged
+
+Note: The port in the container isn't 80 but 8080 (as 80 is only accessible to privileged user).
+
+So the standard demo site becomes:
+
+```
+docker run -d --rm=true -p 8017:8080 -u 1037:1037 ghcr.io/webgiss/niolesk:unprivileged
+```
+
+### Docker platforms
+
+Image is currently available for various platforms:
+* linux/amd64
+* linux/arm64
+* linux/386
+* linux/arm/v7
+
 ### Advanced usage
 
 If you want your niolesk docker instance to be linked to your kroki docker instance (hosted at https://kroki.example.com/) just start with command line:
