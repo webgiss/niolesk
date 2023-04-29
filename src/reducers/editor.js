@@ -47,14 +47,19 @@ export const initialState = {
     editorHeight: null,
     renderWidth: null,
     renderEditHeight: 0,
+    redrawIndex: 0,
 };
 
 const setWindowWidthHeight = (state, width, height) => {
     const { zenMode } = state
     const editorHeight = zenMode ? height : 700
     const renderHeight = editorHeight - state.renderEditHeight
-    if (width !== state.width || height !== state.height || renderHeight !== state.renderHeight || editorHeight !== state.editorHeight) {
-        return { ...state, width, height, renderHeight, editorHeight }
+    let redrawIndex = state.redrawIndex
+    if (renderHeight !== state.renderHeight) {
+        redrawIndex += 1
+    }
+    if (width !== state.width || height !== state.height || renderHeight !== state.renderHeight || editorHeight !== state.editorHeight || redrawIndex !== state.redrawIndex) {
+        return { ...state, width, height, renderHeight, editorHeight, redrawIndex }
     }
     return state
 }
@@ -62,8 +67,12 @@ const setWindowWidthHeight = (state, width, height) => {
 const setRenderWidth = (state, renderEditWidth, renderEditHeight) => {
     const renderWidth = renderEditWidth
     const renderHeight = state.editorHeight - renderEditHeight
-    if (renderWidth !== state.renderWidth || renderHeight !== state.renderHeight || renderEditHeight !== state.renderEditHeight) {
-        return { ...state, renderWidth, renderHeight, renderEditHeight }
+    let redrawIndex = state.redrawIndex
+    if (renderWidth !== state.renderWidth || renderHeight !== state.renderHeight) {
+        redrawIndex += 1
+    }
+    if (renderWidth !== state.renderWidth || renderHeight !== state.renderHeight || renderEditHeight !== state.renderEditHeight || redrawIndex !== state.redrawIndex) {
+        return { ...state, renderWidth, renderHeight, renderEditHeight, redrawIndex }
     }
     return state
 }
@@ -160,9 +169,9 @@ export const updateHash = (state, hash) => {
 
 const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
     if ((state.diagramText === '') || (state.defaultDiagram)) {
-        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true };
+        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true, redrawIndex: state.redrawIndex + 1 };
     } else {
-        state = { ...state, diagramType };
+        state = { ...state, diagramType, redrawIndex: state.redrawIndex + 1 };
     }
     state = updateDiagram(state);
     return state;
@@ -225,6 +234,7 @@ export default createReducer({
         const { diagramText, diagramType } = action;
         if ((diagramText !== state.diagramText) || (diagramType !== state.diagramType)) {
             state = updateDiagram({ ...state, diagramText, diagramType })
+            state = { ...state, redrawIndex: state.redrawIndex + 1 }
         }
         return state;
     },
