@@ -29,7 +29,7 @@
     height: 25px;
 }
 
-.react-transform-wrapper {
+div.react-transform-wrapper {
     -webkit-user-select: all;
     -khtml-user-select: all;
     -moz-user-select: all;
