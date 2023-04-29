@@ -40,11 +40,13 @@ jobs:
               if: "contains(github.ref, 'refs/tags')"
               run: |
                   echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{ env.REFNAME }},${{ env.IMAGE_NAME }}:latest" >> "${GITHUB_ENV}"
+                  echo "DOCKER_UNPRIVILEGED_TAGS=${{ env.IMAGE_NAME }}:unprivileged-${{ env.REFNAME }},${{ env.IMAGE_NAME }}:unprivileged" >> "${GITHUB_ENV}"
 
             - name: "Set environment variables if simple commit"
               if: "!contains(github.ref, 'refs/tags')"
               run: |
                   echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}" >> "${GITHUB_ENV}"
+                  echo "DOCKER_UNPRIVILEGED_TAGS=${{ env.IMAGE_NAME }}:unprivileged-${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:unprivileged-${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:unprivileged-${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:unprivileged-${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:unprivileged-${{ env.REFNAME }}" >> "${GITHUB_ENV}"
 
             - name : "Configure git"
               run : |
@@ -60,6 +62,7 @@ jobs:
               run: |
                   yarn
                   yarn create-example-cache
+                  chmod 0666 public/config.js
 
             - name: "Set up QEMU"
               uses: "docker/setup-qemu-action@v2"
@@ -74,7 +77,7 @@ jobs:
                   username: ${{ secrets.CR_USER }}
                   password: ${{ secrets.CR_PAT }}
 
-            - name: "Build and push"
+            - name: "Build and push (standard nging)"
               uses: "docker/build-push-action@v4"
               with:
                   context: "."
@@ -88,3 +91,19 @@ jobs:
                       BUILD_DATE=${{ env.BUILD_DATE }}
                       VERSION=${{ env.VERSION_LABEL }}
                   tags: "${{ env.DOCKER_TAGS }}"
+
+            - name: "Build and push (unprivileged nginx)"
+              uses: "docker/build-push-action@v4"
+              with:
+                  context: "."
+                  platforms: "linux/amd64,linux/arm64,linux/386,linux/arm/v7"
+                  push: true
+                  no-cache: true
+                  build-args: |
+                      SOURCE=git
+                      POINT=${{ env.GITHUB_SHA_SHORT }}
+                      VCS_REF=${{ env.GITHUB_SHA_SHORT }}
+                      BUILD_DATE=${{ env.BUILD_DATE }}
+                      VERSION=${{ env.VERSION_LABEL }}
+                      NGINXIMAGE=ghcr.io/nginxinc/nginx-unprivileged:stable-alpine-slim
+                  tags: "${{ env.DOCKER_UNPRIVILEGED_TAGS }}"

@@ -74,6 +74,3 @@ LABEL \
 
 COPY --from=builder /app/docker-res/update-config.sh /docker-entrypoint.d/update-config.sh
 COPY --from=builder /app/build/ /usr/share/nginx/html/
-RUN chmod 0666 /usr/share/nginx/html/config.js && chmod 775 /var/run && chgrp nginx /var/run/ && chmod 777 /dev/pts/ && chown nginx:nginx /var/log/nginx && chown -R nginx:nginx /var/cache/nginx
-
-USER nginx:nginx
