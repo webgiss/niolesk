@@ -1,5 +1,6 @@
 ARG SOURCE=local
 ARG IMAGE_BUILD=node:16-alpine3.17
+ARG NGINXIMAGE=nginx:alpine
 
 #----------------------------------------
 
@@ -45,7 +46,7 @@ RUN \
 
 #----------------------------------------
 
-FROM nginx:alpine
+FROM ${NGINXIMAGE}
 
 ARG VCS_REF=working-copy
 ARG BUILD_DATE=now

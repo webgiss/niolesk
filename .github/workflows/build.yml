@@ -46,6 +46,21 @@ jobs:
               run: |
                   echo "DOCKER_TAGS=${{ env.IMAGE_NAME }}:${{env.GITHUB_SHA_SHORT}},${{ env.IMAGE_NAME }}:${{ env.VERSION }}-git,${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}-${{ env.GITHUB_SHA_SHORT }},${{ env.IMAGE_NAME }}:${{ env.REFNAME }}" >> "${GITHUB_ENV}"
 
+            - name : "Configure git"
+              run : |
+                  git config "user.name" "github-actions"
+                  git config "user.email" "public-dev-github-actions-niolesk@gissehel.org"
+
+            - name: "Setup node"
+              uses: actions/setup-node@v2
+              with:
+                  node-version: "16"
+
+            - name: "Build cache (to avoid cache fetching for each platform)"
+              run: |
+                  yarn
+                  yarn create-example-cache
+
             - name: "Set up QEMU"
               uses: "docker/setup-qemu-action@v2"
 
