@@ -63,7 +63,6 @@ jobs:
                   yarn
                   yarn create-example-cache
                   yarn build
-                  chmod 0666 build/config.js
 
             - name: "Set up QEMU"
               uses: "docker/setup-qemu-action@v2"

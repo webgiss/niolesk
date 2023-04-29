@@ -42,8 +42,7 @@ WORKDIR /app
 RUN \
     yarn && \
     yarn create-example-cache && \
-    PUBLIC_URL=${PUBLIC_URL} yarn build && \
-    chmod 0666 /app/build/config.js
+    PUBLIC_URL=${PUBLIC_URL} yarn build
 
 #----------------------------------------
 
@@ -75,3 +74,4 @@ LABEL \
 
 COPY --from=builder /app/docker-res/update-config.sh /docker-entrypoint.d/update-config.sh
 COPY --from=builder /app/build/ /usr/share/nginx/html/
+COPY --chmod=0666 build/config.js /usr/share/nginx/html/
