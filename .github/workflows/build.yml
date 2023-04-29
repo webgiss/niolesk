@@ -62,6 +62,8 @@ jobs:
               run: |
                   yarn
                   yarn create-example-cache
+                  yarn build
+                  chmod 0666 build/config.js
 
             - name: "Set up QEMU"
               uses: "docker/setup-qemu-action@v2"
@@ -83,6 +85,7 @@ jobs:
                   platforms: "linux/amd64,linux/arm64,linux/386,linux/arm/v7"
                   push: true
                   no-cache: true
+                  file: Dockerfile-for-local-build
                   build-args: |
                       SOURCE=git
                       POINT=${{ env.GITHUB_SHA_SHORT }}
@@ -98,6 +101,7 @@ jobs:
                   platforms: "linux/amd64,linux/arm64,linux/386,linux/arm/v7"
                   push: true
                   no-cache: true
+                  file: Dockerfile-for-local-build
                   build-args: |
                       SOURCE=git
                       POINT=${{ env.GITHUB_SHA_SHORT }}
