@@ -5,6 +5,7 @@ import reducers from './reducers';
 import exportToWindow from './providers/exportToWindow';
 import diagramChange from './providers/diagramChange';
 import debug from './providers/debug';
+import './debug'
 
 const providers = [
     exportToWindow,

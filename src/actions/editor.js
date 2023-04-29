@@ -1,4 +1,4 @@
-import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, WINDOW_RESIZED, KEY_PRESSED } from "../constants/editor";
+import { COPY_TEXT, TEXT_COPIED, COPY_BUTTON_HOVERED, RENDERURL_CHANGED, DIAGRAM_CHANGED, DIAGRAM_TYPE_CHANGED, DIAGRAM_CHANGED_UPDATE, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, WINDOW_RESIZED, KEY_PRESSED, RENDER_EDIT_SIZE_CHANGED } from "../constants/editor";
 import delay from "./utils/delay";
 import copy from 'copy-to-clipboard';
 
@@ -82,7 +82,7 @@ export const openImportUrl = () => ({ type: OPEN_IMPORT_URL });
  * Called when the new digram url window update the url
  * @returns
  */
-export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url})
+export const updateUrl = (url) => ({ type: UPDATE_IMPORT_URL, url })
 
 /**
  * Called when the digram url resolve an error
@@ -117,3 +117,11 @@ export const keyPressed = ({ code, key, ctrlKey, shiftKey, altKey, metaKey }) =>
  * @returns 
  */
 export const onWindowResized = (width, height) => ({ type: WINDOW_RESIZED, width, height })
+
+/**
+ * Called when the width of the render zone has changed
+ * 
+ * @param {number} renderWidth The width of the render zone
+ * @returns 
+ */
+export const onRenderEditSizeChanged = (renderEditWidth, renderEditHeight) => ({ type: RENDER_EDIT_SIZE_CHANGED, renderEditWidth, renderEditHeight })

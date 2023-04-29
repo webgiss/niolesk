@@ -22,6 +22,7 @@
         "react-dom": "^17.0.2",
         "react-router": "^5.2.0",
         "react-router-dom": "^5.2.0",
+        "react-zoom-pan-pinch": "^3.0.7",
         "redux": "^4.1.2",
         "redux-thunk": "^2.4.1",
         "semantic-ui-react": "^2.0.4",

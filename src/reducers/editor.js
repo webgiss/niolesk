@@ -1,4 +1,4 @@
-import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, KEY_PRESSED, WINDOW_RESIZED } from "../constants/editor";
+import { COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_TYPE_CHANGED, RENDERURL_CHANGED, TEXT_COPIED, IMPORT_URL, CLOSE_IMPORT_URL, OPEN_IMPORT_URL, UPDATE_IMPORT_URL, DIAGRAM_HAS_ERROR, ZEN_MODE_CHANGED, KEY_PRESSED, WINDOW_RESIZED, RENDER_EDIT_SIZE_CHANGED } from "../constants/editor";
 import { createReducer } from "./utils/createReducer";
 import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
@@ -41,7 +41,32 @@ export const initialState = {
     windowImportUrl: '',
     diagramError: false,
     zenMode: false,
+    height: null,
+    width: null,
+    renderHeight: null,
+    editorHeight: null,
+    renderWidth: null,
+    renderEditHeight: 0,
 };
+
+const setWindowWidthHeight = (state, width, height) => {
+    const { zenMode } = state
+    const editorHeight = zenMode ? height : 700
+    const renderHeight = editorHeight - state.renderEditHeight
+    if (width !== state.width || height !== state.height || renderHeight !== state.renderHeight || editorHeight !== state.editorHeight) {
+        return { ...state, width, height, renderHeight, editorHeight }
+    }
+    return state
+}
+
+const setRenderWidth = (state, renderEditWidth, renderEditHeight) => {
+    const renderWidth = renderEditWidth
+    const renderHeight = state.editorHeight - renderEditHeight
+    if (renderWidth !== state.renderWidth || renderHeight !== state.renderHeight || renderEditHeight !== state.renderEditHeight) {
+        return { ...state, renderWidth, renderHeight, renderEditHeight }
+    }
+    return state
+}
 
 /**
  * 
@@ -259,10 +284,10 @@ export default createReducer({
     },
     [WINDOW_RESIZED]: (state, action) => {
         const { width, height } = action
-        if (width !== state.width || height !== state.height) {
-            state = { ...state, width, height }
-        }
-        // console.log({ width, height })
-        return state;
-    }
+        return setWindowWidthHeight(state, width, height)
+    },
+    [RENDER_EDIT_SIZE_CHANGED]: (state, action) => {
+        const { renderEditWidth, renderEditHeight } = action
+        return setRenderWidth(state, renderEditWidth, renderEditHeight)
+    },
 }, initialState);
