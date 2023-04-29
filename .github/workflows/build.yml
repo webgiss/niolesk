@@ -54,11 +54,11 @@ jobs:
                   git config "user.email" "public-dev-github-actions-niolesk@gissehel.org"
 
             - name: "Setup node"
-              uses: actions/setup-node@v2
+              uses: "actions/setup-node@v3"
               with:
-                  node-version: "16"
+                  node-version: 16
 
-            - name: "Build cache (to avoid cache fetching for each platform)"
+            - name: "Build application"
               run: |
                   yarn
                   yarn create-example-cache
