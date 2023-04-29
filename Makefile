@@ -21,6 +21,7 @@ build:
 release:
 	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have committed everything before running a release" && false)
 	yarn version patch
+	[ -f "doc/releases/v$$($(VERSION_CHECKER))" ] || (echo "You must have a release file for version [v$$($(VERSION_CHECKER))] before creating release" && git reset --hard && false)
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
 	git tag "v$$($(VERSION_CHECKER))"
@@ -33,6 +34,7 @@ release:
 milestone-release:
 	bash -c '! [[ `git status --porcelain` ]]' || (echo "You must have committed everything before running a release" && false)
 	yarn version minor
+	[ -f "doc/releases/v$$($(VERSION_CHECKER))" ] || (echo "You must have a release file for version [v$$($(VERSION_CHECKER))] before creating release" && git reset --hard && false)
 	git add .
 	git commit -m "v$$($(VERSION_CHECKER))"
 	git tag "v$$($(VERSION_CHECKER))"
