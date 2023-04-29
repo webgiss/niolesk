@@ -5,6 +5,7 @@ import './Render.css'
 
 const Render = ({ diagramUrl, diagramEditUrl, diagramError, onDiagramError, height, width, onEditSizeChanged, shouldRedraw }) => {
     const editRef = useRef(null)
+
     useEffect(() => {
         if (!editRef.current) {
             return
@@ -16,7 +17,8 @@ const Render = ({ diagramUrl, diagramEditUrl, diagramError, onDiagramError, heig
         })
         resizeObserver.observe(editRef.current)
         return () => resizeObserver.disconnect()
-    }, [])
+    }, [onEditSizeChanged])
+
     return <div className='Render'>
         <div className='RenderDiagramZone' style={{ width: `${width}px` }}>
             {

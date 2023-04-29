@@ -1,4 +1,4 @@
-import { CLOSE_IMPORT_URL, COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, KEY_PRESSED, OPEN_IMPORT_URL, RENDERURL_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL, WINDOW_RESIZED, ZEN_MODE_CHANGED } from '../constants/editor';
+import { CLOSE_IMPORT_URL, COPY_BUTTON_HOVERED, DIAGRAM_CHANGED, DIAGRAM_CHANGED_UPDATE, DIAGRAM_HAS_ERROR, DIAGRAM_TYPE_CHANGED, IMPORT_URL, KEY_PRESSED, OPEN_IMPORT_URL, RENDERURL_CHANGED, RENDER_EDIT_SIZE_CHANGED, TEXT_COPIED, UPDATE_IMPORT_URL, WINDOW_RESIZED, ZEN_MODE_CHANGED } from '../constants/editor';
 import editorReducer, { initialState, updateDiagram } from './editor'
 import exampleData from '../examples/data';
 import { decode } from '../kroki/coder';
@@ -368,12 +368,14 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).toBe(standardState.diagramText)
         expect(state.diagramType).toBe(standardState.diagramType)
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
         expect(state.diagramType).toBe('c4plantuml')
+        expect(state.redrawIndex).toBe(1)
     })
 
     it('should update both diagramText and diagramType for non defaultDiagrams', () => {
@@ -384,12 +386,14 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).not.toBe(standardState.diagramText)
         expect(state.diagramType).toBe(standardState.diagramType)
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
         expect(state.diagramType).toBe('c4plantuml')
+        expect(state.redrawIndex).toBe(1)
     })
 
     it('should update both diagramText and diagramType for non defaultDiagrams if provided a with default digram', () => {
@@ -402,12 +406,14 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.diagramType).not.toBe('c4plantuml')
         expect(state.diagramText).not.toBe(standardState.diagramText)
         expect(state.diagramType).not.toBe(standardState.diagramType)
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText: 'a -> b', diagramType: 'c4plantuml' })
 
         expect(state.defaultDiagram).toBe(false)
         expect(state.diagramText).toBe('a -> b')
         expect(state.diagramType).toBe('c4plantuml')
+        expect(state.redrawIndex).toBe(1)
     })
 
     it('should set the language correctly', () => {
@@ -419,12 +425,14 @@ describe('IMPORT_EXAMPLE', () => {
         expect(state.diagramType).not.toBe('vegalite')
         expect(state.diagramText).not.toBe(diagramText)
         expect(state.language).not.toBe('json')
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: IMPORT_EXAMPLE, diagramText, diagramType: 'vegalite' })
 
         expect(state.diagramType).toBe('vegalite')
         expect(state.diagramText).toBe(diagramText)
         expect(state.language).toBe('json')
+        expect(state.redrawIndex).toBe(1)
     })
 
 })
@@ -809,11 +817,30 @@ describe('WINDOW_RESIZED', () => {
 
         expect(state.width).not.toBe(1920)
         expect(state.height).not.toBe(1080)
+        expect(state.renderHeight).toBe(700)
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: WINDOW_RESIZED, width: 1920, height: 1080 })
 
         expect(state.width).toBe(1920)
         expect(state.height).toBe(1080)
+        expect(state.renderHeight).toBe(700)
+        expect(state.redrawIndex).toBe(0)
+    })
+    it('should take into account new window size and update redrawIndex when in zen mode', () => {
+        let state = { ...standardState, zenMode: true };
+
+        expect(state.width).not.toBe(1920)
+        expect(state.height).not.toBe(1080)
+        expect(state.renderHeight).toBe(700)
+        expect(state.redrawIndex).toBe(0)
+
+        state = editorReducer(state, { type: WINDOW_RESIZED, width: 1920, height: 1080 })
+
+        expect(state.width).toBe(1920)
+        expect(state.height).toBe(1080)
+        expect(state.renderHeight).toBe(1080)
+        expect(state.redrawIndex).toBe(1)
     })
     it('should not change state if window size hasn\'t changed', () => {
         let state = { ...standardState, width: 1920, height: 1080 };
@@ -821,11 +848,59 @@ describe('WINDOW_RESIZED', () => {
 
         expect(state.width).toBe(1920)
         expect(state.height).toBe(1080)
+        expect(state.redrawIndex).toBe(0)
 
         state = editorReducer(state, { type: WINDOW_RESIZED, width: 1920, height: 1080 })
 
         expect(state.width).toBe(1920)
         expect(state.height).toBe(1080)
+        expect(state.redrawIndex).toBe(0)
         expect(state).toBe(referenceState)
+    })
+})
+
+describe('RENDER_EDIT_SIZE_CHANGED', () => {
+    it('should redraw when render edit size change', () => {
+        let state = standardState
+
+        expect(state.redrawIndex).toBe(0)
+        expect(state.renderEditHeight).toBe(0)
+        expect(state.renderHeight).toBe(700)
+        expect(state.renderWidth).toBe(800)
+
+        state = editorReducer(state, { type: RENDER_EDIT_SIZE_CHANGED, renderEditWidth: 800, renderEditHeight: 21 })
+
+        expect(state.redrawIndex).toBe(1)
+        expect(state.renderEditHeight).toBe(21)
+        expect(state.renderHeight).toBe(679)
+        expect(state.renderWidth).toBe(800)
+    })
+    it('should not change state when edit size has same values than state', () => {
+        let initState = {...standardState, renderEditHeight: 21, renderHeight: 679, renderWidth: 800, redrawIndex: 17}
+
+        expect(initState.redrawIndex).toBe(17)
+        expect(initState.renderEditHeight).toBe(21)
+        expect(initState.renderHeight).toBe(679)
+        expect(initState.renderWidth).toBe(800)
+
+        let state = editorReducer(initState, { type: RENDER_EDIT_SIZE_CHANGED, renderEditWidth: 800, renderEditHeight: 21 })
+
+        expect(state).toBe(initState)
+    })
+    it('should change state when edit size has same values than state', () => {
+        let initState = {...standardState, renderEditHeight: 21, renderHeight: 679, renderWidth: 800, redrawIndex: 17}
+
+        expect(initState.redrawIndex).toBe(17)
+        expect(initState.renderEditHeight).toBe(21)
+        expect(initState.renderHeight).toBe(679)
+        expect(initState.renderWidth).toBe(800)
+
+        let state = editorReducer(initState, { type: RENDER_EDIT_SIZE_CHANGED, renderEditWidth: 801, renderEditHeight: 22 })
+
+        expect(state).not.toBe(initState)
+        expect(state.redrawIndex).toBe(18)
+        expect(state.renderEditHeight).toBe(22)
+        expect(state.renderHeight).toBe(678)
+        expect(state.renderWidth).toBe(801)
     })
 })

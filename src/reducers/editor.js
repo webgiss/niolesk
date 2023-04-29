@@ -43,9 +43,9 @@ export const initialState = {
     zenMode: false,
     height: null,
     width: null,
-    renderHeight: null,
-    editorHeight: null,
-    renderWidth: null,
+    renderHeight: 700,
+    editorHeight: 700,
+    renderWidth: 800,
     renderEditHeight: 0,
     redrawIndex: 0,
 };
