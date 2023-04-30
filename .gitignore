@@ -32,6 +32,7 @@ yarn-error.log*
 
 # vs code
 .vscode/*.log
+.vscode/
 
 /storybook-static
 /public/cache.js
