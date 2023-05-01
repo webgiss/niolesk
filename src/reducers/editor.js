@@ -52,7 +52,7 @@ export const initialState = {
 
 const setWindowWidthHeight = (state, width, height) => {
     const { zenMode } = state
-    const editorHeight = zenMode ? height : 700
+    const editorHeight = zenMode ? (width<768 ? height/2-14 : height) : 700
     const renderHeight = editorHeight - state.renderEditHeight
     let redrawIndex = state.redrawIndex
     if (renderHeight !== state.renderHeight) {
