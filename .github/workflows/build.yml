@@ -77,22 +77,6 @@ jobs:
                   username: ${{ secrets.CR_USER }}
                   password: ${{ secrets.CR_PAT }}
 
-            - name: "Build and push (standard nginx)"
-              uses: "docker/build-push-action@v4"
-              with:
-                  context: "."
-                  platforms: "linux/amd64,linux/arm64,linux/386,linux/arm/v7"
-                  push: true
-                  no-cache: true
-                  file: Dockerfile-for-local-build
-                  build-args: |
-                      SOURCE=git
-                      POINT=${{ env.GITHUB_SHA_SHORT }}
-                      VCS_REF=${{ env.GITHUB_SHA_SHORT }}
-                      BUILD_DATE=${{ env.BUILD_DATE }}
-                      VERSION=${{ env.VERSION_LABEL }}
-                  tags: "${{ env.DOCKER_TAGS }}"
-
             - name: "Build and push (unprivileged nginx)"
               uses: "docker/build-push-action@v4"
               with:
@@ -109,3 +93,20 @@ jobs:
                       VERSION=${{ env.VERSION_LABEL }}
                       NGINXIMAGE=ghcr.io/nginxinc/nginx-unprivileged:stable-alpine-slim
                   tags: "${{ env.DOCKER_UNPRIVILEGED_TAGS }}"
+
+            - name: "Build and push (standard nginx)"
+              uses: "docker/build-push-action@v4"
+              with:
+                  context: "."
+                  platforms: "linux/amd64,linux/arm64,linux/386,linux/arm/v7"
+                  push: true
+                  no-cache: true
+                  file: Dockerfile-for-local-build
+                  build-args: |
+                      SOURCE=git
+                      POINT=${{ env.GITHUB_SHA_SHORT }}
+                      VCS_REF=${{ env.GITHUB_SHA_SHORT }}
+                      BUILD_DATE=${{ env.BUILD_DATE }}
+                      VERSION=${{ env.VERSION_LABEL }}
+                  tags: "${{ env.DOCKER_TAGS }}"
+
