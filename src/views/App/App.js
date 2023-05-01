@@ -61,19 +61,16 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
                         <SubTitle />
                     </Form.Field>
                     <Form.Field>
-                        <Grid columns={2}>
-                            <Grid.Row>
-                                <Grid.Column>
-                                    <DiagramType />
-                                </Grid.Column>
-                                <Grid.Column >
-                                    <ShrinkableButton floated='right' onClick={() => onExamples()} icon='list alternate outline' text='Examples' textAlt='Ex.' />
-                                    <ShrinkableButton floated='right' onClick={() => onImportUrl()} icon='write' text='Import diagram URL' textAlt='URL' />
-                                    <ShrinkableButton floated='right' onClick={() => onSetZenMode()} icon='external alternate' text='Zen Mode' textAlt='Zen' />
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-
+                        <div className='controlZone'>
+                            <div className='diagramTypeZone'>
+                                <DiagramType />
+                            </div>
+                            <div className='buttonsZone'>
+                                <ShrinkableButton floated='right' onClick={() => onSetZenMode()} icon='external alternate' text='Zen Mode' textAlt='Zen' />
+                                <ShrinkableButton floated='right' onClick={() => onImportUrl()} icon='write' text='Import diagram URL' textAlt='URL' />
+                                <ShrinkableButton floated='right' onClick={() => onExamples()} icon='list alternate outline' text='Examples' textAlt='Ex.' />
+                            </div>
+                        </div>
                     </Form.Field>
                     <Form.Field>
                         <RenderUrl />

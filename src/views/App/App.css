@@ -30,3 +30,25 @@
 .zenMode .NonZen {
     display: none;
 }
+
+.controlZone {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+
+.diagramTypeZone {
+    flex-grow: 0;
+    flex-basis: auto;
+    min-width: max-content;
+}
+
+.buttonsZone {
+    flex-grow: 1;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
