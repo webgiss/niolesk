@@ -25,6 +25,8 @@ const defaultArgs = {
     ].join('\n'),
     items: [['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description'], ['Poide', 'Description']],
     itemIndex: 1,
+    doc: 'https://example.com/this/is/url/for/doc',
 };
 
 export const Default = getComponenent(Template, { ...defaultArgs });
+export const WithoutDoc = getComponenent(Template, { ...defaultArgs, doc: undefined });

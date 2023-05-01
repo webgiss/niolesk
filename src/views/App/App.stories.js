@@ -36,13 +36,30 @@ const defaultState = {
                 isHover: false,
                 isCopied: false,
             },
-        }
+            'markdownsource': {
+                isHover: false,
+                isCopied: false,
+            },
+        },
+        windowImportUrlOpened: false,
+        windowImportUrl: '',
+        diagramError: false,
+        zenMode: false,
+        height: null,
+        width: null,
+        renderHeight: 680,
+        editorHeight: 700,
+        renderWidth: 586,
+        renderEditHeight: 0,
+        redrawIndex: 0,
     },
-    example: { 
+    example: {
         windowExampleCardsOpened: false,
         windowExampleDetailsOpened: false,
         exampleIndex: 2,
         examples: exampleData,
+        filteredExamples: exampleData,
+        search: '',
     }
 };
 
@@ -51,7 +68,7 @@ const Template = (args) => {
     const { setState, decorator } = getReduxMockDecorator()
     let state = defaultState
     if (args.windowExampleCardsOpened !== undefined) {
-        state = { ...state, example:  {...state.example, windowExampleCardsOpened: args.windowExampleCardsOpened } }
+        state = { ...state, example: { ...state.example, windowExampleCardsOpened: args.windowExampleCardsOpened } }
     }
     if (args.windowExampleDetailsOpened !== undefined) {
         state = { ...state, example: { ...state.example, windowExampleDetailsOpened: args.windowExampleDetailsOpened } }

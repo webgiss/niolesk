@@ -18,6 +18,8 @@ const defaultState = {
         windowExampleDetailsOpened: true,
         exampleIndex: 2,
         examples: exampleData,
+        filteredExamples: exampleData,
+        search: '',
     }
 };
 

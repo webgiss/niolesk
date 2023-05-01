@@ -2,6 +2,7 @@ import React from 'react';
 import MonacoEditor from '@uiw/react-monacoeditor';
 import PropTypes from 'prop-types';
 import './Editor.css'
+import 'monaco-editor/esm/vs/language/json/json.worker'
 
 class Editor extends React.Component {
     get shouldUpdate() {
@@ -58,7 +59,9 @@ class Editor extends React.Component {
 
 Editor.propTypes = {
     text: PropTypes.string,
+    language: PropTypes.string,
     onTextChanged: PropTypes.func.isRequired,
+    height: PropTypes.number,
 };
 
 export default Editor;

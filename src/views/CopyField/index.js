@@ -16,8 +16,8 @@ const CopyField = ({ scope }) => {
         default:
     }
     const isMultiline = scope === 'markdown' || scope === 'markdownsource';
-    const isCopyHover = useSelector((state) => state.editor.scopes[scope].isHover)
-    const isCopied = useSelector((state) => state.editor.scopes[scope].isCopied)
+    const isCopyHover = useSelector((state) => state.editor.scopes[scope]?.isHover)
+    const isCopied = useSelector((state) => state.editor.scopes[scope]?.isCopied)
     const dispatch = useDispatch();
     const onCopyHover = (scope, isHover) => dispatch(copyButtonHovered(scope, isHover));
     const onCopy = (scope, text) => dispatch(copyText(scope, text));
