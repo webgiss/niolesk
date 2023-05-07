@@ -1,0 +1,16 @@
+.FileSelect {
+}
+
+.FileSelect .ui.list>.item {
+    cursor: alias;
+}
+.FileSelect .ui.list>.item.FileSelectActive {
+    background: #1678c2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.FileSelect .ui.list>.item.FileSelectActive>.content {
+    color: #ffffff;
+    font-weight: bold;
+}
