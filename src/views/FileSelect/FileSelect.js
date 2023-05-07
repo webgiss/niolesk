@@ -5,21 +5,30 @@ import './FileSelect.css'
 import { Breadcrumb, Button, Container, Grid, Icon, Input, List, Segment } from 'semantic-ui-react';
 import classNames from 'classnames';
 
-const FileSelect = ({ xpath, fileGroups, onChangeSelect, onValidate }) => {
+const FileSelect = ({ path, fileGroups, onChangePath, onChangeSelect, onValidate }) => {
     return <div className='FileSelect'>
         <Segment>
-            <Breadcrumb icon='right angle'>
+            <Breadcrumb>
                 {
-                    xpath.map(
-                        (path, index) => {
-                            const isLast = index === xpath.length - 1
-
+                    path.map(
+                        (pathInfo, index) => {
+                            const isLast = index === path.length - 1
                             return <>
-                                <Breadcrumb.Section 
-                                    className={classNames({ link: isLast ? null : () => { }, active: isLast })}
-                                >
-                                    <Icon name={path.type} />
-                                    {path.name}
+                                <Breadcrumb.Section
+                                    className={classNames({ link: pathInfo.current ? null : true, active: pathInfo.current })}
+                                >{
+                                    pathInfo.current ?
+                                    <>
+                                        <Icon name={pathInfo.type} />
+                                        {pathInfo.name}
+                                    </>
+                                    :
+                                    <Button icon {... pathInfo.active ? {primary:true} : null} onClick={()=>onChangePath(pathInfo.fullname)}>
+                                        <Icon name={pathInfo.type} />
+                                        {pathInfo.name}
+                                    </Button>
+                                }
+
                                 </Breadcrumb.Section>
                                 {isLast ? null : <Breadcrumb.Divider icon='right angle' />}
                             </>
@@ -35,14 +44,18 @@ const FileSelect = ({ xpath, fileGroups, onChangeSelect, onValidate }) => {
                         <List>
                             {
                                 fileGroup.map((file) =>
-                                    <List.Item 
-                                        key={file.name} 
-                                        onClick={file.active ? ()=>onValidate(file.name) : ()=>onChangeSelect(file.name)} 
+                                    file ? 
+                                    <List.Item
+                                        key={file.name}
+                                        onClick={file.active ? () => onValidate(file.name) : () => onChangeSelect(file.name)}
                                         className={classNames({ FileSelectActive: file.active })}
                                     >
                                         <List.Icon name={file.type} />
                                         <List.Content>{file.name}</List.Content>
-                                    </List.Item>)
+                                    </List.Item>
+                                    :
+                                    <List.Item>&nbsp;</List.Item>
+                                    )
                             }
                         </List>
                     </Segment>
@@ -53,7 +66,7 @@ const FileSelect = ({ xpath, fileGroups, onChangeSelect, onValidate }) => {
 }
 
 FileSelect.propTypes = {
-    xpath: PropTypes.arrayOf(
+    path: PropTypes.arrayOf(
         PropTypes.objectOf({
             type: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
@@ -69,12 +82,13 @@ FileSelect.propTypes = {
             })
         )
     ).isRequired,
+    onChangePath: PropTypes.func.isRequired,
     onChangeSelect: PropTypes.func.isRequired,
     onValidate: PropTypes.func.isRequired,
 };
 
 FileSelect.defaultProps = {
-    xpath: [],
+    path: [],
     fileGroups: [[]],
 };
 
