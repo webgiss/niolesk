@@ -5,7 +5,8 @@ import './FileSelect.css'
 import { Breadcrumb, Button, Container, Grid, Icon, Input, List, Segment } from 'semantic-ui-react';
 import classNames from 'classnames';
 
-const FileSelect = ({ path, fileGroups, onChangePath, onChangeSelect, onValidate }) => {
+const FileSelect = ({ path, fileGroups, onChangePath, onChangeSelect, onSelectFile }) => {
+    const onSelectItem = (item) => item.type === 'text file' ? onSelectFile(item.fullname) : onChangePath(item.fullname)
     return <div className='FileSelect'>
         <Segment>
             <Breadcrumb>
@@ -47,7 +48,7 @@ const FileSelect = ({ path, fileGroups, onChangePath, onChangeSelect, onValidate
                                     file ? 
                                     <List.Item
                                         key={file.name}
-                                        onClick={file.active ? () => onValidate(file.name) : () => onChangeSelect(file.name)}
+                                        onClick={file.active ? () => onSelectItem(file) : () => onChangeSelect(file.name)}
                                         className={classNames({ FileSelectActive: file.active })}
                                     >
                                         <List.Icon name={file.type} />
@@ -84,7 +85,7 @@ FileSelect.propTypes = {
     ).isRequired,
     onChangePath: PropTypes.func.isRequired,
     onChangeSelect: PropTypes.func.isRequired,
-    onValidate: PropTypes.func.isRequired,
+    onSelectFile: PropTypes.func.isRequired,
 };
 
 FileSelect.defaultProps = {
