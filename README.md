@@ -282,6 +282,12 @@ services:
       - "NIOLESK_ANALYTICS_PROVIDER_ARG1=E-0145456533"
 ```
 
+## Deploying the pages as a static site on your own server without using docker
+
+You can download the static pages of the latest release using the file `niolesk-site`-{version}.{extension}
+
+Every docker variable described can be configurd by editing lines in `config.js`. `config-analytic-providers.js` can be edited by simply... editing `config-analytic-providers.js`.
+
 ## Development
 
 The storybook of the project from the latest tag is accessible at https://niolesk.top/storybook
