@@ -141,6 +141,30 @@ services:
       - "NIOLESK_ANALYTICS_PROVIDER_ARG1=G-XXX999XXXX"
 ```
 
+#### Google tag manager
+
+You can use "google_tag" as analytics providers, and then use the tag id as arg1
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_PROVIDER_NAME=google_tag" -e "NIOLESK_ANALYTICS_PROVIDER_ARG1=GTM-X9XXXXX" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+Or using docker-compose:
+
+```yaml
+version: "3.5"
+services:
+  niolesk:
+    image: "ghcr.io/webgiss/niolesk"
+    ports:
+      - "8017:80"
+    hostname: "niolesk"
+    restart: "always"
+    environment:
+      - "NIOLESK_ANALYTICS_PROVIDER_NAME=google_tag"
+      - "NIOLESK_ANALYTICS_PROVIDER_ARG1=GTM-X9XXXXX"
+```
+
 #### Any analytics using only docker env vars
 
 You can use any analytics providers either by providing "just" type/content
