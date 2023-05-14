@@ -5,4 +5,11 @@ window.config = {
     analyticsProviderName: '',
     analyticsProviderArg1: '',
     analyticsProviderArg2: '',
+    analyticsProviderArg3: '',
+    analyticsProviderArg4: '',
+    analyticsProviderArg5: '',
+    analyticsProviderArg6: '',
+    analyticsProviderArg7: '',
+    analyticsProviderArg8: '',
+    analyticsProviderArg9: '',
 };
