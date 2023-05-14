@@ -27,7 +27,11 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, 
         onImportUrl = () => { };
     }
 
-    const hasAnalytics = analytics && analytics.content && analytics.content !== ''
+    const hasAnalytics = (analytics ? true : false)
+    const analyticsJs = hasAnalytics ? (analytics.filter((item) => item.type === 'js')) : []
+    const analyticsHtml = hasAnalytics ? (analytics.filter((item) => item.type !== 'js')) : []
+    const hasAnalyticsJs = analyticsJs.length > 0
+    const hasAnalyticsHtml = analyticsHtml.length > 0
 
     useEffect(() => {
         const handleResize = () => {
@@ -55,16 +59,27 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, 
 
 
     useEffect(() => {
-        if (hasAnalytics && analytics.type === 'js') {
-            const script = document.createElement('script')
+        if (hasAnalyticsJs) {
+            const scripts = analyticsJs.map((analyticsItem)=>{
+                const script = document.createElement('script')
 
-            script.async = 'true'
-            script.textContent = analytics.content
+                script.async = 'true'
+                const content = analyticsItem.content
 
-            document.head.appendChild(script)
+                if (content.startsWith('http://') || content.startsWith('https://') || content.startsWith('//')) {
+                    script.setAttribute('src',content)
+                } else {
+                    script.textContent = content
+                }
+
+                document.head.appendChild(script)
+                return script
+            })
 
             return () => {
-                document.head.removeChild(script)
+                for(let script of scripts) {
+                    document.head.removeChild(script)
+                }
             }
         }
         return () => { }
@@ -103,7 +118,7 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, 
                 <Render />
             </Columns>
             {
-                hasAnalytics && analytics.type !== 'js' ? <div className='analyticsPanel' dangerouslySetInnerHTML={{ __html: analytics.content }} /> : null
+                hasAnalyticsHtml ? analyticsHtml.map((item) => <div className='analyticsPanel' dangerouslySetInnerHTML={{ __html: item.content }} />) : null
             }
         </div>
         <div className='NonZen'>
