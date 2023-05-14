@@ -60,6 +60,102 @@ If you want your niolesk docker instance to be linked to your kroki docker insta
 docker run -d --rm=true -e "NIOLESK_KROKI_ENGINE=https://kroki.example.com/" -p 8017:80 ghcr.io/webgiss/niolesk
 ```
 
+### Analytics links
+
+You can configure analytics provider using docker env var.
+
+#### Matomo
+
+You can use "matomo_js" or "matomo_image" as analytics providers, and then use matomo url as arg1 and matomo site id as arg2
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_PROVIDER_NAME=matomo_js" -e "NIOLESK_ANALYTICS_PROVIDER_ARG1=https://matomo.example.com/" -e "NIOLESK_ANALYTICS_PROVIDER_ARG2=32" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+#### Google analytics 4
+
+You can use "google_ga4" as analytics providers, and then use the measurement id as arg1
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_PROVIDER_NAME=google_ga4" -e "NIOLESK_ANALYTICS_PROVIDER_ARG1=G-XXX999XXXX" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+#### Any analytics using only docker env vars
+
+You can use any analytics providers either by providing "just" type/content
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_TYPE=html" -e 'NIOLESK_ANALYTICS_CONTENT=<img src="https://example.com/analytics/image.png?id=E-0145456533" />' -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+Note that you can't provide direct html tag `<script>...</script>` in your HTML content as there are [security restrictions](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML#security_considerations). You have to specify explicit script content as type `js` by calling:
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_TYPE=js" -e 'NIOLESK_ANALYTICS_CONTENT=console.log("This is analytics code")' -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+#### Any analytics by creating your own provider
+
+You can also create your own analytics provider by including your own version of file `/usr/share/nginx/html/config-analytic-providers.js` inside docker:
+
+Create a file where you want, for example `/opt/niolesk/config-analytic-providers.js`:
+
+```js
+window.config_analytic_providers = {
+   my_provider: [
+    {
+      type: 'js',
+      content: `
+        const _dataTracker = window._dataTracker = window._dataTracker || []
+        const eTrack = (key,value) => _dataTracker.push([key,value])
+        eTrack('now',new Date())
+        eTrack('id','E-0145456533')
+      `,
+    },
+    {
+      type: 'js',
+      content: 'https://example.com/analytics/script.js?id=E-0145456533',
+    },
+   ],
+}
+```
+
+and then call
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_PROVIDER_NAME=my_provider" -v "/opt/niolesk/config-analytic-providers.js:/usr/share/nginx/html/config-analytic-providers.js:ro" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+But you can also use providers args if you want:
+
+`/opt/niolesk/config-analytic-providers.js`:
+
+```js
+window.config_analytic_providers = {
+   my_provider: [
+    {
+      type: 'js',
+      content: `
+        const _dataTracker = window._dataTracker = window._dataTracker || []
+        const eTrack = (key,value) => _dataTracker.push([key,value])
+        eTrack('now',new Date())
+        eTrack('id','{1}')
+      `,
+    },
+    {
+      type: 'js',
+      content: 'https://example.com/analytics/script.js?id={1}',
+    },
+   ],
+}
+```
+
+```
+docker run -d --rm=true -e "NIOLESK_ANALYTICS_PROVIDER_NAME=my_provider" -e "NIOLESK_ANALYTICS_PROVIDER_ARG1=E-0145456533" -v "/opt/niolesk/config-analytic-providers.js:/usr/share/nginx/html/config-analytic-providers.js:ro" -p 8017:80 ghcr.io/webgiss/niolesk
+```
+
+
+
 ### docker-compose example
 
 If you use `docker-compose` here is a docker-compose example:
