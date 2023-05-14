@@ -11,10 +11,11 @@ const App = () => {
     const onKey = (keyInfo) => dispatch(keyPressed(keyInfo));
     const onResize = (width, height) => dispatch(onWindowResized(width, height));
     const onSetZenMode = () => dispatch(changeZenMode(true));
+    const analytics = useSelector((state) => state.niolesk.analytics)
 
     window.dispatch = dispatch
 
-    return Internal({ onExamples, onImportUrl, zenMode, onKey, onResize, onSetZenMode });
+    return Internal({ onExamples, onImportUrl, zenMode, onKey, onResize, onSetZenMode, analytics });
 
 }
 

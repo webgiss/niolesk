@@ -19,13 +19,15 @@ import WindowImportUrl from '../WindowImportUrl';
 import './App.css'
 import classNames from 'classnames';
 
-const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }) => {
+const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, analytics }) => {
     if (!onExamples) {
         onExamples = () => { };
     }
     if (!onImportUrl) {
         onImportUrl = () => { };
     }
+
+    const hasAnalytics = analytics && analytics.content && analytics.content !== ''
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,6 +52,23 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
             window.removeEventListener('keydown', handleKeydown);
         }
     });
+
+
+    useEffect(() => {
+        if (hasAnalytics && analytics.type === 'js') {
+            const script = document.createElement('script')
+
+            script.async = 'true'
+            script.textContent = analytics.content
+
+            document.head.appendChild(script)
+
+            return () => {
+                document.head.removeChild(script)
+            }
+        }
+        return () => { }
+    })
 
     return <div className={classNames({ zenMode, App: true })}>
         <div className='NonZen'>
@@ -83,6 +102,9 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
                 <Editor />
                 <Render />
             </Columns>
+            {
+                hasAnalytics && analytics.type !== 'js' ? <div className='analyticsPanel' dangerouslySetInnerHTML={{ __html: analytics.content }} /> : null
+            }
         </div>
         <div className='NonZen'>
             <CopyZone />
