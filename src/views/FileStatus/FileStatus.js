@@ -26,6 +26,7 @@ const FileStatus = ({ path, sourceStatus, renderStatus, diagramStatus }) => {
             </Button.Group>
             <Divider content='&nbsp;' />
             <Popup
+                className='FileStatusPopup'
                 trigger={<Button.Group>
                     <Button active color={sourceColor} icon>
                         <Icon name='text file' />

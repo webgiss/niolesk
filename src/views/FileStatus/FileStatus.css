@@ -1,2 +1,6 @@
 .FileStatus {
 }
+
+.ui.popup.FileStatusPopup {
+    max-width: 600px;
+}
