@@ -7,7 +7,7 @@ import RepoAdd from '../RepoAdd/RepoAdd';
 import FileSelect from '../FileSelect/FileSelect';
 import { Button } from 'semantic-ui-react';
 
-const WindowFile = ({ open, repoAdd, fileSelect, onValidate, onClose }) => {
+const WindowFile = ({ open, repoAdd, fileSelect, onValidate, onClose, onNextExample, onPrevExample }) => {
     return <Window
         className='WindowFile'
         open={open}

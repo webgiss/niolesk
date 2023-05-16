@@ -9,6 +9,16 @@ export default {
 
 const Template = (args) => <WindowFile {...args} />;
 
+const createSubPath = (type, name, fullname, current, active) => ({ type, name, fullname, current: current ? true : false, active: active ? true : false })
+const createRootPath = (name, fullname, current, active) => createSubPath('dont', name, fullname, current, active)
+const createRepoPath = (name, fullname, current, active) => createSubPath('database', name, fullname, current, active)
+const createPartPath = (name, fullname, current, active) => createSubPath('folder', name, fullname, current, active)
+
+const createItem = (type, dir, name, active) => ({ type, name, active: active ? true : false, fullname: dir + name })
+const createRepo = (dir, name, active) => createItem('database', dir, name, active)
+const createFolder = (dir, name, active) => createItem('folder', dir,name, active)
+const createFile = (dir, name, active) => createItem('text file', dir,name, active)
+
 const defaultArgs = {
     open: true,
 };
