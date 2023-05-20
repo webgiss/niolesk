@@ -9,7 +9,7 @@ const ExampleCards = () => {
     const examples = useSelector((state) => state.example.filteredExamples)
     const renderUrl = useSelector((state) => state.editor.renderUrl)
     
-    console.log({examples})
+    // console.log({examples})
     const cards = examples.map((example)=>({
         diagType: example.title,
         description: example.description,

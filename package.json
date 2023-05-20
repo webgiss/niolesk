@@ -16,6 +16,7 @@
         "crypto-js": "^4.1.1",
         "fomantic-ui-css": "^2.8.8",
         "history": "4.10.1",
+        "idb-keyval": "^6.2.1",
         "pako": "^2.0.4",
         "prop-types": "^15.8.0",
         "react": "^17.0.2",

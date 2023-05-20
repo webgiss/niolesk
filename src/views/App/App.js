@@ -7,6 +7,7 @@ import Title from '../Title';
 import SubTitle from '../SubTitle';
 import Columns from '../Columns';
 import Editor from '../Editor';
+import FileStatus from '../FileStatus';
 import Render from '../Render';
 import CopyZone from '../CopyZone';
 import DiagramType from '../DiagramType';
@@ -76,6 +77,7 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
                         <RenderUrl />
                     </Form.Field>
                 </Form>
+                <FileStatus />
             </Segment>
         </div>
         <div className='MainPanel'>

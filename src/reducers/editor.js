@@ -6,6 +6,9 @@ import { IMPORT_EXAMPLE } from "../constants/example";
 import { createKrokiUrl } from "../kroki/utils";
 import { LOCATION_CHANGE } from "connected-react-router";
 import exampleData from '../examples/data';
+import { CHANGED, DIAGRAM_IMAGE_GET_END, DIAGRAM_IMAGE_GET_FAIL, DIAGRAM_IMAGE_GET_START, DIAGRAM_IMAGE_SAVE_END, DIAGRAM_IMAGE_SAVE_FAIL, DIAGRAM_IMAGE_SAVE_START, DIAGRAM_SOURCE_READ, DIAGRAM_SOURCE_SAVE_END, DIAGRAM_SOURCE_SAVE_FAIL, DIAGRAM_SOURCE_SAVE_START, SAVED, SAVING, SET_FILE } from "../constants/file";
+
+/** @typedef {import('../actions/utils/fileaccess').FullFilename} FullFilename */
 
 const defaultDiagramType = 'plantuml';
 
@@ -48,11 +51,17 @@ export const initialState = {
     renderWidth: 800,
     renderEditHeight: 0,
     redrawIndex: 0,
+    diagramSourceStatus: SAVED,
+    diagramImageStatus: SAVED,
+    diagramDiskStatus: SAVED,
+    fullFilename: null,
+    fullFilenamePath: null,
+    fileLoading: false,
 };
 
 const setWindowWidthHeight = (state, width, height) => {
     const { zenMode } = state
-    const editorHeight = zenMode ? (width<768 ? height/2-14 : height) : 700
+    const editorHeight = zenMode ? (width < 768 ? height / 2 - 14 : height) : 700
     const renderHeight = editorHeight - state.renderEditHeight
     let redrawIndex = state.redrawIndex
     if (renderHeight !== state.renderHeight) {
@@ -167,11 +176,11 @@ export const updateHash = (state, hash) => {
     return state;
 }
 
-const updateDiagramTypeAndTextIfDefault = (state, diagramType) => {
+const updateDiagramTypeAndTextIfDefault = (state, diagramType, fullFilename) => {
     if ((state.diagramText === '') || (state.defaultDiagram)) {
-        state = { ...state, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true, redrawIndex: state.redrawIndex + 1 };
+        state = { ...state, fullFilename, diagramType, diagramText: decode(state.diagramTypes[diagramType].example), defaultDiagram: true, redrawIndex: state.redrawIndex + 1 };
     } else {
-        state = { ...state, diagramType, redrawIndex: state.redrawIndex + 1 };
+        state = { ...state, fullFilename, diagramType, redrawIndex: state.redrawIndex + 1 };
     }
     state = updateDiagram(state);
     return state;
@@ -213,9 +222,25 @@ export default createReducer({
     },
     [DIAGRAM_CHANGED]: (state, action) => {
         const { diagramText } = action;
-        if (diagramText !== state.diagramText) {
-            state = { ...state, diagramText };
-            // state = updateDiagram(state);
+        const { fullFilename } = state
+        let diagramSourceStatus = fullFilename ? CHANGED : ''
+        let diagramImageStatus = fullFilename ? CHANGED : ''
+        let diagramDiskStatus = fullFilename ? CHANGED : ''
+        if ( diagramText === state.diagramText && state.fileLoading) {
+            return state
+        }
+        if (diagramText !== state.diagramText || diagramSourceStatus !== state.diagramSourceStatus || diagramImageStatus !== state.diagramImageStatus || diagramDiskStatus !== state.diagramDiskStatus) {
+            state = { ...state, diagramText, diagramSourceStatus, diagramImageStatus, diagramDiskStatus };
+        }
+        return state;
+    },
+    [DIAGRAM_SOURCE_READ]: (state, action) => {
+        const { diagramText } = action;
+        let diagramSourceStatus = SAVED
+        let diagramImageStatus = CHANGED
+        let diagramDiskStatus = CHANGED
+        if (diagramText !== state.diagramText || diagramSourceStatus !== state.diagramSourceStatus || diagramImageStatus !== state.diagramImageStatus || diagramDiskStatus !== state.diagramDiskStatus) {
+            state = { ...state, diagramText, diagramSourceStatus, diagramImageStatus, diagramDiskStatus };
         }
         return state;
     },
@@ -225,8 +250,15 @@ export default createReducer({
     },
     [DIAGRAM_TYPE_CHANGED]: (state, action) => {
         const { diagramType } = action;
-        if (diagramType !== state.diagramType) {
-            state = updateDiagramTypeAndTextIfDefault(state, diagramType);
+        let fullFilename = state.fullFilename
+        if (fullFilename) {
+            const { repo, path_parts, filename } = fullFilename
+            if (filename && filename.endsWith('.' + state.diagramType)) {
+                fullFilename = { repo, path_parts, filename: filename.slice(0, filename.length - state.diagramType.length + 1) + diagramType }
+            }
+        }
+        if (diagramType !== state.diagramType || fullFilename !== state.fullFilename) {
+            state = updateDiagramTypeAndTextIfDefault(state, diagramType, fullFilename);
         }
         return state;
     },
@@ -299,5 +331,90 @@ export default createReducer({
     [RENDER_EDIT_SIZE_CHANGED]: (state, action) => {
         const { renderEditWidth, renderEditHeight } = action
         return setRenderWidth(state, renderEditWidth, renderEditHeight)
+    },
+    [SET_FILE]: (state, action) => {
+        /** @type {FullFilename} */
+        const fullFilename = action.fullFilename && action.fullFilename.repo ? action.fullFilename : null
+        const fullFilenamePath = fullFilename ? `/${fullFilename.repo}/${fullFilename.path_parts.map((path_part) => path_part + '/').join('')}${fullFilename.filename}` : null;
+        const diagramImage = fullFilename ? state.diagramImage : null
+        const fileLoading = fullFilename ? true : false
+        let diagramType = state.diagramType
+        if (fullFilename) {
+            const parts = fullFilename?.filename?.split('.')
+            if (parts && parts.length > 0) {
+                diagramType = parts[parts.length-1]
+            }
+        }
+        if (fullFilename !== state.fullFilename || fullFilenamePath !== state.fullFilenamePath || diagramImage !== state.diagramImage || diagramType !== state.diagramType || fileLoading !== state.fileLoading) {
+            state = { ...state, fullFilename, fullFilenamePath, diagramImage, diagramType, fileLoading }
+        }
+        return state
+    },
+    [DIAGRAM_SOURCE_SAVE_START]: (state, action) => {
+        const diagramSourceStatus = SAVING
+        if (diagramSourceStatus !== state.diagramSourceStatus) {
+            state = { ...state, diagramSourceStatus }
+        }
+        return state
+    },
+    [DIAGRAM_SOURCE_SAVE_END]: (state, action) => {
+        const diagramSourceStatus = SAVED
+        if (diagramSourceStatus !== state.diagramSourceStatus) {
+            state = { ...state, diagramSourceStatus }
+        }
+        return state
+    },
+    [DIAGRAM_SOURCE_SAVE_FAIL]: (state, action) => {
+        const diagramSourceStatus = ''
+        if (diagramSourceStatus !== state.diagramSourceStatus) {
+            state = { ...state, diagramSourceStatus }
+        }
+        return state
+    },
+    [DIAGRAM_IMAGE_GET_START]: (state, action) => {
+        const diagramImageStatus = SAVING
+        if (diagramImageStatus !== state.diagramImageStatus) {
+            state = { ...state, diagramImageStatus }
+        }
+        return state
+    },
+    [DIAGRAM_IMAGE_GET_END]: (state, action) => {
+        const diagramImageStatus = SAVED
+        const { diagramImage } = action
+        if (diagramImageStatus !== state.diagramImageStatus || diagramImage !== state.diagramImage) {
+            state = { ...state, diagramImageStatus, diagramImage, diagramError: false }
+        }
+        // if (diagramImageStatus !== state.diagramImageStatus) {
+        //     state = { ...state, diagramImageStatus }
+        // }
+        return state
+    },
+    [DIAGRAM_IMAGE_GET_FAIL]: (state, action) => {
+        const diagramImageStatus = ''
+        if (diagramImageStatus !== state.diagramImageStatus) {
+            state = { ...state, diagramImageStatus, diagramError: true }
+        }
+        return state
+    },
+    [DIAGRAM_IMAGE_SAVE_START]: (state, action) => {
+        const diagramDiskStatus = SAVING
+        if (diagramDiskStatus !== state.diagramDiskStatus) {
+            state = { ...state, diagramDiskStatus }
+        }
+        return state
+    },
+    [DIAGRAM_IMAGE_SAVE_END]: (state, action) => {
+        const diagramDiskStatus = SAVED
+        if (diagramDiskStatus !== state.diagramDiskStatus) {
+            state = { ...state, diagramDiskStatus }
+        }
+        return state
+    },
+    [DIAGRAM_IMAGE_SAVE_FAIL]: (state, action) => {
+        const diagramDiskStatus = ''
+        if (diagramDiskStatus !== state.diagramDiskStatus) {
+            state = { ...state, diagramDiskStatus }
+        }
+        return state
     },
 }, initialState);

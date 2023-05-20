@@ -7,8 +7,9 @@ const Render = () => {
     const dispatch = useDispatch();
     const prevRedrawIndexRef = useRef()
 
-    const diagramUrl= useSelector((state) => state.editor.diagramUrl)
-    const diagramEditUrl= useSelector((state) => state.editor.diagramEditUrl)
+    const diagramUrl = useSelector((state) => state.editor.diagramUrl)
+    const diagramImage = useSelector((state) => state.editor.diagramImage)
+    const diagramEditUrl = useSelector((state) => state.editor.diagramEditUrl)
     const diagramError = useSelector((state) => state.editor.diagramError)
     const onDiagramError = (url) => dispatch(diagramHasError(url))
 
@@ -17,11 +18,11 @@ const Render = () => {
     const onEditSizeChanged = (width, height) => dispatch(onRenderEditSizeChanged(width, height))
     const redrawIndex = useSelector((state) => state.editor.redrawIndex)
     const shouldRedraw = useSelector((state) => state.editor.redrawIndex !== prevRedrawIndexRef.current)
-    useEffect(()=>{
+    useEffect(() => {
         prevRedrawIndexRef.current = redrawIndex
     }, [redrawIndex])
 
-    return <Internal {...{ diagramUrl, diagramEditUrl, diagramError, onDiagramError , height, width, onEditSizeChanged, shouldRedraw }} />
+    return <Internal {...{ diagramUrl, diagramImage, diagramEditUrl, diagramError, onDiagramError, height, width, onEditSizeChanged, shouldRedraw }} />
 }
 
 export default Render;

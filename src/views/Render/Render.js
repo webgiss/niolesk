@@ -3,21 +3,23 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch"
 
 import './Render.css'
 
-const Render = ({ diagramUrl, diagramEditUrl, diagramError, onDiagramError, height, width, onEditSizeChanged, shouldRedraw }) => {
+const Render = ({ diagramUrl, diagramImage, diagramEditUrl, diagramError, onDiagramError, height, width, onEditSizeChanged, shouldRedraw }) => {
     const editRef = useRef(null)
 
     useEffect(() => {
-        if (!editRef.current) {
+        if (!editRef?.current) {
             return
         }
         const resizeObserver = new ResizeObserver(() => {
-            if (onEditSizeChanged) {
+            if (onEditSizeChanged && editRef?.current) {
                 onEditSizeChanged(editRef.current.clientWidth, editRef.current.clientHeight)
             }
         })
         resizeObserver.observe(editRef.current)
         return () => resizeObserver.disconnect()
     }, [onEditSizeChanged])
+
+    const url = diagramImage ? URL.createObjectURL(new Blob([diagramImage], { type: "image/svg+xml" })) : diagramUrl
 
     return <div className='Render'>
         <div className='RenderDiagramZone' style={{ width: `${width}px` }}>
@@ -31,7 +33,10 @@ const Render = ({ diagramUrl, diagramEditUrl, diagramError, onDiagramError, heig
                             }
                             return <TransformComponent>
                                 <div style={{ width: width, height: height }}>
-                                    <img alt='Diagram' className='RenderImage' src={diagramUrl} onError={(e) => { onDiagramError(diagramUrl) }} style={{ maxWidth: width, maxHeight: height, }} />
+                                    {
+                                        <img alt='Diagram' className='RenderImage' src={url} onError={(e) => { onDiagramError(diagramUrl) }} style={{ maxWidth: width, maxHeight: height, }} />
+                                    }
+
                                 </div>
                             </TransformComponent>
                         }}

@@ -10060,6 +10060,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"idb-keyval@npm:^6.2.1":
+  version: 6.2.1
+  resolution: "idb-keyval@npm:6.2.1"
+  checksum: 7c0836f832096086e99258167740181132a71dd2694c8b8454a4f5ec69114ba6d70983115153306f0b6de1c8d3bad04f67eed3dff8f50c96815b9985d6d78470
+  languageName: node
+  linkType: hard
+
 "idb@npm:^6.1.4":
   version: 6.1.5
   resolution: "idb@npm:6.1.5"
@@ -12776,6 +12783,7 @@ __metadata:
     gh-pages: ^3.2.3
     history: 4.10.1
     hygen: ^6.1.0
+    idb-keyval: ^6.2.1
     jest-html-reporters: ^2.1.6
     pako: ^2.0.4
     prop-types: ^15.8.0

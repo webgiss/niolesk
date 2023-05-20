@@ -2,25 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './FileStatus.css'
-import { Button, Divider, Icon, Popup, Segment, Tab, Table, TableCell } from 'semantic-ui-react';
+import { Button, Divider, Icon, Popup, Table, TableCell } from 'semantic-ui-react';
 
 const statusToColor = (status) => {
     switch (status) {
         case 'SAVED': return 'green'
         case 'SAVING': return 'orange'
         case 'CHANGED': return 'red'
-        default: return 'lightgrey'
+        default: return 'grey'
     }
 }
 
-const FileStatus = ({ path, sourceStatus, renderStatus, diagramStatus }) => {
+const FileStatus = ({ path, sourceStatus, renderStatus, diagramStatus, onCloseFile }) => {
     const sourceColor = statusToColor(sourceStatus)
     const renderColor = statusToColor(renderStatus)
     const diagramColor = statusToColor(diagramStatus)
+    if (! path) {
+        return null
+    }
     return <div className='FileStatus'>
-        <Button.Group fluid active>
-            <Button.Group fluid basic active>
-                <Button basic active color='grey'>
+        <Button.Group fluid active='active'>
+            <Button.Group fluid basic active='active'>
+                <Button basic disabled color='grey'>
                     {path}
                 </Button>
             </Button.Group>
@@ -91,7 +94,7 @@ const FileStatus = ({ path, sourceStatus, renderStatus, diagramStatus }) => {
             />
             <Divider content='&nbsp;' />
             <Button.Group>
-                <Button icon color='red'><Icon name='x' color='white' /></Button>
+                <Button icon color='red' onClick={onCloseFile}><Icon name='x' className='FileStatusClose'/></Button>
             </Button.Group>
         </Button.Group>
     </div>

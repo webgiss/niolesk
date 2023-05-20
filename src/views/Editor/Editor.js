@@ -35,6 +35,7 @@ class Editor extends React.Component {
 
     render() {
         const { text, language, onTextChanged, height } = this.props;
+        // console.log({language, onTextChanged, height})
         const { shouldUpdate } = this;
 
         return <div className='Editor'>
