@@ -41,11 +41,12 @@ jobs:
           export_ga REPO_NAME="${{ github.event.repository.name }}"
           export_ga GH_REGISTRY="ghcr.io"
           export_ga GH_USER="${{ github.actor }}"
+          export_ga GH_OWNER="${{ github.repository_owner }}"
 
           export_ga BUILD_DATE="$(TZ=Europe/Paris date -Iseconds)"
           export_ga REFNAME="$(echo "${{ github.ref }}" | sed -e 's/.*\///')"
           export_ga VERSION="$(cat package.json | jq -r '.version')"
-          export_ga IMAGE_NAME="${GH_REGISTRY}/${GH_USER}/${REPO_NAME}"
+          export_ga IMAGE_NAME="${GH_REGISTRY}/${GH_OWNER}/${REPO_NAME}"
 
           export_ga IS_PR="${{ github.event_name == 'pull_request' }}"
           export_ga IS_RELEASE="${{ startsWith(github.ref, 'refs/tags/v') }}"
