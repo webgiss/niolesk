@@ -19,13 +19,19 @@ import WindowImportUrl from '../WindowImportUrl';
 import './App.css'
 import classNames from 'classnames';
 
-const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }) => {
+const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize, analytics }) => {
     if (!onExamples) {
         onExamples = () => { };
     }
     if (!onImportUrl) {
         onImportUrl = () => { };
     }
+
+    const hasAnalytics = (analytics ? true : false)
+    const analyticsJs = hasAnalytics ? (analytics.filter((item) => item.type === 'js')) : []
+    const analyticsHtml = hasAnalytics ? (analytics.filter((item) => item.type !== 'js')) : []
+    const hasAnalyticsJs = analyticsJs.length > 0
+    const hasAnalyticsHtml = analyticsHtml.length > 0
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,6 +56,34 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
             window.removeEventListener('keydown', handleKeydown);
         }
     });
+
+
+    useEffect(() => {
+        if (hasAnalyticsJs) {
+            const scripts = analyticsJs.map((analyticsItem)=>{
+                const script = document.createElement('script')
+
+                script.async = 'true'
+                const content = analyticsItem.content
+
+                if (content.startsWith('http://') || content.startsWith('https://') || content.startsWith('//')) {
+                    script.setAttribute('src',content)
+                } else {
+                    script.textContent = content
+                }
+
+                document.head.appendChild(script)
+                return script
+            })
+
+            return () => {
+                for(let script of scripts) {
+                    document.head.removeChild(script)
+                }
+            }
+        }
+        return () => { }
+    })
 
     return <div className={classNames({ zenMode, App: true })}>
         <div className='NonZen'>
@@ -83,6 +117,9 @@ const App = ({ onExamples, onImportUrl, onSetZenMode, zenMode, onKey, onResize }
                 <Editor />
                 <Render />
             </Columns>
+            {
+                hasAnalyticsHtml ? analyticsHtml.map((item) => <div className='analyticsPanel' dangerouslySetInnerHTML={{ __html: item.content }} />) : null
+            }
         </div>
         <div className='NonZen'>
             <CopyZone />

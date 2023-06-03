@@ -52,3 +52,8 @@
     justify-content: flex-end;
     flex-wrap: wrap;
 }
+
+.analyticsPanel {
+    line-height: 1px;
+    height: 1px;
+}
