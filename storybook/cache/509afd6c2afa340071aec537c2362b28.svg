@@ -1,0 +1,41 @@
+<svg version="1.1" baseProfile="full" width="172.3" height="208.5" viewbox="0 0 172.25 208.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+	<desc >[&lt;actor&gt;Sailor] - [&lt;usecase&gt;shiver me;timbers]</desc>
+	<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+		<g transform="translate(0.5, 0.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+			<g stroke="transparent" fill="transparent">
+				<rect x="0.0" y="0.0" height="208.5" width="172.3" stroke="none"></rect>
+			</g>
+			<g transform="translate(8, 8)" fill="#33322E">
+				<g transform="translate(20, 20)" fill="#33322E" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+					<path d="M58.1 55.0 L58.125 75 L58.125 95 L58.1 95.0 " fill="none"></path>
+					<g data-name="Sailor">
+						<g fill="#eee8d5" stroke="#33322E" data-name="Sailor">
+							<circle r="4.0" cx="58.1" cy="12.0" data-name="Sailor"></circle>
+							<path d="M58.1 16.0 L58.1 24.0" fill="none" data-name="Sailor"></path>
+							<path d="M54.1 20.0 L62.1 20.0" fill="none" data-name="Sailor"></path>
+							<path d="M54.1 28.0 L58.1 24.0 L62.1 28.0" fill="none" data-name="Sailor"></path>
+						</g>
+						<g transform="translate(28, 24)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="Sailor">
+							<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="Sailor">
+								<text x="22.5" y="13.5" stroke="none" text-anchor="middle" data-name="Sailor">Sailor</text>
+								
+							</g>
+						</g>
+					</g>
+					<g data-name="shiver me">
+						<g fill="#eee8d5" stroke="#33322E" data-name="shiver me">
+							<ellipse cx="58.1" cy="123.8" rx="58.1" ry="28.8" data-name="shiver me"></ellipse>
+						</g>
+						<g transform="translate(11.625, 100.75)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="shiver me">
+							<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="shiver me">
+								<text x="38.5" y="13.5" stroke="none" text-anchor="middle" data-name="shiver me">shiver me</text>
+								<text x="38.5" y="28.5" stroke="none" text-anchor="middle" data-name="shiver me">timbers</text>
+								
+							</g>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>

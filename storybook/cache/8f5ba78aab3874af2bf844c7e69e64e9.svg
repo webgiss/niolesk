@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 423.821 195.84">
+<polygon points="146,37 134,41 134,33" style="fill:rgb(0,0,0)"/>
+<path d="M2,37L140,37"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="74" y="25" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown</text>
+<text x="74" y="49" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Source</text>
+<path d="M161,72L258,72A15 15 0 0 0 273 57L273,17A15 15 0 0 0 258 2L161,2A15 15 0 0 0 146 17L146,57A15 15 0 0 0 161 72Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="209" y="17" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Markdown</text>
+<text x="209" y="37" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
+<text x="209" y="57" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">(markdown.c)</text>
+<polygon points="417,37 405,41 405,33" style="fill:rgb(0,0,0)"/>
+<path d="M273,37L411,37"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="345" y="25" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">HTML+SVG</text>
+<text x="345" y="49" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Output</text>
+<polygon points="209,72 214,84 205,84" style="fill:rgb(0,0,0)"/>
+<polygon points="209,123 205,111 214,111" style="fill:rgb(0,0,0)"/>
+<path d="M209,78L209,117"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<path d="M176,193L243,193A15 15 0 0 0 258 178L258,138A15 15 0 0 0 243 123L176,123A15 15 0 0 0 161 138L161,178A15 15 0 0 0 176 193Z"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
+<text x="209" y="138" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Pikchr</text>
+<text x="209" y="158" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">Formatter</text>
+<text x="209" y="178" text-anchor="middle" fill="rgb(0,0,0)" dominant-baseline="central">(pikchr.c)</text>
+</svg>
+

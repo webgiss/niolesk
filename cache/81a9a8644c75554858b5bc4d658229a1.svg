@@ -1,0 +1,59 @@
+<svg version="1.1" baseProfile="full" width="200.5" height="313.5" viewbox="0 0 200.5 313.5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events">
+	<desc >[&lt;start&gt;st]-&gt;[&lt;state&gt;plunder]
+	[plunder]-&gt;[&lt;choice&gt;more loot]
+	[more loot]-&gt;[st]
+	[more loot] no -&gt;[&lt;end&gt;e]</desc>
+	<g stroke-width="1.0" text-align="left" font="12pt Helvetica, Arial, sans-serif" font-size="12pt" font-family="Helvetica" font-weight="bold" font-style="normal">
+		<g transform="translate(0.5, 0.5)" font-family="Helvetica" font-size="12pt" font-weight="bold" font-style="normal" stroke-width="3.0" stroke-linejoin="round" stroke-linecap="round" stroke="#33322E">
+			<g stroke="transparent" fill="transparent">
+				<rect x="0.0" y="0.0" height="313.5" width="200.5" stroke="none"></rect>
+			</g>
+			<g transform="translate(8, 8)" fill="#33322E">
+				<g transform="translate(20, 20)" fill="#33322E" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal">
+					<path d="M62.0 28.5 L38 50 L38 63.333333333333336 L38.0 63.3 " fill="none"></path>
+					<path d="M32.7 56.7 L38.0 63.3 L43.3 56.7 L38.0 70.0 Z"></path>
+					<path d="M38.0 101.0 L38 121 L51.57017582740502 136.04897703936584 L51.6 136.0 " fill="none"></path>
+					<path d="M43.1 134.7 L51.6 136.0 L51.1 127.5 L56.0 141.0 Z"></path>
+					<path d="M98.0 141.0 L116 121 L116 85.5 L116 85.5 L116 50 L116 50 L96.96161522463105 32.91427007338684 L97.0 32.9 " fill="none"></path>
+					<path d="M105.5 33.4 L97.0 32.9 L98.4 41.3 L92.0 28.5 Z"></path>
+					<text x="85.0" y="207.5" stroke="none">no</text>
+					<path d="M77.0 187.5 L77 207.5 L77 220.83333333333334 L77.0 220.8 " fill="none"></path>
+					<path d="M71.7 214.2 L77.0 220.8 L82.3 214.2 L77.0 227.5 Z"></path>
+					<g data-name="st">
+						<g fill="#33322E" stroke="#33322E" data-name="st">
+							<circle r="12.0" cx="77.0" cy="15.0" stroke="none" data-name="st"></circle>
+						</g>
+					</g>
+					<g data-name="plunder">
+						<g fill="#eee8d5" stroke="#33322E" data-name="plunder">
+							<rect x="0.0" y="70.0" rx="15.5" ry="15.5" height="31.0" width="76.0" data-name="plunder"></rect>
+						</g>
+						<g transform="translate(0, 70)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="plunder">
+							<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="plunder">
+								<text x="30.0" y="13.5" stroke="none" text-anchor="middle" data-name="plunder">plunder</text>
+								
+							</g>
+						</g>
+					</g>
+					<g data-name="more loot">
+						<g fill="#eee8d5" stroke="#33322E" data-name="more loot">
+							<path d="M77.0 141.0 L145.0 164.3 L77.0 187.5 L10.0 164.3 Z" data-name="more loot"></path>
+						</g>
+						<g transform="translate(32.5, 148.75)" font-family="Helvetica" font-size="12pt" font-weight="normal" font-style="normal" data-name="more loot">
+							<g transform="translate(8, 8)" fill="#33322E" text-align="center" data-name="more loot">
+								<text x="37.0" y="13.5" stroke="none" text-anchor="middle" data-name="more loot">more loot</text>
+								
+							</g>
+						</g>
+					</g>
+					<g data-name="e">
+						<g fill="#33322E" stroke="#33322E" data-name="e">
+							<circle r="10.0" cx="77.0" cy="243.0" data-name="e"></circle>
+							<circle r="6.0" cx="77.0" cy="243.0" stroke="none" data-name="e"></circle>
+						</g>
+					</g>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>
