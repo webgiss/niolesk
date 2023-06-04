@@ -317,7 +317,7 @@ describe('CHANGE_SEARCH', () => {
 
         state = exampleReducer(state, { type: CHANGE_SEARCH, search: 'vega pyr' });
 
-        expect(state.filteredExamples).toStrictEqual([state.examples[78], state.examples[92]]);
+        expect(state.filteredExamples).toStrictEqual([state.examples[79], state.examples[93]]);
         expect(state.search).toBe('vega pyr');
         expect(state).not.toBe(startState);
     })
