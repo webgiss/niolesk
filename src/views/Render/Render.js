@@ -31,7 +31,7 @@ const Render = ({ diagramUrl, diagramEditUrl, diagramError, onDiagramError, heig
                             }
                             return <TransformComponent>
                                 <div style={{ width: width, height: height }}>
-                                    <img alt='Diagram' className='RenderImage' src={diagramUrl} onError={(e) => { onDiagramError(diagramUrl) }} style={{ maxWidth: width, maxHeight: height, }} />
+                                    <object type='image/svg+xml' alt='Diagram' className='RenderImage' data={diagramUrl} onError={(e) => { onDiagramError(diagramUrl) }} style={{ maxWidth: width, maxHeight: height, }} />
                                 </div>
                             </TransformComponent>
                         }}

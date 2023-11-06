@@ -13,6 +13,7 @@
     width: auto;
     height: auto;
     position: relative;
+    pointer-events: none;
 }
 
 .zenMode .RenderDiagramZone {
