@@ -1,4 +1,5 @@
 // import exportValues from '../utils/exportValues';
+import { LOCATION_CHANGE } from '../constants/editor';
 import { initReact } from './react'
 import initRedux from './redux'
 
@@ -122,6 +123,24 @@ export const initReactRedux = (providers, baseUrl, domNode, ReactNode, reducerCr
     const { history, store } = initRedux(baseUrl, initialState, reducerCreator);
 
     let dispatch = store.dispatch;
+
+    history.listen((location) => {
+        dispatch({
+            type: LOCATION_CHANGE,
+            payload: {
+                location,
+                isFirstRendering: false,
+            },
+        });
+    });
+
+    dispatch({
+        type: LOCATION_CHANGE,
+        payload: {
+            location: history.location,
+            isFirstRendering: true,
+        },
+    });
 
     /** @type {SubscribeParams<State>} */
     let subscribeParams = { dispatch, store, history };

@@ -4,7 +4,7 @@ import { encode, decode } from "../kroki/coder";
 import diagramTypes from "../kroki/krokiInfo";
 import { IMPORT_EXAMPLE } from "../constants/example";
 import { createKrokiUrl } from "../kroki/utils";
-import { LOCATION_CHANGE } from "connected-react-router";
+import { LOCATION_CHANGE } from "../constants/editor";
 import exampleData from '../examples/data';
 
 const defaultDiagramType = 'plantuml';

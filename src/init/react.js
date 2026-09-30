@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { Router } from 'react-router';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router'
 
 /**
  * @typedef {import('history').BrowserHistory} BrowserHistory
@@ -17,15 +17,15 @@ import { ConnectedRouter } from 'connected-react-router'
  * @template State
  */
 export const initReact = (store, history, domNode, ReactNode) => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <ReactNode location={{}}/>
-        </ConnectedRouter>
-      </Provider>,
-    </React.StrictMode>,
-    domNode
-  );
+    const root = ReactDOM.createRoot(domNode);
+    root.render(
+        <React.StrictMode>
+            <Router history={history}>
+                <Provider store={store}>
+                    <ReactNode location={{}} />
+                </Provider>
+            </Router>
+        </React.StrictMode>
+    );
 }
 

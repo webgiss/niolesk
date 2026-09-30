@@ -7,7 +7,7 @@ import fs from 'fs'
 
 const pipeline = util.promisify(stream.pipeline)
 const fileExists = (path) => new Promise((resolve, reject) => {
-    fs.access(path, fs.F_OK, (err) => {
+    fs.access(path, fs.constants.F_OK, (err) => {
         if (err) {
             resolve(false);
         } else {

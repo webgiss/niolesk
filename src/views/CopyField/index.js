@@ -5,8 +5,13 @@ import Internal from './CopyField'
 const CopyField = ({ scope }) => {
     const diagramEditUrl = useSelector((state) => state.editor.diagramEditUrl)
     const diagramUrl = useSelector((state) => state.editor.diagramUrl)
-    const diagramText = useSelector((state) => state.editor.diagramText).replaceAll("-->","\\-\\-\\>")
-    
+    // const diagramText = useSelector((state) => state.editor.diagramText)?.replaceAll("-->","\\-\\-\\>")
+    const diagramText = useSelector((state) => {
+        console.log({diagramText: state.editor.diagramText})
+        return state.editor.diagramText?.replaceAll("-->", "\\-\\-\\>")
+    })
+
+
     let text = '';
     switch (scope) {
         case 'image': text = diagramUrl; break;
